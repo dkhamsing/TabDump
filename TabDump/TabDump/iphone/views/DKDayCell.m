@@ -60,14 +60,9 @@
     self.contentLabel.frame = frame;
     
     self.contentLabel.textColor = [UIColor blackColor];
-    if ([link brandColorIsDark]) {
-        self.contentLabel.textColor = [UIColor whiteColor];
-    }
+   
     
-        
-        
- 
- 
+
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.contentLabel.text];
     UIColor *dumpColor = [UIColor whiteColor];
     UIColor *categoryColor = dumpColor;
@@ -80,8 +75,19 @@
         categoryColor = [UIColor td_highlightColor];
     }
     
- 
-   
+    NSNumber *categoryColors = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsCategoryColors];
+    if ([categoryColors isEqual:@1]) {
+        if ([link brandColorIsDark]) {
+            self.contentLabel.textColor = [UIColor whiteColor];
+        }
+    }
+    else {
+        dumpColor = [UIColor td_highlightColor];
+        categoryColor = [UIColor blackColor];
+        self.contentLabel.textColor = [UIColor blackColor];
+    
+    }
+    
     [attributedString addAttributes:@{NSForegroundColorAttributeName:dumpColor} range:[self.contentLabel.text rangeOfString:link.tabNumber]];
     
     [attributedString addAttributes:@{NSForegroundColorAttributeName:dumpColor} range:[self.contentLabel.text rangeOfString:link.tabNumber]];
@@ -105,8 +111,17 @@
     UIImage *eyeImage = [UIImage imageNamed:@"tab-eye"];
     [self.viewButton setImage:eyeImage forState:UIControlStateNormal];
 
-    self.shareButton.alpha = 0.2;
-    self.viewButton.alpha = self.shareButton.alpha -0.08;
+    
+    NSNumber *actionButtons = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsActionButtons];
+    if ([actionButtons isEqual:@1]) {
+        self.shareButton.alpha = 0.2;
+        self.viewButton.alpha = self.shareButton.alpha -0.08;
+    }
+    else {
+        //NSLog(@"actionbuttons integar value=%d",actionButtons.integerValue);
+        self.shareButton.alpha = 0;
+        self.viewButton.alpha = 0;
+    }
 }
 
 

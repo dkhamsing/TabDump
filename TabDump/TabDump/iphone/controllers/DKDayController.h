@@ -19,4 +19,5 @@
 @property (nonatomic,strong) DKTabDump *dump;
 @property (nonatomic) id delegate;
 - (void)scrollToNextTab;
+- (void)scrollToTop;
 @end

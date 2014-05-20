@@ -41,16 +41,6 @@
     return [list copy];
 }
 
-/*
-- (CGSize)sizeForContent {
-    CGFloat padding=10;
-    CGRect textRect = [self.allCategories boundingRectWithSize:CGSizeMake(320 -padding*2, 500)
-                                                         options:NSStringDrawingUsesLineFragmentOrigin
-                                                      attributes:@{NSFontAttributeName:kListFont}
-                                                         context:nil];
-    return textRect.size;    
-}*/
-
 
 - (NSString*)title {
     return [NSString stringWithFormat:@"%@: %@ tabs", self.date, self.numberOfTabs];
@@ -94,64 +84,78 @@
     NSArray *list = [descriptionElement nodesMatchingSelector:@"p"];
     //[descriptionElement nodesMatchingParsedSelector:[HTMLSelector selectorForString:@"a"]];
     
-    NSMutableArray *linksTemp = [[NSMutableArray alloc] init];
+    NSMutableArray *tabsTechTemp = [[NSMutableArray alloc] init];
+    NSMutableArray *tabsWorldTemp = [[NSMutableArray alloc] init];
+    BOOL tabsTypeRealWorld = NO;
     NSString *categories = @"";
     NSString *readingContent = @"";
     for (HTMLElement *linkElement in list) {
         
         //NSLog(@"link elelemtn=%@",linkElement.innerHTML);
-        if ((linkElement.innerHTML.length>0) && (![linkElement.innerHTML dk_containsString:@"The Real World"])) {
-            DKTab *link = [[DKTab alloc] init];
-            //link.html = linkElement.innerHTML;
-            //   NSLog(@"html=%@",link.html);
-            
-            NSString *temp = linkElement.innerHTML;
-            temp = [temp substringFromIndex:[temp rangeOfString:@"href="].location];
-            temp = [temp substringToIndex:[temp rangeOfString:@">"].location];
-            temp = [temp stringByReplacingOccurrencesOfString:@"href=" withString:@""];
-            temp = [temp stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-            //NSLog(@"temp=%@",temp);
-            link.urlString = temp;
-            
-            link.strippedHTML = [self stringByStrippingHTML:linkElement.innerHTML];
-            
-            readingContent = [readingContent stringByAppendingFormat:@" %@",link.strippedHTML];
-            //            NSLog(@"stripped=%@",link.strippedHTML);
-            temp = link.strippedHTML;
-            NSRange range = [temp rangeOfString:@" "];
-            if (range.location != NSNotFound) {
-                temp = [temp substringFromIndex:range.location+1];
-            }
-            range = [temp rangeOfString:@":"];
-            if (range.location != NSNotFound ) {
-                temp = [temp substringToIndex:range.location+1];
+        //if ((linkElement.innerHTML.length>0) && (![linkElement.innerHTML dk_containsString:@"The Real World"])) {
+        if (linkElement.innerHTML.length>0) {
+            if ([linkElement.innerHTML dk_containsString:@"The Real World"]) {
+                tabsTypeRealWorld = YES;
             }
             else {
-                temp = @"";
-            }
-            link.category = temp;
-            link.categoryOnly = [temp stringByReplacingOccurrencesOfString:@":" withString:@""];
-            //            NSLog(@"temp=%@",temp);
-            
-            NSString *newTemp = [temp stringByReplacingOccurrencesOfString:@":" withString:@""];
-            if ((![temp dk_containsString:@"Sponsor"]) && (temp.length>0) && (![categories dk_containsString:newTemp])){
-                if (categories.length>0) {
-                    categories = [categories stringByAppendingString:@", "];
+                
+                DKTab *tab = [[DKTab alloc] init];
+                //link.html = linkElement.innerHTML;
+                //   NSLog(@"html=%@",link.html);
+                
+                NSString *temp = linkElement.innerHTML;
+                temp = [temp substringFromIndex:[temp rangeOfString:@"href="].location];
+                temp = [temp substringToIndex:[temp rangeOfString:@">"].location];
+                temp = [temp stringByReplacingOccurrencesOfString:@"href=" withString:@""];
+                temp = [temp stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+                //NSLog(@"temp=%@",temp);
+                tab.urlString = temp;
+                
+                tab.strippedHTML = [self stringByStrippingHTML:linkElement.innerHTML];
+                
+                readingContent = [readingContent stringByAppendingFormat:@" %@",tab.strippedHTML];
+                //            NSLog(@"stripped=%@",link.strippedHTML);
+                temp = tab.strippedHTML;
+                NSRange range = [temp rangeOfString:@" "];
+                if (range.location != NSNotFound) {
+                    temp = [temp substringFromIndex:range.location+1];
                 }
-                categories = [categories stringByAppendingString:newTemp];
-            }            
-            
-            NSString *number = [link.strippedHTML substringToIndex:[link.strippedHTML rangeOfString:@" "].location];
-            //            NSLog(@"number=%@",number);
-            link.tabNumber = number;
-            
-            NSString *textToShare = link.strippedHTML;
-            textToShare = [textToShare stringByReplacingOccurrencesOfString:link.category withString:@""];
-            textToShare = [textToShare stringByReplacingOccurrencesOfString:link.tabNumber withString:@""];
-            textToShare = [textToShare stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            link.tabText = textToShare;
-                        
-            [linksTemp addObject:link];
+                range = [temp rangeOfString:@":"];
+                if (range.location != NSNotFound ) {
+                    temp = [temp substringToIndex:range.location+1];
+                }
+                else {
+                    temp = @"";
+                }
+                tab.category = temp;
+                tab.categoryOnly = [temp stringByReplacingOccurrencesOfString:@":" withString:@""];
+                //            NSLog(@"temp=%@",temp);
+                
+                NSString *newTemp = [temp stringByReplacingOccurrencesOfString:@":" withString:@""];
+                if ((![temp dk_containsString:@"Sponsor"]) && (temp.length>0) && (![categories dk_containsString:newTemp])){
+                    if (categories.length>0) {
+                        categories = [categories stringByAppendingString:@", "];
+                    }
+                    categories = [categories stringByAppendingString:newTemp];
+                }
+                
+                NSString *number = [tab.strippedHTML substringToIndex:[tab.strippedHTML rangeOfString:@" "].location];
+                //            NSLog(@"number=%@",number);
+                tab.tabNumber = number;
+                
+                NSString *textToShare = tab.strippedHTML;
+                textToShare = [textToShare stringByReplacingOccurrencesOfString:tab.category withString:@""];
+                textToShare = [textToShare stringByReplacingOccurrencesOfString:tab.tabNumber withString:@""];
+                textToShare = [textToShare stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                tab.tabText = textToShare;
+                
+                if (tabsTypeRealWorld) {
+                    [tabsWorldTemp addObject:tab];
+                }
+                else {
+                    [tabsTechTemp addObject:tab];
+                }
+            }
         }
     }
     
@@ -162,9 +166,11 @@
                                         wordCount++;
                                     }];
     NSUInteger wordsPerMin = 270;
-    dump.readingTime = [NSString stringWithFormat:@"%d mins",wordCount/wordsPerMin];
+    //TODO: handle if this is 0 or 1
+    dump.readingTime = [NSString stringWithFormat:@"%tu mins",wordCount/wordsPerMin];
     
-    dump.links = [linksTemp copy];
+    dump.tabsWorld = [tabsWorldTemp copy];
+    dump.tabsTech = [tabsTechTemp copy];
     
     //dump.allCategories = [categories stringByAppendingString:@"."];
     
@@ -177,7 +183,7 @@
 #pragma mark - Subclass
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"<%p %@> date=%@, number of tabs=%@, %@ links", self, self.class, self.date, self.numberOfTabs, @(self.links.count)];
+    return [NSString stringWithFormat:@"<%p %@> date=%@, number of tabs=%@, %@ links", self, self.class, self.date, self.numberOfTabs, @(self.tabsTech.count)];
 }
 
 

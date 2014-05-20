@@ -16,6 +16,7 @@
 		19477AA819075475003648F7 /* DKTabDump.m in Sources */ = {isa = PBXBuildFile; fileRef = 19477AA719075475003648F7 /* DKTabDump.m */; };
 		19477AA9190760A9003648F7 /* DKTabDump.m in Sources */ = {isa = PBXBuildFile; fileRef = 19477AA719075475003648F7 /* DKTabDump.m */; };
 		19477AC119076A48003648F7 /* DKTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 19477AC019076A48003648F7 /* DKTab.m */; };
+		198C31451923C525009B4033 /* DKSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 198C31441923C525009B4033 /* DKSettingsController.m */; };
 		19CFA60F19108C640051BC80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 19CFA60C19108C640051BC80 /* InfoPlist.strings */; };
 		19CFA61019108C640051BC80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 19CFA60E19108C640051BC80 /* main.m */; };
 		CE0B4034190EB8BB009648D3 /* UIColor+TD.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0B4033190EB8BB009648D3 /* UIColor+TD.m */; };
@@ -92,6 +93,8 @@
 		CEEA7F0E190EC159000474E3 /* DKTabDumpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEA7F07190EC159000474E3 /* DKTabDumpCell.m */; };
 		CEEA7F5C190EFDFC000474E3 /* DKTabActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEA7F5B190EFDFC000474E3 /* DKTabActivityItemProvider.m */; };
 		CEEA7F5F190F0D7D000474E3 /* DKBufferActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEA7F5E190F0D7D000474E3 /* DKBufferActivity.m */; };
+		CEEC75A21921684E00187929 /* top-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEC75A11921684E00187929 /* top-left@2x.png */; };
+		CEEC75A5192168C900187929 /* UIViewController+TD.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEC75A4192168C900187929 /* UIViewController+TD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +119,8 @@
 		19477AA719075475003648F7 /* DKTabDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTabDump.m; sourceTree = "<group>"; };
 		19477ABF19076A48003648F7 /* DKTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKTab.h; sourceTree = "<group>"; };
 		19477AC019076A48003648F7 /* DKTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTab.m; sourceTree = "<group>"; };
+		198C31431923C525009B4033 /* DKSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKSettingsController.h; sourceTree = "<group>"; };
+		198C31441923C525009B4033 /* DKSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKSettingsController.m; sourceTree = "<group>"; };
 		19CF68A019112379001D0C9D /* TabDump-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TabDump-Info.plist"; sourceTree = "<group>"; };
 		19CF68A21911247A001D0C9D /* TabDump-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TabDump-Prefix.pch"; sourceTree = "<group>"; };
 		19CFA60D19108C640051BC80 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -258,6 +263,9 @@
 		CEEA7F5B190EFDFC000474E3 /* DKTabActivityItemProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTabActivityItemProvider.m; sourceTree = "<group>"; };
 		CEEA7F5D190F0D7D000474E3 /* DKBufferActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKBufferActivity.h; sourceTree = "<group>"; };
 		CEEA7F5E190F0D7D000474E3 /* DKBufferActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKBufferActivity.m; sourceTree = "<group>"; };
+		CEEC75A11921684E00187929 /* top-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top-left@2x.png"; sourceTree = "<group>"; };
+		CEEC75A3192168C900187929 /* UIViewController+TD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TD.h"; sourceTree = "<group>"; };
+		CEEC75A4192168C900187929 /* UIViewController+TD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TD.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +302,7 @@
 				CEBDF42619192E2E003AE46C /* tab-action@2x.png */,
 				CEBDF42719192E2E003AE46C /* tab-eye@2x.png */,
 				CEBDF41E19192D69003AE46C /* top-down@2x.png */,
+				CEEC75A11921684E00187929 /* top-left@2x.png */,
 				CEBDF41F19192D69003AE46C /* top-list@2x.png */,
 				CEBDF42019192D69003AE46C /* top-question@2x.png */,
 				CEBDF42119192D69003AE46C /* top-x@2x.png */,
@@ -347,6 +356,8 @@
 				19CF68A21911247A001D0C9D /* TabDump-Prefix.pch */,
 				CE0B4032190EB8BB009648D3 /* UIColor+TD.h */,
 				CE0B4033190EB8BB009648D3 /* UIColor+TD.m */,
+				CEEC75A3192168C900187929 /* UIViewController+TD.h */,
+				CEEC75A4192168C900187929 /* UIViewController+TD.m */,
 			);
 			path = support;
 			sourceTree = "<group>";
@@ -640,6 +651,8 @@
 				CEEA7EFC190EC159000474E3 /* DKDayController.m */,
 				CEEA7EFD190EC159000474E3 /* DKLaunchController.h */,
 				CEEA7EFE190EC159000474E3 /* DKLaunchController.m */,
+				198C31431923C525009B4033 /* DKSettingsController.h */,
+				198C31441923C525009B4033 /* DKSettingsController.m */,
 				CEEA7EFF190EC159000474E3 /* DKTabDumpsController.h */,
 				CEEA7F00190EC159000474E3 /* DKTabDumpsController.m */,
 			);
@@ -768,6 +781,7 @@
 				CEBDF41319192BAB003AE46C /* SVWebViewController.bundle in Resources */,
 				CEDDEE341907F10600BDADC1 /* blog.rss in Resources */,
 				CEBDF41C19192BAB003AE46C /* SVWebViewControllerActivitySafari@2x.png in Resources */,
+				CEEC75A21921684E00187929 /* top-left@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,6 +810,7 @@
 				CEBDF40F19192BAB003AE46C /* HTMLTokenizer.m in Sources */,
 				CEEA7F0E190EC159000474E3 /* DKTabDumpCell.m in Sources */,
 				CEBDF3F519192BAB003AE46C /* AFNetworkReachabilityManager.m in Sources */,
+				198C31451923C525009B4033 /* DKSettingsController.m in Sources */,
 				CEBDF41219192BAB003AE46C /* SVModalWebViewController.m in Sources */,
 				CEBDF41019192BAB003AE46C /* HTMLTreeEnumerator.m in Sources */,
 				CEBDF3F219192BAB003AE46C /* AFHTTPRequestOperation.m in Sources */,
@@ -826,6 +841,7 @@
 				CEBDF40919192BAB003AE46C /* HTMLParser.m in Sources */,
 				CEBDF3FC19192BAB003AE46C /* NSString+DK.m in Sources */,
 				CEEA7F0D190EC159000474E3 /* DKDayCell.m in Sources */,
+				CEEC75A5192168C900187929 /* UIViewController+TD.m in Sources */,
 				CEEA7F08190EC159000474E3 /* DKAboutController.m in Sources */,
 				CEBDF40319192BAB003AE46C /* HTMLComment.m in Sources */,
 				CEBDF40B19192BAB003AE46C /* HTMLSelector.m in Sources */,

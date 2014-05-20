@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface DKAboutView : UIView
-
+@property (nonatomic,strong) UIView *overlayView;
 @end

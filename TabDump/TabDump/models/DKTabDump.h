@@ -23,9 +23,15 @@
 
 
 /**
- List of links in the tab dump.
+ List of bits & bytes (tech) tabs in the tab dump.
  */
-@property (nonatomic,strong) NSArray *links;
+@property (nonatomic,strong) NSArray *tabsTech;
+
+
+/**
+ List of real world tabs in the tab dump.
+ */
+@property (nonatomic,strong) NSArray *tabsWorld;
 
 
 /**

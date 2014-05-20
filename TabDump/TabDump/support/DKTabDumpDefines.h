@@ -25,7 +25,6 @@ static CGFloat const kDayHeaderHeight = 190;
 static NSString* const kFontRegular = @"Sintony";
 static NSString* const kFontBold = @"Sintony-Bold";
 #define kCellFont [UIFont fontWithName:kFontRegular size:14]
-//#define kListFont [UIFont fontWithName:@"Sintony" size:12]
 
 
 #pragma mark - Launch
@@ -39,11 +38,12 @@ static NSUInteger const kLaunchDownloadHourThreshold = 1;
 
 static NSString* const kUserDefaultsDateLastDownload = @"kUserDefaultsDateLastDownload";
 static NSString* const kUserDefaultsTabDumpsRead = @"kUserDefaultsTabDumpsRead";
-
+static NSString* const kUserDefaultsSettingsCategoryColors = @"kUserDefaultsSettingsCategoryColors";
+static NSString* const kUserDefaultsSettingsActionButtons = @"kUserDefaultsSettingsActionButtons";
 
 #pragma mark - Views
 
-static CGFloat const kAboutViewHeight = 188;
+static CGFloat const kAboutViewHeight = 200;
 static NSString* const kAboutTwitterDaniel = @"dkhamsing";
 static NSString* const kAboutTwitterStefan = @"WhatTheBit";
 static NSString* const kAboutFullNameDaniel = @"Daniel Khamsing";

@@ -10,4 +10,5 @@
 
 @interface UIColor (TD)
 + (UIColor*)td_highlightColor;
++ (UIColor*)td_dayTabCategoryColor;
 @end

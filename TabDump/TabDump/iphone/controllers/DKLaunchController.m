@@ -38,9 +38,12 @@
 @property (nonatomic,strong) DKTabDumpsController *tabDumpsController;
 @property (nonatomic,strong) DKDayController *dayController;
 
+@property (nonatomic,strong) UIView *loadingView;
 @property (nonatomic,strong) DKUserMessageView *loadingSpinner;
 @property (nonatomic,strong) DKUserMessageView *loadingText;
 @property (nonatomic,strong) UIButton *reloadButton;
+
+@property (nonatomic,strong) UIButton *scrollButton;
 @end
 
 @implementation DKLaunchController
@@ -61,7 +64,7 @@ CGFloat kNavigationBarHeight = 64;
         self.tabDumpsController = [[DKTabDumpsController alloc] init];
         self.tabDumpsController.delegate = self;
         
-        self.dayController = [[DKDayController alloc] init];
+        self.dayController = [[DKDayController alloc] initWithStyle:UITableViewStyleGrouped];
         self.dayController.delegate = self;
         [self dk_addChildController:self.dayController];
         
@@ -81,26 +84,29 @@ CGFloat kNavigationBarHeight = 64;
         UIBarButtonItem *listBarButton = [[UIBarButtonItem alloc]initWithCustomView:listButton];
         self.navigationItem.leftBarButtonItems = @[spacerBarButton, listBarButton, aboutBarButton];
         
+        self.scrollButton = [[UIButton alloc] init];
         [self setupRightButtons];
         
         // loading
         CGFloat inset = 10;
-        self.loadingSpinner = [[DKUserMessageView alloc] initWithFrame:CGRectMake(0, kDayHeaderHeight +kAboutViewHeight +kNavigationBarHeight +inset, self.view.dk_width, 40)];
+        self.loadingView = [[UIView alloc] initWithFrame:CGRectMake(0, kDayHeaderHeight +kNavigationBarHeight, self.view.dk_width, self.view.dk_height)];
+        self.loadingView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:self.loadingView];
+        
+        CGRect frame = CGRectMake(0, inset, self.view.dk_width, 40);
+        self.loadingSpinner = [[DKUserMessageView alloc] initWithFrame:frame];
         self.loadingText = [[DKUserMessageView alloc] initWithFrame:CGRectMake(0, self.loadingSpinner.dk_bottom +inset, self.view.dk_width, 20)];
         self.loadingText.dk_userMessageLabel.textColor = [UIColor grayColor];
         self.loadingText.dk_userMessageLabel.font = [UIFont fontWithName:kFontRegular size:11];
         
-        CGRect frame = self.loadingText.frame;
+        frame = self.loadingText.frame;
         frame.origin.y = self.loadingText.dk_bottom +inset;
         self.reloadButton = [[UIButton alloc] initWithFrame:frame];
         self.reloadButton.titleLabel.font = self.loadingText.dk_userMessageLabel.font;
         [self.reloadButton setTitle:@"Reload" forState:UIControlStateNormal];
         [self.reloadButton setTitleColor:[UIColor td_highlightColor] forState:UIControlStateNormal];
         [self.reloadButton addTarget:self action:@selector(loadTabDumpRSS) forControlEvents:UIControlEventTouchUpInside];
-        NSArray *loadControls = @[self.loadingSpinner, self.loadingText, self.reloadButton];
-        [loadControls enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [self.view addSubview:obj];
-        }];
+        [UIView dk_addSubviews:@[self.loadingSpinner, self.loadingText, self.reloadButton] onView:self.loadingView];
         
         [self loadTabDumpInitial];
     }
@@ -119,6 +125,40 @@ CGFloat kNavigationBarHeight = 64;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.title = self.currentTitle;
+    
+    if (self.title) {
+        // flash title if it is today or yesterday
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+        //NSLog(@"components=%@",components);
+        
+        NSString *titleDate = [self.title substringToIndex:[self.title rangeOfString:@":"].location];
+        titleDate = [titleDate stringByAppendingFormat:@" %@", @(components.year)];
+        // NSLog(@"title date=%@",titleDate);
+        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"MM dd yyyy"];
+        
+        NSDate *date = [dateFormat dateFromString:titleDate];
+        //NSLog(@"date=%@",date);
+        NSDateComponents *titleComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth fromDate:date];
+        //NSLog(@"components=%@",titleComponents);
+        
+        if (titleComponents.month == components.month) {
+            if (titleComponents.day==components.day
+                ) {
+                self.title = @"Today";
+            }
+            else if (titleComponents.day-components.day == -1) {
+                self.title = @"Yesterday";
+            }
+            
+            //NSLog(@"compute %d",titleComponents.day-components.day);
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.title = self.currentTitle;
+            });
+        }
+    }
 }
 
 
@@ -139,6 +179,11 @@ CGFloat kNavigationBarHeight = 64;
 
 - (void)actionNext {
     [self.dayController scrollToNextTab];
+}
+
+
+- (void)actionTop {
+    [self.dayController scrollToTop];
 }
 
 
@@ -196,7 +241,14 @@ CGFloat kNavigationBarHeight = 64;
 }
 
 
+- (void)loadBeginAnimate {
+    [self.loadingSpinner dk_loading:YES spinner:YES];
+    [self.loadingText dk_displayMessage:@"Loading Tab Dump"];
+}
+
+
 - (void)loadTabDumpInitial {
+    self.loadingView.hidden = YES;
     NSString *path = [self tabDumpPath];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
@@ -204,8 +256,8 @@ CGFloat kNavigationBarHeight = 64;
         [self loadContentAtPath:path];
     }
     else {
-        [self.loadingText dk_displayMessage:@"Loading Tab Dump"];
-        [self.loadingSpinner dk_loading:YES spinner:YES];
+        self.loadingView.hidden = NO;
+        [self loadBeginAnimate];
     }
     
     [self loadTabDumpRSS];
@@ -214,6 +266,7 @@ CGFloat kNavigationBarHeight = 64;
 
 - (void)loadTabDumpRSS {
     self.reloadButton.hidden = YES;
+    [self loadBeginAnimate];
     
     NSDate *nowDate = [NSDate date];
     //NSLog(@"now date=%@",nowDate);
@@ -227,9 +280,9 @@ CGFloat kNavigationBarHeight = 64;
                                                      toDate:nowDate
                                                     options:0];
         
-        NSLog(@"Difference in date components: %i hours %i mins", components.hour, components.minute);
+        NSLog(@"Difference in date components: %zd hours %zd mins", components.hour, components.minute);
         if (components.hour < kLaunchDownloadHourThreshold) {
-            NSLog(@"less than %i hours - stop loading rss", kLaunchDownloadHourThreshold);
+            NSLog(@"less than %zd hours - stop loading rss", kLaunchDownloadHourThreshold);
             return;
         }
     }
@@ -243,10 +296,7 @@ CGFloat kNavigationBarHeight = 64;
     operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //        [self.statusBarNotification dismissNotification];
-        
-        [self.loadingSpinner dk_loading:NO];
-        [self.loadingText dk_loading:NO];
+        self.loadingView.hidden = YES;
         
         NSLog(@"Successfully downloaded file to %@", path);
         
@@ -262,7 +312,7 @@ CGFloat kNavigationBarHeight = 64;
         }
         else {
             NSLog(@"launch - load tab dump rss - error loading rss");
-        }        
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.loadingSpinner dk_loading:NO];
         [self.loadingText dk_loading:NO];
@@ -281,10 +331,11 @@ CGFloat kNavigationBarHeight = 64;
 
 - (void)setupRightButtons {
     UIImage *downImage = [UIImage dk_maskedImageNamed:@"top-down" color:[UIColor td_highlightColor]];
-    UIButton *downButton = [[UIButton alloc] initWithFrame:kNavigationButtonFrame];
-    [downButton setImage:downImage forState:UIControlStateNormal];
-    [downButton addTarget:self action:@selector(actionNext) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *nextBarButton = [[UIBarButtonItem alloc] initWithCustomView:downButton];
+    self.scrollButton.frame = kNavigationButtonFrame;
+    
+    [self.scrollButton setImage:downImage forState:UIControlStateNormal];
+    [self.scrollButton addTarget:self action:@selector(actionNext) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *nextBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.scrollButton];
     UIBarButtonItem *spacerBarButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     spacerBarButton2.width = kNavigationButtonInset -2;
     [self.navigationItem setRightBarButtonItems:@[spacerBarButton2,nextBarButton] animated:YES];
@@ -312,12 +363,32 @@ CGFloat kNavigationBarHeight = 64;
 #pragma mark DKDayControllerDelegate
 
 - (void)DKDayControllerDidScroll {
-    [self.navigationItem setRightBarButtonItems:nil animated:YES];
+    //rotate
+    [UIView beginAnimations:@"rotate" context:nil];
+    [UIView setAnimationDuration:0.5];
+    self.scrollButton.transform = CGAffineTransformMakeRotation(M_PI);
+    [UIView commitAnimations];
+    
+    // remove target
+    [self.scrollButton removeTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
+    
+    // add target
+    [self.scrollButton addTarget:self action:@selector(actionTop) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
 - (void)DKDayControllerScrolledToTop {
-    [self setupRightButtons];
+    // rotate
+    [UIView beginAnimations:@"rotate" context:nil];
+    [UIView setAnimationDuration:0.5];
+    self.scrollButton.transform = CGAffineTransformMakeRotation(180*M_PI);
+    [UIView commitAnimations];
+    
+    // remove target
+    [self.scrollButton removeTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
+    
+    // add target
+    [self.scrollButton addTarget:self action:@selector(actionNext) forControlEvents:UIControlEventTouchUpInside];
 }
 
 

@@ -17,6 +17,7 @@
 #import "NSString+DK.h"
 #import "UIColor+TD.h"
 #import "UIView+DK.h"
+#import "UIViewController+TD.h"
 
 // Defines
 #import "DKTabDumpDefines.h"
@@ -36,8 +37,11 @@
 @interface DKDayController () <UIGestureRecognizerDelegate>
 @property (nonatomic,strong) NSArray *dataSource;
 @property (nonatomic) NSUInteger currentRow;
+@property (nonatomic) NSUInteger currentSection;
 @property (nonatomic,strong) UIRefreshControl *tableRefreshControl;
 @property (nonatomic) BOOL didScroll;
+
+@property (nonatomic,strong) DKAboutView *aboutView;
 @end
 
 @implementation DKDayController
@@ -46,6 +50,8 @@
     self = [super initWithStyle:style];
     if (self) {
         self.didScroll = NO;
+        self.currentSection = 0;
+        self.view.backgroundColor = [UIColor whiteColor];
         
         self.tableRefreshControl = [[UIRefreshControl alloc] init];
         [self.tableRefreshControl addTarget:self action:@selector(actionRefresh) forControlEvents:UIControlEventValueChanged];
@@ -56,22 +62,27 @@
         gestureRecognizer.delegate = self;
         [self.tableView addGestureRecognizer:gestureRecognizer];
         
-        UILabel *tabDumpLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, kDayHeaderHeight)];
+        UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, kDayHeaderHeight)];
+        headView.backgroundColor = [UIColor whiteColor];
+        CGRect frame = headView.frame;
+        frame.origin.x = 4;
+        UILabel *tabDumpLabel = [[UILabel alloc] initWithFrame:frame];
         tabDumpLabel.numberOfLines = 0;
-        tabDumpLabel.font = [UIFont fontWithName:kFontBold size:66];
+        tabDumpLabel.font = [UIFont fontWithName:kFontBold size:70];
         NSString *tabDumpText = @"TAB\nDUMP";
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.lineSpacing = 0;
         paragraphStyle.maximumLineHeight = 68;
         paragraphStyle.alignment = NSTextAlignmentCenter;
-        NSMutableAttributedString *tabDumpAttributedString = [[NSMutableAttributedString alloc] initWithString:tabDumpText attributes:@{ NSKernAttributeName:@(14), NSParagraphStyleAttributeName:paragraphStyle} ];
+        NSMutableAttributedString *tabDumpAttributedString = [[NSMutableAttributedString alloc] initWithString:tabDumpText attributes:@{ NSKernAttributeName:@(13), NSParagraphStyleAttributeName:paragraphStyle} ];
         tabDumpLabel.attributedText = tabDumpAttributedString;
-        self.tableView.tableHeaderView = tabDumpLabel;
+        [headView addSubview:tabDumpLabel];
+        self.tableView.tableHeaderView = headView;
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
-        DKAboutView *footerView = [[DKAboutView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, kAboutViewHeight)];
-        self.tableView.tableFooterView = footerView;
+        self.aboutView = [[DKAboutView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, kAboutViewHeight)];
+        self.tableView.tableFooterView = self.aboutView;
     }
     return self;
 }
@@ -80,22 +91,26 @@
 - (void)setDump:(DKTabDump *)dump {
     _dump = dump;
     
-    self.currentRow = 0;
-    self.didScroll = NO;
+    [self scrollToTop];
     
-    self.dataSource = dump.links;
+    self.dataSource = @[
+                        dump.tabsTech,
+                        dump.tabsWorld,
+                        ];
+    
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
     [self.tableView reloadData];
 }
 
 
+#pragma mark - UIVIewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
 /*
- #pragma mark - UIVIewController
- 
- - (void)viewWillAppear:(BOOL)animated {
- [super viewWillAppear:animated];
- self.title = [_dump title];
- }
  
  
  
@@ -109,7 +124,32 @@
 
 - (void)scrollToNextTab {
     self.currentRow++;
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentRow inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    //NSLog(@"self.dump.tabsTech.count=%d",self.dump.tabsTech.count);
+    
+    if (self.currentSection==0) {
+        if (self.currentRow>(self.dump.tabsTech.count-1)) {
+            self.currentRow = 0;
+            self.currentSection = 1;
+        }
+    }
+    else if (self.currentRow> (self.dump.tabsWorld.count-1)) {
+        NSLog(@"reached the end!");
+        [self.delegate DKDayControllerDidScroll];
+        return;
+    }
+    
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentRow inSection:self.currentSection] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+
+- (void)scrollToTop {
+    [self.tableView scrollRectToVisible:CGRectMake(0, -1, 1, 1) animated:YES];
+    
+    self.currentSection = 0;
+    self.currentRow = -1;
+    self.didScroll = NO;
+    
+    [self.delegate DKDayControllerScrolledToTop];
 }
 
 
@@ -120,12 +160,6 @@
     [self.tableRefreshControl endRefreshing];
 }
 
-
-- (void)actionNext {
-    self.currentRow++;
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentRow inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    
-}
 
 - (void)actionShare:(UIButton*)button {
     DKDayCell *cell = [button dk_firstSuperviewOfClass:[DKDayCell class]];
@@ -150,7 +184,7 @@
         
         NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
         if (indexPath != nil) {
-            DKTab *link = self.dataSource[indexPath.row];
+            DKTab *link = self.dataSource[indexPath.section][indexPath.row];
             [self share:link];
         }
     }
@@ -185,22 +219,57 @@
 
 #pragma mark - Table view data source
 
+CGFloat headerHeight = 30;
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return headerHeight;
+}
+
+
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, headerHeight)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:headerView.frame];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor td_dayTabCategoryColor];
+    label.font = [UIFont fontWithName:kFontBold size:15];
+    
+    NSString *labelText = @"Bits and Bytes";
+    if (section==1) {
+        labelText = @"The Real World";
+    }
+    label.text = labelText;
+    
+    
+    [headerView addSubview:label];
+    return headerView;
+}
+
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     //[cell setBackgroundColor:[UIColor redColor]];
-    DKTab *link = self.dataSource[indexPath.row];
-    cell.backgroundColor = [link colorForCategory];
+    NSArray *datasource = self.dataSource[indexPath.section];
+    DKTab *link = datasource[indexPath.row];
+    
+    
+    NSNumber *categoryColors = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsCategoryColors];
+    if ([categoryColors isEqual:@1]) {
+        cell.backgroundColor = [link colorForCategory];
+    }
 }
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+    return 2;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return self.dataSource.count;
+    NSArray *datasource = self.dataSource[section];
+    return datasource.count;
 }
 
 
@@ -211,7 +280,8 @@
         cell = [[DKDayCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:detailCellId];
     }
     
-    DKTab *link = self.dataSource[indexPath.row];
+    NSArray *datasource = self.dataSource[indexPath.section];
+    DKTab *link = datasource[indexPath.row];
     cell.link = link;
     [cell.shareButton addTarget:self action:@selector(actionShare:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -220,10 +290,14 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DKTab *link = self.dataSource[indexPath.row];
+    NSArray *datasource = self.dataSource[indexPath.section];
+    DKTab *link = datasource[indexPath.row];
     
     CGFloat padding = kCellPadding;
-    CGFloat shareEyeButtonsOffset = 40;
+    
+    NSNumber *actionButtons = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsActionButtons];
+    CGFloat shareEyeButtonsOffset = [actionButtons isEqual:@(1)] ? 40:0;
+    
     CGFloat height = [link sizeForStrippedHTML].height +padding*2 +shareEyeButtonsOffset;
     
     return height;
@@ -233,7 +307,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    DKTab *link = self.dataSource[indexPath.row];
+    NSArray *datasource = self.dataSource[indexPath.section];
+    DKTab *link = datasource[indexPath.row];
     
     if ([link.urlString dk_containsString:kDetailiTunesLink]) {
         NSURL *url = [NSURL URLWithString:link.urlString];
@@ -242,6 +317,7 @@
     }
     
     SVWebViewController *webController = [[SVWebViewController alloc] initWithAddress:link.urlString];
+    [webController td_addBackButtonPop];
     webController.title = @"Loading";
     [self.navigationController pushViewController:webController animated:YES];
 }
@@ -256,10 +332,26 @@
     }
 }
 
+
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    //NSLog(@"day scrolled to top");
-    self.didScroll = NO;
-    [self.delegate DKDayControllerScrolledToTop];
+    
+    /*
+     self.currentSection = 0;
+     self.currentRow = 0;
+     self.didScroll = NO;
+     [self.delegate DKDayControllerScrolledToTop];*/
+    [self scrollToTop];
 }
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat kOffsetMystery = 178;
+    //    NSLog(@"scrollview size=%@, offset=%@",@(scrollView.contentSize.height-kAboutViewHeight-kDayHeaderHeight-kOffsetMystery), @(scrollView.contentOffset.y));
+    CGFloat difference = scrollView.contentSize.height-kAboutViewHeight-kDayHeaderHeight-kOffsetMystery - scrollView.contentOffset.y;
+    CGFloat alpha = difference*0.75/kOffsetMystery;
+    //NSLog(@"scroll difference=%@",@(alpha));
+    self.aboutView.overlayView.alpha = alpha;
+}
+
 
 @end

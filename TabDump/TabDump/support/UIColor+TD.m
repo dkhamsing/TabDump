@@ -7,17 +7,17 @@
 //
 
 #import "UIColor+TD.h"
-
+#import "UIColor+DK.h"
 @implementation UIColor (TD)
 
 + (UIColor*)td_highlightColor {
-    return [self rgbWithRed:223 green:188 blue:115];
+    return [self dk_colorWithRed:223 green:188 blue:115];
 }
 
 
-#pragma mark - Private
-+ (UIColor*)rgbWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue {
-    return [UIColor colorWithRed:red/255 green:green/255 blue:blue/255 alpha:1];
++ (UIColor*)td_dayTabCategoryColor { 
+    return [self dk_colorWithRed:66 green:66 blue:66];
 }
+
 
 @end

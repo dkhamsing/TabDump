@@ -63,12 +63,18 @@ CGFloat kFontSize1 = 13;
         self.danielButton = [[UIButton alloc] init];
         [self.danielButton addTarget:self action:@selector(actionTwitter:) forControlEvents:UIControlEventTouchUpInside];
      
+        self.overlayView = [[UIView alloc] initWithFrame:self.bounds];
+        self.overlayView.backgroundColor = [UIColor whiteColor];
+        self.overlayView.alpha = 0.7;
+        
         [UIView dk_addSubviews:@[self.stefanImageView,
                                  self.danielImageView,
                                  self.stefanLabel,
                                  self.danielLabel,
+                                 self.overlayView,
                                  self.stefanButton,
                                  self.danielButton,
+
                                  ] onView:self];
         
         CGRect frame;

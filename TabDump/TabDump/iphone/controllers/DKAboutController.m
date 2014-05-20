@@ -12,8 +12,10 @@
 #import "UIColor+TD.h"
 #import "UIView+DK.h"
 #import "UIViewController+DK.h"
+#import "UIViewController+TD.h"
 
 // Controllers
+#import "DKSettingsController.h"
 #import "SVWebViewController.h"
 
 // Defines
@@ -34,6 +36,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        [self td_addBackButtonPop];
         self.title = @" ";
         self.view.backgroundColor = [UIColor whiteColor];
         
@@ -41,17 +44,21 @@
         [self.view addSubview:self.aboutScrollView];
         
         self.aboutView = [[DKAboutView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, kAboutViewHeight)];
+        self.aboutView.overlayView.alpha = 0;
         
         self.webView = [[UIWebView alloc] init];
         self.webView.delegate = self;
         self.webView.backgroundColor = [UIColor whiteColor];
-        //        self.webView.scrollView.showsVerticalScrollIndicator = NO;
+        self.webView.scrollView.scrollEnabled = NO;
         self.webView.scrollView.scrollsToTop = NO;
         
         [UIView dk_addSubviews:@[
                                  self.aboutView,
                                  self.webView,
                                  ] onView:self.aboutScrollView];
+        
+        UIBarButtonItem *settingsBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:@selector(actionSettings)];
+        self.navigationItem.rightBarButtonItem = settingsBarButton;
     }
     return self;
 }
@@ -72,6 +79,13 @@
     NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
     NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
     [self.webView loadHTMLString:htmlString baseURL:nil];
+}
+
+
+#pragma mark - Private
+
+- (void)actionSettings {
+    [self.navigationController pushViewController:[[DKSettingsController alloc]init] animated:YES];
 }
 
 

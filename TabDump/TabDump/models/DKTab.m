@@ -19,13 +19,26 @@
 @implementation DKTab
 
 - (BOOL)brandColorIsDark {
-    NSArray *brands = @[
-                        @"Facebook",
-                        @"Yahoo!"
-                        ];
+    NSArray *darkColorBrands = @[
+                                 @"Apple",
+                                 @"Facebook",
+                                 @"Google",
+                                 @"Intel",
+                                 @"Dish Network",
+                                 @"LG",
+                                 @"Motorola",
+                                 @"Netflix",
+                                 @"Samsung",
+                                 @"T-Mobile",
+                                 @"WhatsApp",
+                                 @"Yahoo",
+                                 @"Yahoo!",
+                                 @"Yelp",
+                                 @"ZTE",
+                                 ];
     
     __block BOOL retVal = NO;
-    [brands enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [darkColorBrands enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if ([self.category dk_containsString:obj]) {
             //NSLog(@"found category %@ to be dark", self.category);
             retVal = YES;
@@ -62,7 +75,7 @@
 
 - (NSDictionary*)contentAttributes {
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineSpacing = 5;
+    paragraphStyle.lineSpacing = 5.45;
     
     NSDictionary *attributes = @{
                                  NSFontAttributeName:kCellFont,
