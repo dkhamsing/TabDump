@@ -1,0 +1,7 @@
+# OS Files
+.DS_Store
+
+# Xcode Files
+xcuserdata
+project.xcworkspace
+
