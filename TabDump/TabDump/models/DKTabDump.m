@@ -35,7 +35,9 @@
     
     for (HTMLElement *element in items) {
         DKTabDump *dump = [DKTabDump newDumpFromHTMLElement:element];
-        [list addObject:dump];
+        if (dump) {
+            [list addObject:dump];
+        }
     }
     
     return [list copy];
@@ -52,10 +54,9 @@
 + (NSString*)stringByStrippingHTML:(NSString*)input {
     NSRange r;
     NSString *s = input;
-    while ((r = [s rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
+    while ((r = [s rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound) {
         s = [s stringByReplacingCharactersInRange:r withString:@""];
-    
-    //s = [s stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
+    }
     
     s = [s gtm_stringByUnescapingFromHTML];
     
@@ -68,7 +69,10 @@
     
     HTMLElement *titleElement = [element firstNodeMatchingSelector:@"title"];
     NSString *titleText = titleElement.innerHTML;
-    //NSLog(@"title Text = %@",titleText);
+    
+    if ([titleText rangeOfString:@":"].location == NSNotFound) {
+        return nil;
+    }
     
     NSString *title = [titleText substringWithRange:NSMakeRange(0, [titleText rangeOfString:@":"].location)];
     dump.date = title;
@@ -89,6 +93,9 @@
     BOOL tabsTypeRealWorld = NO;
     NSString *categories = @"";
     NSString *readingContent = @"";
+    NSMutableArray *categoriesTechTemp = [[NSMutableArray alloc] init];
+    NSMutableArray *categoriesWorldTemp = [[NSMutableArray alloc] init];
+    
     for (HTMLElement *linkElement in list) {
         
         //NSLog(@"link elelemtn=%@",linkElement.innerHTML);
@@ -100,6 +107,9 @@
             else {
                 
                 DKTab *tab = [[DKTab alloc] init];
+                
+                tab.tabDay = dump.date;
+                
                 //link.html = linkElement.innerHTML;
                 //   NSLog(@"html=%@",link.html);
                 
@@ -137,6 +147,10 @@
                         categories = [categories stringByAppendingString:@", "];
                     }
                     categories = [categories stringByAppendingString:newTemp];
+                    if (tabsTypeRealWorld)
+                        [categoriesWorldTemp addObject:newTemp];
+                    else
+                        [categoriesTechTemp addObject:newTemp];
                 }
                 
                 NSString *number = [tab.strippedHTML substringToIndex:[tab.strippedHTML rangeOfString:@" "].location];
@@ -158,6 +172,10 @@
             }
         }
     }
+    
+    //dump.categories = [categoriesTemp copy];
+    dump.categoriesTech = [categoriesTechTemp copy];
+    dump.categoriesWorld = [categoriesWorldTemp copy];
     
     __block NSUInteger wordCount = 0;
     [readingContent enumerateSubstringsInRange:NSMakeRange(0, readingContent.length)

@@ -43,8 +43,6 @@ CGFloat kFontSize1 = 13;
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        //self.backgroundColor = [UIColor redColor];
-        
         self.stefanImageView = [[UIImageView alloc] init];
         self.danielImageView = [[UIImageView alloc] init];
         
@@ -62,7 +60,7 @@ CGFloat kFontSize1 = 13;
         [self.stefanButton addTarget:self action:@selector(actionTwitter:) forControlEvents:UIControlEventTouchUpInside];
         self.danielButton = [[UIButton alloc] init];
         [self.danielButton addTarget:self action:@selector(actionTwitter:) forControlEvents:UIControlEventTouchUpInside];
-     
+        
         self.overlayView = [[UIView alloc] initWithFrame:self.bounds];
         self.overlayView.backgroundColor = [UIColor whiteColor];
         self.overlayView.alpha = 0.7;
@@ -74,7 +72,6 @@ CGFloat kFontSize1 = 13;
                                  self.overlayView,
                                  self.stefanButton,
                                  self.danielButton,
-
                                  ] onView:self];
         
         CGRect frame;
@@ -98,7 +95,7 @@ CGFloat kFontSize1 = 13;
         NSString *stefanTwitterUsername = [self stringForTwitterUsername:kAboutTwitterStefan];
         NSString *stefanString = [NSString stringWithFormat:@"Tab Dump is written by %@\n%@",kAboutFullNameStefan, stefanTwitterUsername];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:stefanString];
-
+        
         NSDictionary *colorAttribute = @{NSForegroundColorAttributeName:[UIColor td_highlightColor]};
         NSDictionary *fontAttribute = @{NSFontAttributeName:[UIFont fontWithName:kFontBold size:kFontSize1]};
         
@@ -109,7 +106,7 @@ CGFloat kFontSize1 = 13;
         [attributedString addAttributes:colorAttribute range:[stefanString rangeOfString:stefanTwitterUsername]];
         [attributedString addAttributes:fontAttribute range:[stefanString rangeOfString:kAboutFullNameStefan]];
         [attributedString addAttributes:paragraphAttribute range:[stefanString rangeOfString:stefanString]];
-         
+        
         self.stefanLabel.attributedText = attributedString;
         
         frame.origin.y = self.stefanLabel.dk_bottom +inset;
@@ -142,10 +139,7 @@ CGFloat kFontSize1 = 13;
 
 
 - (void)actionTwitter:(UIButton*)button {
-    //NSLog(@"twitter action hit");
-    
-    NSString *name;
- 
+    NSString *name;    
     if (button==self.danielButton) {
         name = @"Daniel";
         self.twitterUsername = kAboutTwitterDaniel;
@@ -159,7 +153,7 @@ CGFloat kFontSize1 = 13;
     NSString *sheetTitle = [NSString stringWithFormat:@"%@ on Twitter", name];
     NSString *followTitle = [NSString stringWithFormat:@"Follow @%@", self.twitterUsername];
     
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:sheetTitle delegate:self cancelButtonTitle:@"Dismiss" destructiveButtonTitle:nil otherButtonTitles:followTitle, @"View Timeline", nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:sheetTitle delegate:self cancelButtonTitle:@"Dismiss" destructiveButtonTitle:nil otherButtonTitles:followTitle, @"View Timeline", @"Send Message",nil];
     [sheet showInView:self];
 }
 
@@ -169,6 +163,7 @@ CGFloat kFontSize1 = 13;
 }
 
 
+//TODO: put this in uiview category
 - (UIViewController *)viewController {
     UIResponder *responder = self;
     while (![responder isKindOfClass:[UIViewController class]]) {
@@ -186,7 +181,8 @@ CGFloat kFontSize1 = 13;
 NS_ENUM(NSInteger, AboutActionSheetSelection) {
     AboutActionSheetSelectionFollow = 0,
     AboutActionSheetSelectionTimeline,
-    AboutActionSheetSelectionCancelled,
+    AboutActionSheetSelectionMessage,
+    //AboutActionSheetSelectionCancelled,
 };
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -194,6 +190,11 @@ NS_ENUM(NSInteger, AboutActionSheetSelection) {
     
     switch (buttonIndex) {
         case AboutActionSheetSelectionFollow: {
+            if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+                NSLog(@"oops no twitter");
+                return;
+            }
+                        
             ACAccountStore *accountStore = [[ACAccountStore alloc] init];
             ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
             
@@ -238,6 +239,22 @@ NS_ENUM(NSInteger, AboutActionSheetSelection) {
             SVWebViewController *webViewController = [[SVWebViewController alloc] initWithAddress:self.twitterUrlString];
             webViewController.title = @"Loading";
             [[self viewController].navigationController  pushViewController:webViewController animated:YES];
+        }
+            break;
+            
+        case AboutActionSheetSelectionMessage: {
+            if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+                NSLog(@"oops no twitter");
+                return;
+            }
+            
+            //TODO: show account picker for users with multiple accounts
+            
+            NSString *textToShare = [NSString stringWithFormat:@"@%@ ",self.twitterUsername];
+            SLComposeViewController *mySLComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+            [mySLComposerSheet setInitialText:textToShare];
+            
+            [[self viewController] presentViewController:mySLComposerSheet animated:YES completion:nil];
         }
             break;
             

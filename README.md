@@ -1,14 +1,14 @@
 TabDump For iOS
 ---------------
 
-Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twitter.com/WhatTheBit)) on your iOS device.
+Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twitter.com/WhatTheBit)) on your iOS device. Download on [the App Store](https://itunes.apple.com/us/app/tab-dump/id868214144).
 
 ![](assets/screenshot.png)
 
 # Features
 - Read next: tap button to skip to next tab
 - Share tab: Reading List, Email, Facebook, Twitter (with via @TabDump attribution), [Buffer](https://bufferapp.com/app) & [Drafts](http://agiletortoise.com/drafts/) (URL scheme)
-- Categories colors (thanks to [BrandColors](http://brandcolors.net/))
+- Category browsing (and category colors, thanks to [BrandColors](http://brandcolors.net/))
 - Keep track of Tab Dumps read
 
 # Libraries
@@ -20,7 +20,7 @@ Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twit
 - [HTMLReader](https://github.com/nolanw/HTMLReader) 
 - [SVWebViewController](https://github.com/samvermette/SVWebViewController)
 
-# Assets
+# Design
 - Icons: [Thomas Le Bas](http://thomaslebas.com)
 - Fonts: [Eduardo Tunni](http://www.tipo.net.ar)
 
@@ -33,12 +33,11 @@ Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twit
 - This project was tested with iOS 7 (iPhone).
 
 # TODO
-- Tests
-- Search
-- Night mode
-- iPad
-- Pocket integration
+- https://trello.com/b/sC4juPme/tabdump
 
+# Thanks
+
+[Stefan Constantinescu](http://tabdump.com), [Galen Gidman](http://brandcolors.net) and the [wonderful people](https://github.com/stars/dkhamsing) who contribute to open source software.
 
 # Say Hi
 - [github.com/dkhamsing](https://github.com/dkhamsing)

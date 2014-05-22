@@ -19,9 +19,15 @@
 
 
 /**
+ List of brands that have a "dark" color.
+ */
++ (NSArray*)bc_brandsWithDarkColor;
+
+
+/**
  Get color from brand name.
  Hex colors are from http://brandcolors.net
- @param brand Name of the brand.
+ @param brand Name of the brand (case insensitive, can ommit symbol).
  */
 + (UIColor*)bc_colorForBrand:(NSString*)brand;
 

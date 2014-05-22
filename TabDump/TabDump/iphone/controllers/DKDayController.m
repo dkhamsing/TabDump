@@ -248,14 +248,15 @@ CGFloat headerHeight = 30;
 
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    //[cell setBackgroundColor:[UIColor redColor]];
     NSArray *datasource = self.dataSource[indexPath.section];
     DKTab *link = datasource[indexPath.row];
-    
     
     NSNumber *categoryColors = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsCategoryColors];
     if ([categoryColors isEqual:@1]) {
         cell.backgroundColor = [link colorForCategory];
+    }
+    else {
+        cell.backgroundColor = [UIColor whiteColor];
     }
 }
 

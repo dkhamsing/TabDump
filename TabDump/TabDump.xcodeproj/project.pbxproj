@@ -16,6 +16,10 @@
 		19477AA819075475003648F7 /* DKTabDump.m in Sources */ = {isa = PBXBuildFile; fileRef = 19477AA719075475003648F7 /* DKTabDump.m */; };
 		19477AA9190760A9003648F7 /* DKTabDump.m in Sources */ = {isa = PBXBuildFile; fileRef = 19477AA719075475003648F7 /* DKTabDump.m */; };
 		19477AC119076A48003648F7 /* DKTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 19477AC019076A48003648F7 /* DKTab.m */; };
+		196243CA1927E4D80037BDF8 /* DKCategoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 196243C91927E4D80037BDF8 /* DKCategoriesController.m */; };
+		196243CD1927F0340037BDF8 /* DKCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 196243CC1927F0340037BDF8 /* DKCategoryCell.m */; };
+		196243D01927F4C50037BDF8 /* DKTabsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 196243CF1927F4C50037BDF8 /* DKTabsListController.m */; };
+		196243D3192857340037BDF8 /* DKListSelectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 196243D2192857340037BDF8 /* DKListSelectionController.m */; };
 		198C31451923C525009B4033 /* DKSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 198C31441923C525009B4033 /* DKSettingsController.m */; };
 		19CFA60F19108C640051BC80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 19CFA60C19108C640051BC80 /* InfoPlist.strings */; };
 		19CFA61019108C640051BC80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 19CFA60E19108C640051BC80 /* main.m */; };
@@ -119,6 +123,14 @@
 		19477AA719075475003648F7 /* DKTabDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTabDump.m; sourceTree = "<group>"; };
 		19477ABF19076A48003648F7 /* DKTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKTab.h; sourceTree = "<group>"; };
 		19477AC019076A48003648F7 /* DKTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTab.m; sourceTree = "<group>"; };
+		196243C81927E4D80037BDF8 /* DKCategoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKCategoriesController.h; sourceTree = "<group>"; };
+		196243C91927E4D80037BDF8 /* DKCategoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKCategoriesController.m; sourceTree = "<group>"; };
+		196243CB1927F0340037BDF8 /* DKCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKCategoryCell.h; sourceTree = "<group>"; };
+		196243CC1927F0340037BDF8 /* DKCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKCategoryCell.m; sourceTree = "<group>"; };
+		196243CE1927F4C50037BDF8 /* DKTabsListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKTabsListController.h; sourceTree = "<group>"; };
+		196243CF1927F4C50037BDF8 /* DKTabsListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTabsListController.m; sourceTree = "<group>"; };
+		196243D1192857340037BDF8 /* DKListSelectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKListSelectionController.h; sourceTree = "<group>"; };
+		196243D2192857340037BDF8 /* DKListSelectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKListSelectionController.m; sourceTree = "<group>"; };
 		198C31431923C525009B4033 /* DKSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKSettingsController.h; sourceTree = "<group>"; };
 		198C31441923C525009B4033 /* DKSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKSettingsController.m; sourceTree = "<group>"; };
 		19CF68A019112379001D0C9D /* TabDump-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TabDump-Info.plist"; sourceTree = "<group>"; };
@@ -647,14 +659,20 @@
 			children = (
 				CEEA7EF9190EC159000474E3 /* DKAboutController.h */,
 				CEEA7EFA190EC159000474E3 /* DKAboutController.m */,
+				196243C81927E4D80037BDF8 /* DKCategoriesController.h */,
+				196243C91927E4D80037BDF8 /* DKCategoriesController.m */,
 				CEEA7EFB190EC159000474E3 /* DKDayController.h */,
 				CEEA7EFC190EC159000474E3 /* DKDayController.m */,
 				CEEA7EFD190EC159000474E3 /* DKLaunchController.h */,
 				CEEA7EFE190EC159000474E3 /* DKLaunchController.m */,
+				196243D1192857340037BDF8 /* DKListSelectionController.h */,
+				196243D2192857340037BDF8 /* DKListSelectionController.m */,
 				198C31431923C525009B4033 /* DKSettingsController.h */,
 				198C31441923C525009B4033 /* DKSettingsController.m */,
 				CEEA7EFF190EC159000474E3 /* DKTabDumpsController.h */,
 				CEEA7F00190EC159000474E3 /* DKTabDumpsController.m */,
+				196243CE1927F4C50037BDF8 /* DKTabsListController.h */,
+				196243CF1927F4C50037BDF8 /* DKTabsListController.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -664,6 +682,8 @@
 			children = (
 				CEEA7F02190EC159000474E3 /* DKAboutView.h */,
 				CEEA7F03190EC159000474E3 /* DKAboutView.m */,
+				196243CB1927F0340037BDF8 /* DKCategoryCell.h */,
+				196243CC1927F0340037BDF8 /* DKCategoryCell.m */,
 				CEEA7F04190EC159000474E3 /* DKDayCell.h */,
 				CEEA7F05190EC159000474E3 /* DKDayCell.m */,
 				CEEA7F06190EC159000474E3 /* DKTabDumpCell.h */,
@@ -802,6 +822,7 @@
 			files = (
 				CEBDF40519192BAB003AE46C /* HTMLDocumentType.m in Sources */,
 				CEEA7F5F190F0D7D000474E3 /* DKBufferActivity.m in Sources */,
+				196243CD1927F0340037BDF8 /* DKCategoryCell.m in Sources */,
 				192ACA861915D39E004CCDE1 /* DKDraftsActivity.m in Sources */,
 				CEBDF3FD19192BAB003AE46C /* UIColor+DK.m in Sources */,
 				CEEA7F09190EC159000474E3 /* DKDayController.m in Sources */,
@@ -811,11 +832,14 @@
 				CEEA7F0E190EC159000474E3 /* DKTabDumpCell.m in Sources */,
 				CEBDF3F519192BAB003AE46C /* AFNetworkReachabilityManager.m in Sources */,
 				198C31451923C525009B4033 /* DKSettingsController.m in Sources */,
+				196243D3192857340037BDF8 /* DKListSelectionController.m in Sources */,
 				CEBDF41219192BAB003AE46C /* SVModalWebViewController.m in Sources */,
 				CEBDF41019192BAB003AE46C /* HTMLTreeEnumerator.m in Sources */,
 				CEBDF3F219192BAB003AE46C /* AFHTTPRequestOperation.m in Sources */,
+				196243CA1927E4D80037BDF8 /* DKCategoriesController.m in Sources */,
 				CEBDF3F819192BAB003AE46C /* AFURLRequestSerialization.m in Sources */,
 				CEBDF3FB19192BAB003AE46C /* UIColor+BrandColors.m in Sources */,
+				196243D01927F4C50037BDF8 /* DKTabsListController.m in Sources */,
 				CEBDF40819192BAB003AE46C /* HTMLOrderedDictionary.m in Sources */,
 				CEBDF3FE19192BAB003AE46C /* UIImage+DK.m in Sources */,
 				CEBDF3F719192BAB003AE46C /* AFURLConnectionOperation.m in Sources */,

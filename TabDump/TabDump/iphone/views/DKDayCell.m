@@ -50,19 +50,32 @@
 }
 
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.backgroundColor = [UIColor whiteColor];
+}
+
+
 - (void)setLink:(DKTab *)link {
     _link = link;
     
-    self.contentLabel.text = link.strippedHTML;
+    NSString *tabText = link.strippedHTML;
+    
+    NSString *dateBlock = [NSString stringWithFormat:@"%@: ",link.tabDay];
+    if (self.isCategory) {
+        tabText = [tabText stringByReplacingOccurrencesOfString:link.tabNumber withString:@""];
+        tabText = [tabText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        tabText = [tabText stringByReplacingOccurrencesOfString:link.category withString:dateBlock];
+    }
+    
+    self.contentLabel.text = tabText;
     CGRect frame = self.contentLabel.frame;
     frame.origin = CGPointMake(kCellPadding,kCellPadding);
     frame.size = [link sizeForStrippedHTML];
     self.contentLabel.frame = frame;
     
     self.contentLabel.textColor = [UIColor blackColor];
-   
     
-
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.contentLabel.text];
     UIColor *dumpColor = [UIColor whiteColor];
     UIColor *categoryColor = dumpColor;
@@ -87,6 +100,8 @@
         self.contentLabel.textColor = [UIColor blackColor];
     
     }
+    
+    [attributedString addAttributes:@{NSForegroundColorAttributeName:dumpColor} range:[self.contentLabel.text rangeOfString:dateBlock]];
     
     [attributedString addAttributes:@{NSForegroundColorAttributeName:dumpColor} range:[self.contentLabel.text rangeOfString:link.tabNumber]];
     

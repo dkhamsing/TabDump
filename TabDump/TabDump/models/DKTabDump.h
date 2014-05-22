@@ -40,6 +40,18 @@
 @property (nonatomic,strong) NSString *readingTime;
 
 
+/**
+ List of bits & bytes (tech) categories.
+ */
+@property (nonatomic,strong) NSArray *categoriesTech;
+
+
+/**
+ List of real world categories.
+ */
+@property (nonatomic,strong) NSArray *categoriesWorld;
+
+
 #pragma mark Methods
 
 /**

@@ -12,4 +12,7 @@
 
 - (void)td_addBackButtonPop;
 
+- (void)td_addCloseButtomDismiss;
+
+
 @end

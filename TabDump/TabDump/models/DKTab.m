@@ -19,37 +19,14 @@
 @implementation DKTab
 
 - (BOOL)brandColorIsDark {
-    NSArray *darkColorBrands = @[
-                                 @"Apple",
-                                 @"Facebook",
-                                 @"Google",
-                                 @"Intel",
-                                 @"Dish Network",
-                                 @"LG",
-                                 @"Motorola",
-                                 @"Netflix",
-                                 @"Samsung",
-                                 @"T-Mobile",
-                                 @"WhatsApp",
-                                 @"Yahoo",
-                                 @"Yahoo!",
-                                 @"Yelp",
-                                 @"ZTE",
-                                 ];
-    
-    __block BOOL retVal = NO;
-    [darkColorBrands enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([self.category dk_containsString:obj]) {
-            //NSLog(@"found category %@ to be dark", self.category);
-            retVal = YES;
-            *stop = YES;
+    if ([[UIColor bc_brandsWithDarkColor] containsObject:self.categoryOnly]) {
+        
+        if ([[self excludedBrands] containsObject:self.categoryOnly]) {
+            return NO;
         }
-    }];
-    
-    if (retVal) {
+        
         return YES;
     }
-    
     return NO;
 }
 
@@ -60,12 +37,8 @@
     if (color == BC_DEFAULT_COLOR) {
         color = [UIColor whiteColor];
     }
-    
-    NSArray *brandExcluded = @[
-                               @"Qualcomm",
-                               @"Snapchat",
-                               ];
-    if ([brandExcluded containsObject:self.categoryOnly]) {
+       
+    if ([[self excludedBrands] containsObject:self.categoryOnly]) {
         return [UIColor whiteColor];
     }
     
@@ -91,6 +64,18 @@
                                                    attributes:[self contentAttributes]
                                                       context:nil];
     return textRect.size;
+}
+
+
+#pragma mark - Private
+
+- (NSArray*)excludedBrands {
+    NSArray *brandExcluded = @[
+                               @"Qualcomm",
+                               @"Snapchat",
+                               ];
+
+    return brandExcluded;
 }
 
 

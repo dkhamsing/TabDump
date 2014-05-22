@@ -11,6 +11,12 @@
 @interface DKTab : NSObject
 
 /**
+ Date of the tab (for category cell / view).
+ */
+@property (nonatomic,strong) NSString *tabDay;
+
+
+/**
  Number of the tab.
  */
 @property (nonatomic,strong) NSString *tabNumber;

@@ -66,13 +66,20 @@
 
 #pragma mark - UIViewController
 
+- (void)viewDidLayoutSubviews {    
+    [super viewDidLayoutSubviews];
+    
+    self.aboutScrollView.frame = self.view.bounds;
+}
+
+
 - (void)viewWillAppear:(BOOL)animated {
     CGRect frame;
 
     frame.origin.x = 10;
     frame.origin.y = self.aboutView.dk_bottom;
     frame.size.width = 300;
-    frame.size.height = 316;    
+    frame.size.height = 316;
     [self dk_adjustHeightForSmallScreen:frame.size.height];
     self.webView.frame = frame;
     

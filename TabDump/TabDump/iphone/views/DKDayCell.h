@@ -12,4 +12,5 @@
 @interface DKDayCell : UITableViewCell
 @property (nonatomic,strong) DKTab *link;
 @property (nonatomic,strong) UIButton *shareButton;
+@property (nonatomic) BOOL isCategory;
 @end

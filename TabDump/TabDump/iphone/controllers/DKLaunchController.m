@@ -16,26 +16,29 @@
 #import "UIViewController+DK.h"
 
 // Controllers
-#import "DKAboutController.h"
+#import "DKSettingsController.h"
 #import "DKDayController.h"
+#import "DKListSelectionController.h"
+
+#import "DKCategoriesController.h"
 #import "DKTabDumpsController.h"
 
 // Defines
 #import "DKTabDumpDefines.h"
 
 // Models
+#import "DKTab.h"
 #import "DKTabDump.h"
 
 // Libraries
 #import "AFNetworking.h"
-//#import "CWStatusBarNotification.h"
 #import "DKUserMessageView.h"
 
 
 @interface DKLaunchController () <DKTabDumpsControllerDelegate, DKDayControllerDelegate>
 @property (nonatomic,strong) NSString *currentTitle;
 
-@property (nonatomic,strong) DKTabDumpsController *tabDumpsController;
+@property (nonatomic,strong) DKListSelectionController *selectionController;
 @property (nonatomic,strong) DKDayController *dayController;
 
 @property (nonatomic,strong) UIView *loadingView;
@@ -44,6 +47,8 @@
 @property (nonatomic,strong) UIButton *reloadButton;
 
 @property (nonatomic,strong) UIButton *scrollButton;
+
+@property (nonatomic,strong) DKTab *previewTab;
 @end
 
 @implementation DKLaunchController
@@ -61,8 +66,8 @@ CGFloat kNavigationBarHeight = 64;
         [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:kFontRegular size:11]} forState:UIControlStateNormal];
         
         // init
-        self.tabDumpsController = [[DKTabDumpsController alloc] init];
-        self.tabDumpsController.delegate = self;
+        self.selectionController = [[DKListSelectionController alloc]init];
+        self.selectionController.calendarController.delegate = self;
         
         self.dayController = [[DKDayController alloc] initWithStyle:UITableViewStyleGrouped];
         self.dayController.delegate = self;
@@ -165,14 +170,27 @@ CGFloat kNavigationBarHeight = 64;
 #pragma mark - Private
 
 - (void)actionAbout {
-    DKAboutController *aboutController = [[DKAboutController alloc] init];
+    DKSettingsController *aboutController = [[DKSettingsController alloc] init];
+    
+    NSString *newCategory = @"Google";
+    self.previewTab.strippedHTML = [self.previewTab.strippedHTML stringByReplacingOccurrencesOfString:self.previewTab.categoryOnly withString:newCategory];
+    self.previewTab.category = [self.previewTab.category stringByReplacingOccurrencesOfString:self.previewTab.categoryOnly withString:newCategory];
+    self.previewTab.categoryOnly = newCategory;
+    
+    //NSLog(@"%d",self.previewTab.strippedHTML.length);
+    NSUInteger crop = 70;
+    if (self.previewTab.strippedHTML.length>crop) {
+        self.previewTab.strippedHTML = [self.previewTab.strippedHTML substringToIndex:crop];
+        self.previewTab.strippedHTML = [self.previewTab.strippedHTML stringByAppendingString:@"..."];
+    }
+    
+    aboutController.previewTab = self.previewTab;
     [self.navigationController pushViewController:aboutController animated:YES];
 }
 
 
 - (void)actionList {
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.tabDumpsController];
-    self.tabDumpsController.title = kLaunchTitle;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.selectionController];
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
@@ -184,21 +202,6 @@ CGFloat kNavigationBarHeight = 64;
 
 - (void)actionTop {
     [self.dayController scrollToTop];
-}
-
-
-- (UIImage *)ipMaskedImageNamed:(NSString *)name color:(UIColor *)color {
-    UIImage *image = [UIImage imageNamed:name];
-    CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, image.scale);
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    [image drawInRect:rect];
-    CGContextSetFillColorWithColor(c, [color CGColor]);
-    CGContextSetBlendMode(c, kCGBlendModeSourceAtop);
-    CGContextFillRect(c, rect);
-    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return result;
 }
 
 
@@ -222,7 +225,7 @@ CGFloat kNavigationBarHeight = 64;
     [[NSUserDefaults standardUserDefaults] setObject:[temp copy] forKey:kUserDefaultsTabDumpsRead];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    NSLog(@"tab dumps read=%@",temp);
+    NSLog(@"launch - load dump - tab dumps read=%@",temp);
 }
 
 
@@ -230,13 +233,18 @@ CGFloat kNavigationBarHeight = 64;
     NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     if ([content dk_containsString:@"<?xml"]) {
         NSArray *dumps = [DKTabDump newListOfDumpsFromHTML:content];
-        self.tabDumpsController.dataSource = dumps;
+        self.selectionController.calendarController.dataSource = dumps;
+        self.selectionController.categoriesController.categoriesTabDumps = dumps;
         DKTabDump *dump = dumps[0];
+        
+        if (dump.tabsTech.count>0) {
+            self.previewTab = dump.tabsTech[1];
+        }
         
         [self loadDump:dump];
     }
     else {
-        NSLog(@"launch - load content - error loading rss");
+        NSLog(@"launch - load content at path - error loading rss");
     }
 }
 
