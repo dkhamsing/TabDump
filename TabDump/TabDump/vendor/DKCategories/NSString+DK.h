@@ -19,7 +19,13 @@
 
 
 /**
- Add "s" to the receiver for the given `number`.
+ Returns the domain (i.e. domain.com) for a String URL.
+ */
+- (NSString *)dk_domainForStringURL;
+
+
+/**
+ Adds "s" to the receiver for the given `number`.
  @param number Number to pluralize string with
  @return The string with or without "s" added
  */

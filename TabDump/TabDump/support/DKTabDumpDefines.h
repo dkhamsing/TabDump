@@ -11,6 +11,7 @@
 
 static CGFloat const kCellWidth = 320;
 static CGFloat const kCellPadding = 13;
+static CGFloat const kCellBottomOffset = 50;
 static NSString* const kCellReadTimePrefix = @"Length: ";
 
 
@@ -39,7 +40,7 @@ static NSUInteger const kLaunchDownloadHourThreshold = 1;
 static NSString* const kUserDefaultsDateLastDownload = @"kUserDefaultsDateLastDownload";
 static NSString* const kUserDefaultsTabDumpsRead = @"kUserDefaultsTabDumpsRead";
 static NSString* const kUserDefaultsSettingsCategoryColors = @"kUserDefaultsSettingsCategoryColors";
-static NSString* const kUserDefaultsSettingsActionButtons = @"kUserDefaultsSettingsActionButtons";
+//static NSString* const kUserDefaultsSettingsActionButtons = @"kUserDefaultsSettingsActionButtons";
 
 #pragma mark - Views
 

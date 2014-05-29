@@ -12,6 +12,7 @@
 #import "NSString+DK.h"
 #import "UIColor+DK.h"
 #import "UIColor+TD.h"
+#import "UIImage+DK.h"
 #import "UIView+DK.h"
 
 // Defines
@@ -23,7 +24,7 @@
 
 @interface DKDayCell ()
 @property (nonatomic,strong) UILabel *contentLabel;
-@property (nonatomic,strong) UIButton *viewButton;
+@property (nonatomic,strong) UILabel *domainLabel;
 @end
 
 @implementation DKDayCell
@@ -33,18 +34,17 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.contentLabel = [[UILabel alloc] init];
-        self.contentLabel.numberOfLines = 0;
-        
         self.shareButton = [[UIButton alloc] init];
-        
-        self.viewButton = [[UIButton alloc] init];
-        self.viewButton.userInteractionEnabled = NO;
+        self.domainLabel = [[UILabel alloc] init];
       
         [UIView dk_addSubviews:@[
                                  self.contentLabel,
+                                 self.domainLabel,
                                  self.shareButton,
-                                 self.viewButton,
                                  ] onView:self.contentView];
+        
+        self.contentLabel.numberOfLines = 0;
+        self.domainLabel.font = [UIFont fontWithName:kFontRegular size:11];
     }
     return self;
 }
@@ -69,10 +69,6 @@
     }
     
     self.contentLabel.text = tabText;
-    CGRect frame = self.contentLabel.frame;
-    frame.origin = CGPointMake(kCellPadding,kCellPadding);
-    frame.size = [link sizeForStrippedHTML];
-    self.contentLabel.frame = frame;
     
     self.contentLabel.textColor = [UIColor blackColor];
     
@@ -89,54 +85,49 @@
     }
     
     NSNumber *categoryColors = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsCategoryColors];
+    self.domainLabel.textColor = [UIColor dk_colorWithRed:220 green:220 blue:220];
+    UIImage *shareImage = [UIImage dk_maskedImageNamed:@"tab-action" color:self.domainLabel.textColor];
     if ([categoryColors isEqual:@1]) {
         if ([link brandColorIsDark]) {
             self.contentLabel.textColor = [UIColor whiteColor];
+            self.domainLabel.textColor = [UIColor whiteColor];
+            shareImage = [UIImage dk_maskedImageNamed:@"tab-action" color:[UIColor whiteColor]];
         }
     }
     else {
         dumpColor = [UIColor td_highlightColor];
         categoryColor = [UIColor blackColor];
         self.contentLabel.textColor = [UIColor blackColor];
-    
     }
     
     [attributedString addAttributes:@{NSForegroundColorAttributeName:dumpColor} range:[self.contentLabel.text rangeOfString:dateBlock]];
-    
     [attributedString addAttributes:@{NSForegroundColorAttributeName:dumpColor} range:[self.contentLabel.text rangeOfString:link.tabNumber]];
-    
     [attributedString addAttributes:@{NSForegroundColorAttributeName:dumpColor} range:[self.contentLabel.text rangeOfString:link.tabNumber]];
-
     [attributedString addAttributes:@{NSForegroundColorAttributeName:categoryColor} range:[self.contentLabel.text rangeOfString:link.category]];
     [attributedString addAttributes:[link contentAttributes] range:[self.contentLabel.text rangeOfString:self.contentLabel.text]];
     
     self.contentLabel.text = @"";
     self.contentLabel.attributedText = attributedString;
     
+    self.domainLabel.text = [link.urlString dk_domainForStringURL];
+    
+    // frame
+    CGRect frame = self.contentLabel.frame;
+    frame.origin = CGPointMake(kCellPadding,kCellPadding);
+    frame.size = [link sizeForStrippedHTML];
+    self.contentLabel.frame = frame;
+    
     frame.origin.y = self.contentLabel.dk_bottom -5;
     frame.size = CGSizeMake(50, 50);
-    frame.origin.x = ((self.dk_width/2) - frame.size.width)/2 ;
+    frame.origin.x = -3;
     self.shareButton.frame = frame;
 
-    UIImage *shareImage = [UIImage imageNamed:@"tab-action"];
     [self.shareButton setImage:shareImage forState:UIControlStateNormal];
     
-    frame.origin.x = self.shareButton.dk_left +(self.dk_width/2) ;
-    self.viewButton.frame = frame;
-    UIImage *eyeImage = [UIImage imageNamed:@"tab-eye"];
-    [self.viewButton setImage:eyeImage forState:UIControlStateNormal];
-
-    
-    NSNumber *actionButtons = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsActionButtons];
-    if ([actionButtons isEqual:@1]) {
-        self.shareButton.alpha = 0.2;
-        self.viewButton.alpha = self.shareButton.alpha -0.08;
-    }
-    else {
-        //NSLog(@"actionbuttons integar value=%d",actionButtons.integerValue);
-        self.shareButton.alpha = 0;
-        self.viewButton.alpha = 0;
-    }
+    frame.size = CGSizeMake(200, 26);
+    frame.origin.x = self.shareButton.dk_right -5;
+    frame.origin.y = self.contentLabel.dk_bottom +7;
+    self.domainLabel.frame = frame;    
 }
 
 

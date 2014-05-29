@@ -14,6 +14,16 @@
 }
 
 
+- (NSString *)dk_domainForStringURL {
+    NSString *domain = self;
+    domain = [domain stringByReplacingOccurrencesOfString:@"www." withString:@""];
+    domain = [domain substringFromIndex:[domain rangeOfString:@"://"].location+3];
+    domain = [domain substringToIndex:[domain rangeOfString:@"/"].location];
+    
+    return domain;
+}
+
+
 - (NSString *)dk_pluralize:(NSInteger)number {
     if (number==1)
         return self;

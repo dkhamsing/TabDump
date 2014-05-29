@@ -10,10 +10,13 @@
 
 // Categories
 #import "NSString+DK.h"
+#import "UIColor+TD.h"
+#import "UIImage+DK.h"
 #import "UIView+DK.h"
 #import "UIViewController+TD.h"
 
 // Controllers
+#import "DKSettingsController.h"
 #import "SVWebViewController.h"
 
 // Defines
@@ -30,9 +33,12 @@
 
 @interface DKTabsListController ()
 @property (nonatomic,strong) DKAboutView *aboutView;
+@property (nonatomic,strong) DKTab *previewTab;
 @end
 
 @implementation DKTabsListController
+
+CGRect kNavigationButtonFrame1 = {0,0,30,44};
 
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
@@ -44,6 +50,13 @@
         self.tableView.tableFooterView = self.aboutView;
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        UIImage *infoImage = [UIImage dk_maskedImageNamed:@"top-gears" color:[UIColor td_highlightColor]];
+        UIButton *infoButton = [[UIButton alloc] initWithFrame:kNavigationButtonFrame1];
+        [infoButton setImage:infoImage forState:UIControlStateNormal];
+        [infoButton addTarget:self action:@selector(actionSettings) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *aboutBarButton = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
+        self.navigationItem.rightBarButtonItem = aboutBarButton;        
     }
     return self;
 }
@@ -52,6 +65,24 @@
 - (void)setDataSource:(NSArray *)dataSource {
     _dataSource = dataSource;
     [self.tableView reloadData];
+    
+    self.previewTab = [_dataSource[0] copy];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
+
+#pragma mark - Private
+
+- (void)actionSettings {
+    //NSLog(@"settings hit");
+    DKSettingsController *settingsController = [[DKSettingsController alloc] init];
+    //settingsController.previewTab = settingsController.previewTab;
+    [self.navigationController pushViewController:settingsController animated:YES];
 }
 
 
@@ -94,8 +125,7 @@
     
     CGFloat padding = kCellPadding;
     
-    NSNumber *actionButtons = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsActionButtons];
-    CGFloat shareEyeButtonsOffset = [actionButtons isEqual:@(1)] ? 40:0;
+    CGFloat shareEyeButtonsOffset = 40;
     
     CGFloat height = [tab sizeForStrippedHTML].height +padding*2 +shareEyeButtonsOffset;
 

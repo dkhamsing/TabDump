@@ -292,14 +292,8 @@ CGFloat headerHeight = 30;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *datasource = self.dataSource[indexPath.section];
-    DKTab *link = datasource[indexPath.row];
-    
-    CGFloat padding = kCellPadding;
-    
-    NSNumber *actionButtons = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsActionButtons];
-    CGFloat shareEyeButtonsOffset = [actionButtons isEqual:@(1)] ? 40:0;
-    
-    CGFloat height = [link sizeForStrippedHTML].height +padding*2 +shareEyeButtonsOffset;
+    DKTab *link = datasource[indexPath.row];    
+    CGFloat height = [link heightForRow];
     
     return height;
 }

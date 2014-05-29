@@ -9,6 +9,7 @@
 #import "DKSettingsController.h"
 
 // Categories
+#import "UIColor+DK.h"
 #import "UIColor+TD.h"
 #import "UIView+DK.h"
 #import "UIViewController+DK.h"
@@ -43,12 +44,12 @@
         
         self.dataSource = @[
                             @"Category Colors",
-                            @"Action Buttons",
+                            //@"Action Buttons",
                             ];
         
         self.dataSourceSub = @[
                                @"Color based on category",
-                               @"You can also share with a long press",
+                               //@"You can also share with a long press",
                                ];
         
         
@@ -58,6 +59,15 @@
         [self dk_addChildController:self.aboutCOntroller];
         
         self.tableView.rowHeight = 55;
+        
+        CGRect frame = self.view.bounds;
+        frame.size.height = 550;
+        if (self.view.dk_height<500) {
+            frame.size.height -= 88;
+        }
+        self.aboutCOntroller.view.frame = frame;
+        [self.aboutCOntroller.view dk_addTopBorderWithColor:[UIColor lightGrayColor] width:0.5];
+        self.tableView.tableFooterView = self.aboutCOntroller.view;        
     }
     return self;
 }
@@ -75,11 +85,8 @@
         self.preview.backgroundColor = [UIColor whiteColor];
     }
     
-    CGRect frame = self.preview.frame;
-    CGFloat padding = kCellPadding;
-    CGFloat shareEyeButtonsOffset = 40;
-    CGFloat height = [previewTab sizeForStrippedHTML].height +padding*2 +shareEyeButtonsOffset;
-    frame.size.height = height;
+    CGRect frame = self.preview.frame; 
+    frame.size.height = [previewTab heightForRow];
     self.preview.frame = frame;
     [self.preview dk_addBottomBorderWithColor:[UIColor lightGrayColor] width:0.5];
     self.tableView.tableHeaderView = self.preview;
@@ -89,22 +96,20 @@
         frame.size.height -= 88;
     }
     self.aboutCOntroller.view.frame = frame;
-    [self.aboutCOntroller.view dk_addTopBorderWithColor:[UIColor lightGrayColor] width:0.5];
+    //[self.aboutCOntroller.view dk_addTopBorderWithColor:[UIColor lightGrayColor] width:0.5];
     self.tableView.tableFooterView = self.aboutCOntroller.view;
     
-    CGFloat inset = 10;
     frame.size = CGSizeMake(114, 24);
-    frame.origin.x = inset;
-    frame.origin.y = self.preview.dk_height -frame.size.height -inset;
+    frame.origin.x = self.view.dk_width - frame.size.width -15;
+    frame.origin.y = self.preview.dk_height -frame.size.height -5;
     UILabel *previewLabel = [[UILabel alloc] initWithFrame:frame];
-    previewLabel.text = @"settings preview";
+    previewLabel.text = @"Settings Preview";
     previewLabel.textAlignment = NSTextAlignmentCenter;
     previewLabel.font = [UIFont systemFontOfSize:12];
-    previewLabel.textColor = [UIColor lightGrayColor];
+    previewLabel.textColor = [UIColor dk_colorWithRed:230 green:230 blue:230];
     previewLabel.layer.cornerRadius = 12;
-    [previewLabel dk_addBorderWithColor:[UIColor lightGrayColor] width:0.5];
+    [previewLabel dk_addBorderWithColor:previewLabel.textColor width:.5];
     [self.preview addSubview:previewLabel];
-    
 }
 
 
@@ -148,10 +153,6 @@
             optionSwitch.on = [categoryColors isEqualToNumber:@1] ? YES:NO;
         }
         
-        if ([text isEqualToString:self.dataSource[1]]) {
-            NSNumber *actionButtons = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsActionButtons];
-            optionSwitch.on = [actionButtons isEqualToNumber:@1] ? YES:NO;
-        }
     }
     
     cell.textLabel.text = text;
@@ -167,22 +168,22 @@
 - (void)actionSwitch:(UISwitch*)switchControl {
     NSNumber *number = switchControl.isOn ? @1 : @0;
 
-    NSString *key = switchControl.tag==0 ? kUserDefaultsSettingsCategoryColors : kUserDefaultsSettingsActionButtons;
-    //NSLog(@"set number to %@ on key=%@",number,key);
+    NSString *key =  kUserDefaultsSettingsCategoryColors;
     
     [[NSUserDefaults standardUserDefaults] setObject:number forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    self.preview.link = self.previewTab;
-    
-    NSNumber *categoryColors = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsCategoryColors];
-    if ([categoryColors isEqual:@1]) {
-        self.preview.backgroundColor = [self.previewTab colorForCategory];
-    }
-    else {
-        self.preview.backgroundColor = [UIColor whiteColor];
-    }
-    
+    if (self.previewTab) {
+        self.preview.link = self.previewTab;
+        
+        NSNumber *categoryColors = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsCategoryColors];
+        if ([categoryColors isEqual:@1]) {
+            self.preview.backgroundColor = [self.previewTab colorForCategory];
+        }
+        else {
+            self.preview.backgroundColor = [UIColor whiteColor];
+        }
+    }    
 }
 
 

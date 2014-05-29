@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DKTab : NSObject
+@interface DKTab : NSObject <NSCopying>
 
 /**
  Date of the tab (for category cell / view).
@@ -76,6 +76,12 @@
  Get the size for the stripped HTML.
  */
 - (CGSize)sizeForStrippedHTML;
+
+
+/**
+ Height for row (based on stripped html size, top and bottom padding..)
+ */
+- (CGFloat)heightForRow;
 
 
 @end

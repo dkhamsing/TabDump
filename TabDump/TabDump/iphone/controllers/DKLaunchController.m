@@ -76,7 +76,7 @@ CGFloat kNavigationBarHeight = 64;
         // navigaton bar
         UIBarButtonItem *spacerBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         spacerBarButton.width = kNavigationButtonInset;
-        UIImage *infoImage = [UIImage dk_maskedImageNamed:@"top-question" color:[UIColor td_highlightColor]];
+        UIImage *infoImage = [UIImage dk_maskedImageNamed:@"top-gears" color:[UIColor td_highlightColor]];
         UIButton *infoButton = [[UIButton alloc] initWithFrame:kNavigationButtonFrame];
         [infoButton setImage:infoImage forState:UIControlStateNormal];
         [infoButton addTarget:self action:@selector(actionAbout) forControlEvents:UIControlEventTouchUpInside];
@@ -238,7 +238,7 @@ CGFloat kNavigationBarHeight = 64;
         DKTabDump *dump = dumps[0];
         
         if (dump.tabsTech.count>0) {
-            self.previewTab = dump.tabsTech[1];
+            self.previewTab = [dump.tabsTech[1] copy];
         }
         
         [self loadDump:dump];

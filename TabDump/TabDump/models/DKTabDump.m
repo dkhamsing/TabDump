@@ -71,6 +71,7 @@
     NSString *titleText = titleElement.innerHTML;
     
     if ([titleText rangeOfString:@":"].location == NSNotFound) {
+        NSLog(@"tab dump - new dump from html - error, missing :, skipping entry in rss");
         return nil;
     }
     

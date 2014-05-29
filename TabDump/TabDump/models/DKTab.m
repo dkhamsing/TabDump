@@ -67,15 +67,35 @@
 }
 
 
+- (CGFloat)heightForRow {
+    return [self sizeForStrippedHTML].height +kCellPadding*2 +kCellBottomOffset;
+}
+
+
 #pragma mark - Private
 
 - (NSArray*)excludedBrands {
     NSArray *brandExcluded = @[
-                               @"Qualcomm",
                                @"Snapchat",
+                               @"Sprint",
                                ];
 
     return brandExcluded;
+}
+
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    DKTab *tabCopy = [[[self class] allocWithZone:zone] init];
+    
+    tabCopy.strippedHTML = self.strippedHTML;
+    tabCopy.categoryOnly = self.categoryOnly;
+    tabCopy.category = self.category;
+    tabCopy.tabNumber = self.tabNumber;
+    tabCopy.urlString = self.urlString;
+    
+    return tabCopy;
 }
 
 
