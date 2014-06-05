@@ -3,12 +3,14 @@ TabDump For iOS
 
 Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twitter.com/WhatTheBit)) on your iOS device. Download on [the App Store](https://itunes.apple.com/us/app/tab-dump/id868214144).
 
-![](assets/screenshot.png)
+![](assets/screenshots/screenshot.png)
 
 # Features
-- Read next: tap button to skip to next tab
-- Share tab: Reading List, Email, Facebook, Twitter (with via @TabDump attribution), [Buffer](https://bufferapp.com/app) & [Drafts](http://agiletortoise.com/drafts/) (URL scheme)
-- Category browsing (and category colors, thanks to [BrandColors](http://brandcolors.net/))
+- Read next: ⬇ button skips to the next story
+- Night mode
+- Multiple text sizes
+- Share a story: Reading List, Message (iMessage, SMS), Email, Facebook, Twitter, [Buffer](https://bufferapp.com/app) & [Drafts](http://agiletortoise.com/drafts/) (URL scheme)
+- Category browsing (and category colors)
 - Keep track of Tab Dumps read
 
 # Libraries
@@ -18,7 +20,7 @@ Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twit
 - [DKUserMessageView](https://github.com/dkhamsing/DKUserMessageView)
 - [Google Toolbox For Mac](https://code.google.com/p/google-toolbox-for-mac/)
 - [HTMLReader](https://github.com/nolanw/HTMLReader) 
-- [SVWebViewController](https://github.com/samvermette/SVWebViewController)
+- [TOWebViewController](https://github.com/TimOliver/TOWebViewController)
 
 # Design
 - Icons: [Thomas Le Bas](http://thomaslebas.com)

@@ -7,16 +7,20 @@
 //
 
 #import "DKAppDelegate.h"
+
+// Categories
+#import "UIColor+TD.h"
+
+// Controllers
 #import "DKLaunchController.h"
+
 
 @implementation DKAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[DKLaunchController alloc] init]];
+    navigationController.view.tintColor = [UIColor td_highlightColor];
     self.window.rootViewController = navigationController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

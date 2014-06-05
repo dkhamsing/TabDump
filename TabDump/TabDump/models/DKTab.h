@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DKTab : NSObject <NSCopying>
+@interface DKTab : NSObject
 
 /**
  Date of the tab (for category cell / view).

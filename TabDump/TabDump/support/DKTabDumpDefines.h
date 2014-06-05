@@ -25,7 +25,6 @@ static CGFloat const kDayHeaderHeight = 190;
 
 static NSString* const kFontRegular = @"Sintony";
 static NSString* const kFontBold = @"Sintony-Bold";
-#define kCellFont [UIFont fontWithName:kFontRegular size:14]
 
 
 #pragma mark - Launch
@@ -35,12 +34,20 @@ static NSString* const kLaunchBlogRSSLink = @"http://tabdump.com/blog?format=rss
 static NSString* const kLaunchDownloadFilename = @"blog.rss";
 static NSUInteger const kLaunchDownloadHourThreshold = 1;
 
+
+#pragma mark - Notifications
+
+static NSString* const kNotificationNightMode = @"kNotificationNightMode";
+
+
 #pragma mark - User Defaults
 
 static NSString* const kUserDefaultsDateLastDownload = @"kUserDefaultsDateLastDownload";
 static NSString* const kUserDefaultsTabDumpsRead = @"kUserDefaultsTabDumpsRead";
 static NSString* const kUserDefaultsSettingsCategoryColors = @"kUserDefaultsSettingsCategoryColors";
-//static NSString* const kUserDefaultsSettingsActionButtons = @"kUserDefaultsSettingsActionButtons";
+static NSString* const kUserDefaultsSettingsNightMode = @"kUserDefaultsSettingsNightMode";
+static NSString* const kUserDefaultsSettingsLargeTextSize = @"kUserDefaultsSettingsLargeTextSize";
+
 
 #pragma mark - Views
 
@@ -49,3 +56,5 @@ static NSString* const kAboutTwitterDaniel = @"dkhamsing";
 static NSString* const kAboutTwitterStefan = @"WhatTheBit";
 static NSString* const kAboutFullNameDaniel = @"Daniel Khamsing";
 static NSString* const kAboutFullNameStefan = @"Stefan Constantinescu";
+static NSString* const kAboutEmailDaniel = @"dkhamsing8@gmail.com";
+static NSString* const kAboutEmailStefan = @"stefan@whatthebit.com";

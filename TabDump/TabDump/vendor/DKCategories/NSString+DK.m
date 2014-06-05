@@ -17,8 +17,16 @@
 - (NSString *)dk_domainForStringURL {
     NSString *domain = self;
     domain = [domain stringByReplacingOccurrencesOfString:@"www." withString:@""];
-    domain = [domain substringFromIndex:[domain rangeOfString:@"://"].location+3];
-    domain = [domain substringToIndex:[domain rangeOfString:@"/"].location];
+    
+    NSRange range = [domain rangeOfString:@"://"];
+    if (range.location!=NSNotFound) {
+        domain = [domain substringFromIndex:range.location+3];
+    }
+    
+    NSRange range2 = [domain rangeOfString:@"/"];
+    if (range2.location!=NSNotFound) {
+        domain = [domain substringToIndex:range2.location];
+    }
     
     return domain;
 }

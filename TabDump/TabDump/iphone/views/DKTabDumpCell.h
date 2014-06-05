@@ -11,5 +11,5 @@
 @class DKTabDump;
 @class DKTab;
 @interface DKTabDumpCell : UITableViewCell
-- (void)setupWithDump:(DKTabDump*)dump link:(DKTab*)link;
+- (void)setupWithDump:(DKTabDump*)dump link:(DKTab*)link nightmode:(NSNumber*)nightmode;
 @end

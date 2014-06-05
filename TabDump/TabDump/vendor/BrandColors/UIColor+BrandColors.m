@@ -24,6 +24,9 @@
                       @"ARM",
                       @"AT&T",
                       
+                      @"Beats",
+                      @"Blizzard",
+                      
                       @"Cisco",
                       
                       @"Dish Network",
@@ -103,6 +106,7 @@
 + (NSArray*)bc_brandsWithDarkColor {
     NSArray *darkColorBrands = @[
                                  @"Apple",
+                                 @"Beats",
                                  @"Cisco",
                                  @"Facebook",
                                  @"Foxconn",
@@ -169,7 +173,15 @@
     if ([self brand:brand matches:@"AT&T"]) {
         return [UIColor dk_colorWithHexString:@"#2D96C8"];
     }
-
+    
+    if ([self brand:brand matches:@"Beats"]) {
+        return [UIColor dk_colorWithHexString:@"#FF0000"];
+    }
+    
+    if ([self brand:brand matches:@"Blizzard"]) {
+        return [UIColor dk_colorWithHexString:@"#01B2F1"];
+    }    
+    
     if ([self brand:brand matches:@"Cisco"]) {
         return [UIColor dk_colorWithHexString:@"#11495E"];
     }

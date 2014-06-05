@@ -10,6 +10,7 @@
 
 // Categories
 #import "UIColor+DK.h"
+#import "UIFont+TD.h"
 #import "UIView+DK.h"
 
 // Defines
@@ -41,9 +42,6 @@
         
         self.excerptLabel = [[UILabel alloc] init];
         self.excerptLabel.numberOfLines = 0;
-
-        //TODO: use klist font
-        self.excerptLabel.font = kCellFont;
         
         NSArray *allViews = @[
                               self.titleLabel,
@@ -56,7 +54,9 @@
 }
 
 
-- (void)setupWithDump:(DKTabDump*)dump link:(DKTab*)link {
+- (void)setupWithDump:(DKTabDump*)dump link:(DKTab*)link nightmode:(NSNumber *)nightmode {
+    self.excerptLabel.font = [UIFont td_fontFromSettings];
+    
     CGRect frame;
     CGFloat padding=12;
     frame = CGRectMake(padding, padding, 100, 20);
@@ -78,7 +78,6 @@
     self.excerptLabel.text = excerpt;
     frame.size = [link sizeForStrippedHTML];    
     self.excerptLabel.frame = frame;
-    //NSLog(@"about label %@",self.aboutLabel);
     
     frame.origin.y = self.titleLabel.dk_top;
     self.readTimeLabel.text = [NSString stringWithFormat:@"%@%@", kCellReadTimePrefix, dump.readingTime];
@@ -88,7 +87,15 @@
     frame.origin.x = 320 -10 -frame.size.width;
     self.readTimeLabel.frame = frame;
     
-    self.excerptLabel.textColor = [UIColor blackColor];
+    if ([nightmode isEqual:@1]) {
+        self.excerptLabel.textColor = [UIColor whiteColor];
+        self.titleLabel.textColor = [UIColor whiteColor];
+    }
+    else {
+        self.excerptLabel.textColor = [UIColor blackColor];
+        self.titleLabel.textColor = [UIColor blackColor];
+    }
+    
     NSArray *tabDumpsRead = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsTabDumpsRead];
     if (tabDumpsRead) {
         if ([tabDumpsRead containsObject:dump.date]) {

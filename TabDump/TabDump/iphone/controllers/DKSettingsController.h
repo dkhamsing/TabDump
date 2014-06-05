@@ -8,7 +8,5 @@
 
 #import <UIKit/UIKit.h>
 
-@class DKTab;
 @interface DKSettingsController : UITableViewController
-@property (nonatomic,strong) DKTab *previewTab;
 @end

@@ -17,7 +17,7 @@
 
 // Controllers
 #import "DKSettingsController.h"
-#import "SVWebViewController.h"
+#import "DKWebViewController.h"
 
 // Defines
 #import "DKTabDumpDefines.h"
@@ -26,14 +26,13 @@
 #import "DKTab.h"
 
 // Views
-//TODO: rename DKTabCell
 #import "DKAboutView.h"
-#import "DKDayCell.h"
+#import "DKTabCell.h"
 
 
 @interface DKTabsListController ()
 @property (nonatomic,strong) DKAboutView *aboutView;
-@property (nonatomic,strong) DKTab *previewTab;
+@property (nonatomic,strong) NSString *currentTitle;
 @end
 
 @implementation DKTabsListController
@@ -43,7 +42,7 @@ CGRect kNavigationButtonFrame1 = {0,0,30,44};
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
-        [self td_addBackButtonPop];
+        //[self td_addBackButtonPop];
         
         self.aboutView = [[DKAboutView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, kAboutViewHeight)];
         self.aboutView.overlayView.alpha = 0.2;
@@ -65,40 +64,39 @@ CGRect kNavigationButtonFrame1 = {0,0,30,44};
 - (void)setDataSource:(NSArray *)dataSource {
     _dataSource = dataSource;
     [self.tableView reloadData];
-    
-    self.previewTab = [_dataSource[0] copy];
 }
 
 
+#pragma mark - UIView Controller
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
     [self.tableView reloadData];
+    
+    [self td_updateBackgroundColorForNightMode];
+    
+    if (self.currentTitle)
+        self.title = self.currentTitle;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    self.currentTitle = self.title;
+    self.title = @" ";
+    [super viewWillDisappear:animated];
 }
 
 
 #pragma mark - Private
 
 - (void)actionSettings {
-    //NSLog(@"settings hit");
-    DKSettingsController *settingsController = [[DKSettingsController alloc] init];
-    //settingsController.previewTab = settingsController.previewTab;
+    DKSettingsController *settingsController = [[DKSettingsController alloc] init];    
     [self.navigationController pushViewController:settingsController animated:YES];
 }
 
 
 #pragma mark - Table view data source
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    //[cell setBackgroundColor:[UIColor redColor]];
-//    NSArray *datasource = self.dataSource[indexPath.row];
-    DKTab *link = self.dataSource[indexPath.row];
-    
-    
-    NSNumber *categoryColors = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsCategoryColors];
-    if ([categoryColors isEqual:@1]) {
-        cell.backgroundColor = [link colorForCategory];
-    }
-}
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -108,9 +106,9 @@ CGRect kNavigationButtonFrame1 = {0,0,30,44};
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *cellId = @"tabsListCell";
-    DKDayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"id"];
+    DKTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"id"];
     if (!cell) {
-        cell = [[DKDayCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[DKTabCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         cell.isCategory = YES;
     }
     
@@ -144,9 +142,8 @@ CGRect kNavigationButtonFrame1 = {0,0,30,44};
         return;
     }
     
-    SVWebViewController *webController = [[SVWebViewController alloc] initWithAddress:link.urlString];
-    [webController td_addBackButtonPop];
-    webController.title = @"Loading";
+    DKWebViewController *webController = [[DKWebViewController alloc] initWithURLString:link.urlString];
+    [webController td_setup];
     [self.navigationController pushViewController:webController animated:YES];
 }
 

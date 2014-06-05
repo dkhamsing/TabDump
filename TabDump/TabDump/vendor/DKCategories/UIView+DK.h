@@ -93,6 +93,13 @@
 
 
 /**
+ Add a 1 pixel red border to the receiver.
+ Credits: @irace 
+ */
+- (void)dk_debug;
+
+
+/**
  Fade in the receiver (sets initial alpha to zero).
  @param alpha alpha
  @param duration How long to animate the view
@@ -125,6 +132,19 @@
  @return A view object or `nil`
  */
 - (id)dk_firstSuperviewOfClass:(Class)superviewClass;
+
+
+/**
+ Make the receiver into a circle.
+ */
+- (void)dk_styleCircle;
+
+
+/**
+ Get the view controller for the receiver.
+ */
+// TODO: example in demo
+- (UIViewController *)dk_viewController;
 
 
 #pragma mark - Frame

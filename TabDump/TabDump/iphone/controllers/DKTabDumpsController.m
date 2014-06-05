@@ -11,6 +11,7 @@
 // Categories
 #import "UIColor+TD.h"
 #import "UIImage+DK.h"
+#import "UIViewController+TD.h"
 
 // Defines
 #import "DKTabDumpDefines.h"
@@ -59,6 +60,17 @@
 }
 
 
+#pragma mark - UIViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [self.tableView reloadData];
+    
+    [self td_updateBackgroundColorForNightMode];
+}
+
+
 #pragma mark - Private
 
 - (void)actionClose {
@@ -83,6 +95,21 @@
 
 #pragma mark - Table view data source
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+
+ 
+    NSNumber *nightMode = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsNightMode];
+ 
+    if ([nightMode isEqual:@1]) {
+        cell.backgroundColor = [UIColor blackColor];
+    }
+    else {
+        cell.backgroundColor = [UIColor whiteColor];
+    }
+    
+}
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return 1;
@@ -103,10 +130,9 @@
     }
     
     DKTabDump *dump = self.dataSource[indexPath.row];
-    
-    //NSLog(@"dump.tabstech.count=%@",@(dump.tabsTech.count));
     DKTab *link = dump.tabsTech[[self dumpIndexForIndexPathRow:indexPath.row max:dump.tabsTech.count]];
-    [cell setupWithDump:dump link:link];
+    NSNumber *nightmode = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsNightMode];
+    [cell setupWithDump:dump link:link nightmode:nightmode];
     
     return cell;
 }

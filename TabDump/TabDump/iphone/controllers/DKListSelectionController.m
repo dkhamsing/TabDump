@@ -31,9 +31,11 @@ NSUInteger kSegmentedControlTag = 88;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.title = @" ";
+        
         [self td_addCloseButtomDismiss];
         
-        self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Calendar",@"Categories"]];
+        self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Dates",@"Categories"]];
         self.segmentedControl.tag = kSegmentedControlTag;
         CGFloat width = 180;
         self.segmentedControl.frame = CGRectMake((320-width)/2, 5, width, 30);

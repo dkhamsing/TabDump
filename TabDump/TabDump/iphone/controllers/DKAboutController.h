@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface DKAboutController : UIViewController
-
+- (void)setColorForNightMode:(NSNumber*)nightMode;
 @end

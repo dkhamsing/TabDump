@@ -19,6 +19,9 @@
 #import "UIView+DK.h"
 #import "UIViewController+TD.h"
 
+// Controllers
+#import "DKWebViewController.h"
+
 // Defines
 #import "DKTabDumpDefines.h"
 
@@ -26,11 +29,8 @@
 #import "DKTabDump.h"
 #import "DKTab.h"
 
-// Libraries
-#import "SVWebViewController.h"
-
 // Views
-#import "DKDayCell.h"
+#import "DKTabCell.h"
 #import "DKAboutView.h"
 
 
@@ -41,7 +41,12 @@
 @property (nonatomic,strong) UIRefreshControl *tableRefreshControl;
 @property (nonatomic) BOOL didScroll;
 
+@property (nonatomic,strong) UIView *headView;
+@property (nonatomic,strong) UILabel *tabDumpLabel;
+
 @property (nonatomic,strong) DKAboutView *aboutView;
+
+@property (nonatomic,strong) NSString *currentTitle;
 @end
 
 @implementation DKDayController
@@ -62,22 +67,21 @@
         gestureRecognizer.delegate = self;
         [self.tableView addGestureRecognizer:gestureRecognizer];
         
-        UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, kDayHeaderHeight)];
-        headView.backgroundColor = [UIColor whiteColor];
-        CGRect frame = headView.frame;
+        self.headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, kDayHeaderHeight)];
+        CGRect frame = self.headView.frame;
         frame.origin.x = 4;
-        UILabel *tabDumpLabel = [[UILabel alloc] initWithFrame:frame];
-        tabDumpLabel.numberOfLines = 0;
-        tabDumpLabel.font = [UIFont fontWithName:kFontBold size:70];
+        self.tabDumpLabel = [[UILabel alloc] initWithFrame:frame];
+        self.tabDumpLabel.numberOfLines = 0;
+        self.tabDumpLabel.font = [UIFont fontWithName:kFontBold size:70];
         NSString *tabDumpText = @"TAB\nDUMP";
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.lineSpacing = 0;
         paragraphStyle.maximumLineHeight = 68;
         paragraphStyle.alignment = NSTextAlignmentCenter;
         NSMutableAttributedString *tabDumpAttributedString = [[NSMutableAttributedString alloc] initWithString:tabDumpText attributes:@{ NSKernAttributeName:@(13), NSParagraphStyleAttributeName:paragraphStyle} ];
-        tabDumpLabel.attributedText = tabDumpAttributedString;
-        [headView addSubview:tabDumpLabel];
-        self.tableView.tableHeaderView = headView;
+        self.tabDumpLabel.attributedText = tabDumpAttributedString;
+        [self.headView addSubview:self.tabDumpLabel];
+        self.tableView.tableHeaderView = self.headView;
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
@@ -107,17 +111,32 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     [self.tableView reloadData];
+    
+    NSNumber *nightMode = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsNightMode];
+    if ([nightMode isEqual:@1]) {
+        self.headView.backgroundColor = [UIColor blackColor];
+        self.tabDumpLabel.textColor = [UIColor whiteColor];
+    }
+    else {
+        self.headView.backgroundColor = [UIColor whiteColor];
+        self.tabDumpLabel.textColor = [UIColor blackColor];
+    }
+    
+    [self td_updateBackgroundColorForNightMode];
+    
+    if (self.currentTitle)
+        self.title = self.currentTitle;
 }
 
-/*
- 
- 
- 
- - (void)viewWillDisappear:(BOOL)animated {
- self.title = @" ";
- [super viewWillDisappear:animated];
- }*/
+
+- (void)viewWillDisappear:(BOOL)animated {
+    self.title = self.currentTitle;
+    self.title = @" ";
+    
+    [super viewWillDisappear:animated];
+}
 
 
 #pragma mark - Public
@@ -162,7 +181,7 @@
 
 
 - (void)actionShare:(UIButton*)button {
-    DKDayCell *cell = [button dk_firstSuperviewOfClass:[DKDayCell class]];
+    DKTabCell *cell = [button dk_firstSuperviewOfClass:[DKTabCell class]];
     DKTab *link = cell.link;
     
     [self share:link];
@@ -228,11 +247,10 @@ CGFloat headerHeight = 30;
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, headerHeight)];
-    headerView.backgroundColor = [UIColor whiteColor];
     
     UILabel *label = [[UILabel alloc] initWithFrame:headerView.frame];
     label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor td_dayTabCategoryColor];
+
     label.font = [UIFont fontWithName:kFontBold size:15];
     
     NSString *labelText = @"Bits and Bytes";
@@ -241,23 +259,23 @@ CGFloat headerHeight = 30;
     }
     label.text = labelText;
     
+    //color
+    NSNumber *nightMode = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsNightMode];
+    if ([nightMode isEqual:@1]) {
+       // headerView.backgroundColor = [UIColor redColor];
+        
+        label.backgroundColor = [UIColor blackColor];
+        label.textColor = [UIColor whiteColor];
+    }
+    else {
+       // headerView.backgroundColor = [UIColor orangeColor];
+        
+        label.backgroundColor = [UIColor whiteColor];
+        label.textColor = [UIColor td_dayTabCategoryColor];
+    }
     
     [headerView addSubview:label];
     return headerView;
-}
-
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *datasource = self.dataSource[indexPath.section];
-    DKTab *link = datasource[indexPath.row];
-    
-    NSNumber *categoryColors = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsCategoryColors];
-    if ([categoryColors isEqual:@1]) {
-        cell.backgroundColor = [link colorForCategory];
-    }
-    else {
-        cell.backgroundColor = [UIColor whiteColor];
-    }
 }
 
 
@@ -276,9 +294,9 @@ CGFloat headerHeight = 30;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *detailCellId = @"detailCellId";
-    DKDayCell *cell = [tableView dequeueReusableCellWithIdentifier:detailCellId];
+    DKTabCell *cell = [tableView dequeueReusableCellWithIdentifier:detailCellId];
     if (cell==nil) {
-        cell = [[DKDayCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:detailCellId];
+        cell = [[DKTabCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:detailCellId];
     }
     
     NSArray *datasource = self.dataSource[indexPath.section];
@@ -311,9 +329,7 @@ CGFloat headerHeight = 30;
         return;
     }
     
-    SVWebViewController *webController = [[SVWebViewController alloc] initWithAddress:link.urlString];
-    [webController td_addBackButtonPop];
-    webController.title = @"Loading";
+    DKWebViewController *webController = [[DKWebViewController alloc] initWithURLString:link.urlString];
     [self.navigationController pushViewController:webController animated:YES];
 }
 

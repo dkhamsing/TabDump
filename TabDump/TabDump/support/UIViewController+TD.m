@@ -12,9 +12,13 @@
 #import "UIColor+TD.h"
 #import "UIImage+DK.h"
 
+// Defines
+#import "DKTabDumpDefines.h"
+
 
 @implementation UIViewController (TD)
 
+/*
 - (void)td_addBackButtonPop {
     UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"top-left"] style:UIBarButtonItemStylePlain target:self action:@selector(ds_actionPop)];
     
@@ -22,7 +26,7 @@
     spacerBarButton.width = -10;
     
     self.navigationItem.leftBarButtonItems = @[spacerBarButton,backBarButtonItem];
-}
+}*/
 
 
 - (void)td_addCloseButtomDismiss {
@@ -41,11 +45,23 @@
 }
 
 
-#pragma mark - Private
+- (void)td_updateBackgroundColorForNightMode {
+    NSNumber *nightMode = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsNightMode];
+    
+    if ([nightMode isEqual:@1]) {
+        self.view.backgroundColor = [UIColor blackColor];
+    }
+    else {
+        self.view.backgroundColor = [UIColor whiteColor];
+    }    
+}
 
+
+#pragma mark - Private
+/*
 - (void)ds_actionPop {
     [self.navigationController popViewControllerAnimated:YES];
-}
+}*/
 
 
 - (void)ds_actionDismiss {

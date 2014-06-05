@@ -41,7 +41,7 @@ NSString *cellId = @"cellId";
         layout.minimumInteritemSpacing = 0;
         layout.minimumLineSpacing = 0;
         self.categoriesCollectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-        self.categoriesCollectionView.backgroundColor = [UIColor whiteColor];
+        self.categoriesCollectionView.backgroundColor = [UIColor clearColor];
         self.categoriesCollectionView.delegate = self;
         self.categoriesCollectionView.dataSource = self;
         [self.categoriesCollectionView registerClass:[DKCategoryCell class] forCellWithReuseIdentifier:cellId];
@@ -85,6 +85,15 @@ NSString *cellId = @"cellId";
     
     self.dataSource = sortedTech;
     [self.categoriesCollectionView reloadData];
+}
+
+
+#pragma mark - UIViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self td_updateBackgroundColorForNightMode];
 }
 
 

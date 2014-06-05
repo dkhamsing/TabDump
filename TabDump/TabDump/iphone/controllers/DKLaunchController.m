@@ -48,7 +48,7 @@
 
 @property (nonatomic,strong) UIButton *scrollButton;
 
-@property (nonatomic,strong) DKTab *previewTab;
+//@property (nonatomic,strong) DKTab *previewTab;
 @end
 
 @implementation DKLaunchController
@@ -63,6 +63,8 @@ CGFloat kNavigationBarHeight = 64;
         // style
         [[UINavigationBar appearance] setTintColor:[UIColor td_highlightColor]];
         [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:kFontBold size:15]}];
+        [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"top-left"]];
+        [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"top-left"]];
         [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont fontWithName:kFontRegular size:11]} forState:UIControlStateNormal];
         
         // init
@@ -76,18 +78,18 @@ CGFloat kNavigationBarHeight = 64;
         // navigaton bar
         UIBarButtonItem *spacerBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         spacerBarButton.width = kNavigationButtonInset;
-        UIImage *infoImage = [UIImage dk_maskedImageNamed:@"top-gears" color:[UIColor td_highlightColor]];
-        UIButton *infoButton = [[UIButton alloc] initWithFrame:kNavigationButtonFrame];
-        [infoButton setImage:infoImage forState:UIControlStateNormal];
-        [infoButton addTarget:self action:@selector(actionAbout) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *aboutBarButton = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
+        UIImage *gearsImage = [UIImage dk_maskedImageNamed:@"top-gears" color:[UIColor td_highlightColor]];
+        UIButton *settingsButton = [[UIButton alloc] initWithFrame:kNavigationButtonFrame];
+        [settingsButton setImage:gearsImage forState:UIControlStateNormal];
+        [settingsButton addTarget:self action:@selector(actionSettings) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *settingsBarButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
         UIImage *listImage = [UIImage dk_maskedImageNamed:@"top-list" color:[UIColor td_highlightColor]];
         
         UIButton *listButton = [[UIButton alloc] initWithFrame:kNavigationButtonFrame];
         [listButton setImage:listImage forState:UIControlStateNormal];
         [listButton addTarget:self action:@selector(actionList) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *listBarButton = [[UIBarButtonItem alloc]initWithCustomView:listButton];
-        self.navigationItem.leftBarButtonItems = @[spacerBarButton, listBarButton, aboutBarButton];
+        self.navigationItem.leftBarButtonItems = @[spacerBarButton, listBarButton, settingsBarButton];
         
         self.scrollButton = [[UIButton alloc] init];
         [self setupRightButtons];
@@ -130,7 +132,7 @@ CGFloat kNavigationBarHeight = 64;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.title = self.currentTitle;
-    
+    /*
     if (self.title) {
         // flash title if it is today or yesterday
         NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
@@ -163,28 +165,14 @@ CGFloat kNavigationBarHeight = 64;
                 self.title = self.currentTitle;
             });
         }
-    }
+    }*/
 }
 
 
 #pragma mark - Private
 
-- (void)actionAbout {
-    DKSettingsController *aboutController = [[DKSettingsController alloc] init];
-    
-    NSString *newCategory = @"Google";
-    self.previewTab.strippedHTML = [self.previewTab.strippedHTML stringByReplacingOccurrencesOfString:self.previewTab.categoryOnly withString:newCategory];
-    self.previewTab.category = [self.previewTab.category stringByReplacingOccurrencesOfString:self.previewTab.categoryOnly withString:newCategory];
-    self.previewTab.categoryOnly = newCategory;
-    
-    //NSLog(@"%d",self.previewTab.strippedHTML.length);
-    NSUInteger crop = 70;
-    if (self.previewTab.strippedHTML.length>crop) {
-        self.previewTab.strippedHTML = [self.previewTab.strippedHTML substringToIndex:crop];
-        self.previewTab.strippedHTML = [self.previewTab.strippedHTML stringByAppendingString:@"..."];
-    }
-    
-    aboutController.previewTab = self.previewTab;
+- (void)actionSettings {
+    DKSettingsController *aboutController = [[DKSettingsController alloc] init]; 
     [self.navigationController pushViewController:aboutController animated:YES];
 }
 
@@ -236,11 +224,6 @@ CGFloat kNavigationBarHeight = 64;
         self.selectionController.calendarController.dataSource = dumps;
         self.selectionController.categoriesController.categoriesTabDumps = dumps;
         DKTabDump *dump = dumps[0];
-        
-        if (dump.tabsTech.count>0) {
-            self.previewTab = [dump.tabsTech[1] copy];
-        }
-        
         [self loadDump:dump];
     }
     else {

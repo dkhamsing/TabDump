@@ -9,14 +9,13 @@
 #import "DKAboutController.h"
 
 // Categories
-#import "UIColor+TD.h"
 #import "UIView+DK.h"
 #import "UIViewController+DK.h"
 #import "UIViewController+TD.h"
 
 // Controllers
 #import "DKSettingsController.h"
-#import "SVWebViewController.h"
+#import "DKWebViewController.h"
 
 // Defines
 #import "DKTabDumpDefines.h"
@@ -36,9 +35,9 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self td_addBackButtonPop];
+        //[self td_addBackButtonPop];
         self.title = @" ";
-        self.view.backgroundColor = [UIColor whiteColor];
+        
         
         self.aboutScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
         [self.view addSubview:self.aboutScrollView];
@@ -55,10 +54,7 @@
         [UIView dk_addSubviews:@[
                                  self.aboutView,
                                  self.webView,
-                                 ] onView:self.aboutScrollView];
-        
-        UIBarButtonItem *settingsBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:@selector(actionSettings)];
-        self.navigationItem.rightBarButtonItem = settingsBarButton;
+                                 ] onView:self.aboutScrollView];        
     }
     return self;
 }
@@ -66,7 +62,7 @@
 
 #pragma mark - UIViewController
 
-- (void)viewDidLayoutSubviews {    
+- (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
     self.aboutScrollView.frame = self.view.bounds;
@@ -75,7 +71,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     CGRect frame;
-
+    
     frame.origin.x = 10;
     frame.origin.y = self.aboutView.dk_bottom;
     frame.size.width = 300;
@@ -83,16 +79,28 @@
     [self dk_adjustHeightForSmallScreen:frame.size.height];
     self.webView.frame = frame;
     
-    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
-    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-    [self.webView loadHTMLString:htmlString baseURL:nil];
+    
+    NSNumber *nightMode = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsNightMode];
+    [self setColorForNightMode:nightMode];
+    
+    
 }
 
 
-#pragma mark - Private
+#pragma mark - Public
 
-- (void)actionSettings {
-    [self.navigationController pushViewController:[[DKSettingsController alloc]init] animated:YES];
+- (void)setColorForNightMode:(NSNumber*)nightMode {
+    
+    [self td_updateBackgroundColorForNightMode];
+    
+    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
+    NSString *htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+    
+    if ([nightMode isEqual:@1]) {
+        htmlString = [htmlString stringByReplacingOccurrencesOfString:@"color: black; background-color: white;" withString:@"color: white; background-color: black;"];
+    }
+    
+    [self.webView loadHTMLString:htmlString baseURL:nil];
 }
 
 
@@ -101,11 +109,11 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     //NSLog(@"%@",request.URL.absoluteString);
     if ([request.URL.absoluteString isEqualToString:@"about:blank"]) {
-         return YES;
+        return YES;
     }
-
-    SVWebViewController *webViewController = [[SVWebViewController alloc] initWithURL:request.URL];
-    webViewController.title = @"Loading";
+    
+    DKWebViewController *webViewController = [[DKWebViewController alloc] initWithURL:request.URL];
+    [webViewController td_setup];    
     [self.navigationController pushViewController:webViewController animated:YES];
     
     return NO;

@@ -12,59 +12,59 @@
 #import "UIColor+TD.h"
 #import "UIView+DK.h"
 
+// Controllers
+#import "DKWebViewController.h"
+
 // Defines
 #import "DKTabDumpDefines.h"
 
 // Frameworks
 @import Accounts;
+@import MessageUI;
 @import Social;
 
-// Libraries
-#import "SVWebViewController.h"
 
-
-@interface DKAboutView () <UIActionSheetDelegate>
+@interface DKAboutView () <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 @property (nonatomic,strong) UIImageView *stefanImageView;
 @property (nonatomic,strong) UIImageView *danielImageView;
 @property (nonatomic,strong) UILabel *stefanLabel;
 @property (nonatomic,strong) UILabel *danielLabel;
 @property (nonatomic,strong) UIButton *stefanButton;
 @property (nonatomic,strong) UIButton *danielButton;
-
 @property (nonatomic,strong) NSString *twitterUrlString;
 @property (nonatomic,strong) NSString *twitterUsername;
+@property (nonatomic,strong) NSString *email;
 @end
 
 @implementation DKAboutView
 
-CGFloat kFontSize1 = 13;
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+CGFloat kFontSize1 = 13;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        // notification
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(notificationNightMode:)
+                                                     name:kNotificationNightMode
+                                                   object:nil];
+        
+        // init
         self.stefanImageView = [[UIImageView alloc] init];
         self.danielImageView = [[UIImageView alloc] init];
-        
         self.stefanLabel = [[UILabel alloc] init];
         self.danielLabel = [[UILabel alloc] init];
-        
-        NSArray *labels = @[self.stefanLabel,self.danielLabel];
-        [labels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            UILabel *label = obj;
-            label.numberOfLines = 0;
-            label.font = [UIFont fontWithName:kFontRegular size:kFontSize1];
-        }];
-        
         self.stefanButton = [[UIButton alloc] init];
-        [self.stefanButton addTarget:self action:@selector(actionTwitter:) forControlEvents:UIControlEventTouchUpInside];
         self.danielButton = [[UIButton alloc] init];
-        [self.danielButton addTarget:self action:@selector(actionTwitter:) forControlEvents:UIControlEventTouchUpInside];
-        
         self.overlayView = [[UIView alloc] initWithFrame:self.bounds];
-        self.overlayView.backgroundColor = [UIColor whiteColor];
-        self.overlayView.alpha = 0.7;
         
+        // subviews
         [UIView dk_addSubviews:@[self.stefanImageView,
                                  self.danielImageView,
                                  self.stefanLabel,
@@ -74,17 +74,35 @@ CGFloat kFontSize1 = 13;
                                  self.danielButton,
                                  ] onView:self];
         
+        // setup
+        NSArray *labels = @[self.stefanLabel,self.danielLabel];
+        [labels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            UILabel *label = obj;
+            label.numberOfLines = 0;
+            label.font = [UIFont fontWithName:kFontRegular size:kFontSize1];
+        }];
+        
+        [self.stefanButton addTarget:self action:@selector(actionTwitter:) forControlEvents:UIControlEventTouchUpInside];
+
+        [self.danielButton addTarget:self action:@selector(actionTwitter:) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.overlayView.alpha = 0.7;
+        
+        NSNumber *nightmode = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsNightMode];
+        [self updateForNightMode:nightmode];
+        
+        // frame
         CGRect frame;
         CGFloat inset = 24;
         frame.origin = CGPointMake(32, inset);
         frame.size = CGSizeMake(60, 60);
         self.stefanImageView.frame = frame;
-        [self styleCircle:self.stefanImageView];
+        [self.stefanImageView dk_styleCircle];
         self.stefanImageView.image = [UIImage imageNamed:@"credit-stefan.jpg"];
         
         frame.origin.y = self.stefanImageView.dk_bottom +inset;
         self.danielImageView.frame = frame;
-        [self styleCircle:self.danielImageView];
+        [self.danielImageView dk_styleCircle];
         self.danielImageView.image = [UIImage imageNamed:@"credit-daniel.jpg"];
         
         frame.origin.y = inset;
@@ -92,32 +110,8 @@ CGFloat kFontSize1 = 13;
         frame.size.width = 360/2;
         self.stefanLabel.frame = frame;
         
-        NSString *stefanTwitterUsername = [self stringForTwitterUsername:kAboutTwitterStefan];
-        NSString *stefanString = [NSString stringWithFormat:@"Tab Dump is written by %@\n%@",kAboutFullNameStefan, stefanTwitterUsername];
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:stefanString];
-        
-        NSDictionary *colorAttribute = @{NSForegroundColorAttributeName:[UIColor td_highlightColor]};
-        NSDictionary *fontAttribute = @{NSFontAttributeName:[UIFont fontWithName:kFontBold size:kFontSize1]};
-        
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.lineSpacing = 3;
-        NSDictionary *paragraphAttribute = @{NSParagraphStyleAttributeName:paragraphStyle};
-        
-        [attributedString addAttributes:colorAttribute range:[stefanString rangeOfString:stefanTwitterUsername]];
-        [attributedString addAttributes:fontAttribute range:[stefanString rangeOfString:kAboutFullNameStefan]];
-        [attributedString addAttributes:paragraphAttribute range:[stefanString rangeOfString:stefanString]];
-        
-        self.stefanLabel.attributedText = attributedString;
-        
         frame.origin.y = self.stefanLabel.dk_bottom +inset;
         self.danielLabel.frame = frame;
-        NSString *danielTwitterUsername = [self stringForTwitterUsername:kAboutTwitterDaniel];
-        NSString *danielString = [NSString stringWithFormat:@"Tab Dump for iOS is brought to you by %@\n%@",kAboutFullNameDaniel,danielTwitterUsername];
-        NSMutableAttributedString *attributedString2 = [[NSMutableAttributedString alloc] initWithString:danielString];
-        [attributedString2 addAttributes:colorAttribute range:[danielString rangeOfString:danielTwitterUsername]];
-        [attributedString2 addAttributes:fontAttribute range:[danielString rangeOfString:kAboutFullNameDaniel]];
-        [attributedString2 addAttributes:paragraphAttribute range:[danielString rangeOfString:danielString]];
-        self.danielLabel.attributedText = attributedString2;
         
         frame.origin = self.stefanImageView.frame.origin;
         frame.size.height = self.stefanImageView.dk_height;
@@ -130,31 +124,34 @@ CGFloat kFontSize1 = 13;
     return self;
 }
 
+
 #pragma mark - Private
-
-- (void)styleCircle:(UIView*)view {
-    view.layer.cornerRadius = view.bounds.size.height/2;
-    view.clipsToBounds = YES;
-}
-
 
 - (void)actionTwitter:(UIButton*)button {
     NSString *name;    
     if (button==self.danielButton) {
-        name = @"Daniel";
+        name = kAboutFullNameDaniel;
         self.twitterUsername = kAboutTwitterDaniel;
+        self.email = kAboutEmailDaniel;
     }
     else {
-        name = @"Stefan";
+        name = kAboutFullNameStefan;
         self.twitterUsername = kAboutTwitterStefan;
+        self.email = kAboutEmailStefan;
     }
     
     self.twitterUrlString = [NSString stringWithFormat:@"http://twitter.com/%@", self.twitterUsername];
-    NSString *sheetTitle = [NSString stringWithFormat:@"%@ on Twitter", name];
+    NSString *sheetTitle = name;
     NSString *followTitle = [NSString stringWithFormat:@"Follow @%@", self.twitterUsername];
     
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:sheetTitle delegate:self cancelButtonTitle:@"Dismiss" destructiveButtonTitle:nil otherButtonTitles:followTitle, @"View Timeline", @"Send Message",nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:sheetTitle delegate:self cancelButtonTitle:@"Dismiss" destructiveButtonTitle:nil otherButtonTitles:followTitle, @"Twitter Timeline", @"Send Tweet", @"Send Email", nil];
     [sheet showInView:self];
+}
+
+
+- (void)notificationNightMode:(NSNotification*)notification {
+    //NSLog(@"about view received notification: %@",notification.object);
+    [self updateForNightMode:notification.object];
 }
 
 
@@ -163,16 +160,51 @@ CGFloat kFontSize1 = 13;
 }
 
 
-//TODO: put this in uiview category
-- (UIViewController *)viewController {
-    UIResponder *responder = self;
-    while (![responder isKindOfClass:[UIViewController class]]) {
-        responder = [responder nextResponder];
-        if (nil == responder) {
-            break;
-        }
+- (void)updateForNightMode:(NSNumber*)NightMode {
+    if ([NightMode isEqual:@1]) {
+        self.backgroundColor = [UIColor blackColor];
+        self.stefanLabel.textColor = [UIColor whiteColor];
+        self.danielLabel.textColor = [UIColor whiteColor];
+        self.overlayView.backgroundColor = [UIColor blackColor];
     }
-    return (UIViewController *)responder;
+    else {
+        self.backgroundColor = [UIColor whiteColor];
+        self.stefanLabel.textColor = [UIColor blackColor];
+        self.danielLabel.textColor = [UIColor blackColor];
+        self.overlayView.backgroundColor = [UIColor whiteColor];
+    }
+    
+    NSString *stefanTwitterUsername = [self stringForTwitterUsername:kAboutTwitterStefan];
+    NSString *stefanString = [NSString stringWithFormat:@"Tab Dump is written by %@\n%@",kAboutFullNameStefan, stefanTwitterUsername];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:stefanString];
+    
+    NSDictionary *colorAttribute = @{NSForegroundColorAttributeName:[UIColor td_highlightColor]};
+    NSDictionary *fontAttribute = @{NSFontAttributeName:[UIFont fontWithName:kFontBold size:kFontSize1]};
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 3;
+    NSDictionary *paragraphAttribute = @{NSParagraphStyleAttributeName:paragraphStyle};
+    
+    [attributedString addAttributes:colorAttribute range:[stefanString rangeOfString:stefanTwitterUsername]];
+    [attributedString addAttributes:fontAttribute range:[stefanString rangeOfString:kAboutFullNameStefan]];
+    [attributedString addAttributes:paragraphAttribute range:[stefanString rangeOfString:stefanString]];
+    
+    self.stefanLabel.attributedText = attributedString;
+    
+    NSString *danielTwitterUsername = [self stringForTwitterUsername:kAboutTwitterDaniel];
+    NSString *danielString = [NSString stringWithFormat:@"Tab Dump for iOS is brought to you by %@\n%@",kAboutFullNameDaniel,danielTwitterUsername];
+    NSMutableAttributedString *attributedString2 = [[NSMutableAttributedString alloc] initWithString:danielString];
+    [attributedString2 addAttributes:colorAttribute range:[danielString rangeOfString:danielTwitterUsername]];
+    [attributedString2 addAttributes:fontAttribute range:[danielString rangeOfString:kAboutFullNameDaniel]];
+    [attributedString2 addAttributes:paragraphAttribute range:[danielString rangeOfString:danielString]];
+    self.danielLabel.attributedText = attributedString2;
+}
+
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -182,6 +214,7 @@ NS_ENUM(NSInteger, AboutActionSheetSelection) {
     AboutActionSheetSelectionFollow = 0,
     AboutActionSheetSelectionTimeline,
     AboutActionSheetSelectionMessage,
+    AboutActionSheetSelectionEmail,
     //AboutActionSheetSelectionCancelled,
 };
 
@@ -235,10 +268,8 @@ NS_ENUM(NSInteger, AboutActionSheetSelection) {
             break;
             
         case AboutActionSheetSelectionTimeline: {
-            //NSLog(@"opening %@",self.twitterUrlString);
-            SVWebViewController *webViewController = [[SVWebViewController alloc] initWithAddress:self.twitterUrlString];
-            webViewController.title = @"Loading";
-            [[self viewController].navigationController  pushViewController:webViewController animated:YES];
+            DKWebViewController *webViewController = [[DKWebViewController alloc] initWithURLString:self.twitterUrlString];
+            [[self dk_viewController].navigationController  pushViewController:webViewController animated:YES];
         }
             break;
             
@@ -254,7 +285,24 @@ NS_ENUM(NSInteger, AboutActionSheetSelection) {
             SLComposeViewController *mySLComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
             [mySLComposerSheet setInitialText:textToShare];
             
-            [[self viewController] presentViewController:mySLComposerSheet animated:YES completion:nil];
+            [[self dk_viewController] presentViewController:mySLComposerSheet animated:YES completion:nil];
+        }
+            break;
+            
+        case AboutActionSheetSelectionEmail: {
+            if (![MFMailComposeViewController canSendMail]) {
+                NSLog(@"oops no email set up");
+                //TODO: handle this case
+                return;
+            }
+            
+            MFMailComposeViewController *mailComposeVC = [[MFMailComposeViewController alloc] init];
+            mailComposeVC.mailComposeDelegate = self;
+            [mailComposeVC setMessageBody:@"" isHTML:NO ];
+            [mailComposeVC setToRecipients:@[self.email]];
+            [mailComposeVC setSubject:@"Feedback from Tab Dump for iOS"];
+            
+            [[self dk_viewController] presentViewController:mailComposeVC animated:YES completion:nil];
         }
             break;
             

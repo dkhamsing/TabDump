@@ -11,6 +11,7 @@
 // Categories
 #import "NSString+DK.h"
 #import "UIColor+BrandColors.h"
+#import "UIFont+TD.h"
 
 // Defines
 #import "DKTabDumpDefines.h"
@@ -50,10 +51,10 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = 5.45;
     
-    NSDictionary *attributes = @{
-                                 NSFontAttributeName:kCellFont,
-                                 NSParagraphStyleAttributeName:paragraphStyle,
-                                 };
+    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+    attributes[NSParagraphStyleAttributeName] = paragraphStyle;
+    attributes[NSFontAttributeName] = [UIFont td_fontFromSettings];
+    
     return attributes;
 }
 
@@ -81,21 +82,6 @@
                                ];
 
     return brandExcluded;
-}
-
-
-#pragma mark - NSCopying
-
-- (id)copyWithZone:(NSZone *)zone {
-    DKTab *tabCopy = [[[self class] allocWithZone:zone] init];
-    
-    tabCopy.strippedHTML = self.strippedHTML;
-    tabCopy.categoryOnly = self.categoryOnly;
-    tabCopy.category = self.category;
-    tabCopy.tabNumber = self.tabNumber;
-    tabCopy.urlString = self.urlString;
-    
-    return tabCopy;
 }
 
 

@@ -103,6 +103,11 @@
 }
 
 
+- (void)dk_debug {
+    [self dk_addBorderWithColor:[UIColor redColor] width:1];
+}
+
+
 - (void)dk_fadeInWithAlpha:(CGFloat)alpha duration:(CGFloat)duration {
     NSAssert(alpha>0, @"dk_fadeInWithAlpha alpha should be positive");
     self.alpha=0.0f;
@@ -146,6 +151,24 @@
         }
     }
     return nil;
+}
+
+
+- (void)dk_styleCircle {
+    self.layer.cornerRadius = self.bounds.size.height/2;
+    self.clipsToBounds = YES;
+}
+
+
+- (UIViewController *)dk_viewController {
+    UIResponder *responder = self;
+    while (![responder isKindOfClass:[UIViewController class]]) {
+        responder = [responder nextResponder];
+        if (nil == responder) {
+            break;
+        }
+    }
+    return (UIViewController *)responder;
 }
 
 

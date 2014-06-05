@@ -10,9 +10,11 @@
 
 @interface UIViewController (TD)
 
-- (void)td_addBackButtonPop;
+//- (void)td_addBackButtonPop;
 
 - (void)td_addCloseButtomDismiss;
+
+- (void)td_updateBackgroundColorForNightMode;
 
 
 @end
