@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DKTabDump : NSObject
+@interface DKTabDump : NSObject <NSCoding>
 
 /**
  Date of the tab dump.
@@ -55,10 +55,10 @@
 #pragma mark Methods
 
 /**
- Process HTML into tab dumps.
+ Process RSS into tab dumps.
  @return List of tab dumps.
  */
-+ (NSArray*)newListOfDumpsFromHTML:(NSString*)html;
++ (NSArray*)newListOfDumpsFromResponseData:(NSData*)data;
 
 
 /**

@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DKTab : NSObject
+@class ONOXMLElement;
+@interface DKTab : NSObject <NSCoding>
 
 /**
  Date of the tab (for category cell / view).
@@ -53,6 +54,12 @@
 
 
 #pragma mark Methods
+
+/**
+ Create a tab from an XML element.
+ */
++ (DKTab*)newTabFromXMLElement:(ONOXMLElement*)element;
+
 
 /**
  Return a Boolean specifying whether the brand color is dark.

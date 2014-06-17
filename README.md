@@ -15,11 +15,11 @@ Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twit
 
 # Libraries
 - [AFNetworking](http://afnetworking.com/)
+- [AFOnoResponseSerializer](https://github.com/AFNetworking/AFOnoResponseSerializer)
 - [BrandColors](https://github.com/dkhamsing/BrandColors)
 - [DKCategories](https://github.com/dkhamsing/DKCategories)
 - [DKUserMessageView](https://github.com/dkhamsing/DKUserMessageView)
-- [Google Toolbox For Mac](https://code.google.com/p/google-toolbox-for-mac/)
-- [HTMLReader](https://github.com/nolanw/HTMLReader) 
+- [Ono](https://github.com/mattt/Ono)
 - [TOWebViewController](https://github.com/TimOliver/TOWebViewController)
 
 # Design

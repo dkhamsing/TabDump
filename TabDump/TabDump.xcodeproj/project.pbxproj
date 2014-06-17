@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19147D5219433E780071116C /* AFOnoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 19147D4D19433E780071116C /* AFOnoResponseSerializer.m */; };
+		19147D5319433E780071116C /* ONOXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 19147D5119433E780071116C /* ONOXMLDocument.m */; };
+		19147D55194341470071116C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 19147D54194341470071116C /* libxml2.dylib */; };
 		19161DBA190E14B900B745C8 /* credit-daniel@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 19161DB6190E14B900B745C8 /* credit-daniel@2x.jpg */; };
 		19161DBB190E14B900B745C8 /* credit-stefan@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 19161DB7190E14B900B745C8 /* credit-stefan@2x.jpg */; };
 		19161DC9190E195500B745C8 /* Sintony-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19161DC6190E195500B745C8 /* Sintony-Bold.ttf */; };
@@ -48,21 +51,6 @@
 		CEBDF3FF19192BAB003AE46C /* UIView+DK.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3A619192BAB003AE46C /* UIView+DK.m */; };
 		CEBDF40019192BAB003AE46C /* UIViewController+DK.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3A819192BAB003AE46C /* UIViewController+DK.m */; };
 		CEBDF40119192BAB003AE46C /* DKUserMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3AB19192BAB003AE46C /* DKUserMessageView.m */; };
-		CEBDF40219192BAB003AE46C /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3AF19192BAB003AE46C /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		CEBDF40319192BAB003AE46C /* HTMLComment.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3B219192BAB003AE46C /* HTMLComment.m */; };
-		CEBDF40419192BAB003AE46C /* HTMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3B419192BAB003AE46C /* HTMLDocument.m */; };
-		CEBDF40519192BAB003AE46C /* HTMLDocumentType.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3B619192BAB003AE46C /* HTMLDocumentType.m */; };
-		CEBDF40619192BAB003AE46C /* HTMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3B819192BAB003AE46C /* HTMLElement.m */; };
-		CEBDF40719192BAB003AE46C /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3BB19192BAB003AE46C /* HTMLNode.m */; };
-		CEBDF40819192BAB003AE46C /* HTMLOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3BD19192BAB003AE46C /* HTMLOrderedDictionary.m */; };
-		CEBDF40919192BAB003AE46C /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3BF19192BAB003AE46C /* HTMLParser.m */; };
-		CEBDF40A19192BAB003AE46C /* HTMLPreprocessedInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3C119192BAB003AE46C /* HTMLPreprocessedInputStream.m */; };
-		CEBDF40B19192BAB003AE46C /* HTMLSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3C519192BAB003AE46C /* HTMLSelector.m */; };
-		CEBDF40C19192BAB003AE46C /* HTMLSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3C719192BAB003AE46C /* HTMLSerialization.m */; };
-		CEBDF40D19192BAB003AE46C /* HTMLString.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3C919192BAB003AE46C /* HTMLString.m */; };
-		CEBDF40E19192BAB003AE46C /* HTMLTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3CC19192BAB003AE46C /* HTMLTextNode.m */; };
-		CEBDF40F19192BAB003AE46C /* HTMLTokenizer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3CE19192BAB003AE46C /* HTMLTokenizer.m */; };
-		CEBDF41019192BAB003AE46C /* HTMLTreeEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF3D119192BAB003AE46C /* HTMLTreeEnumerator.m */; };
 		CEBDF42219192D69003AE46C /* top-down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEBDF41E19192D69003AE46C /* top-down@2x.png */; };
 		CEBDF42319192D69003AE46C /* top-list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEBDF41F19192D69003AE46C /* top-list@2x.png */; };
 		CEBDF42519192D69003AE46C /* top-x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEBDF42119192D69003AE46C /* top-x@2x.png */; };
@@ -104,6 +92,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		19147D4C19433E780071116C /* AFOnoResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFOnoResponseSerializer.h; sourceTree = "<group>"; };
+		19147D4D19433E780071116C /* AFOnoResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFOnoResponseSerializer.m; sourceTree = "<group>"; };
+		19147D4F19433E780071116C /* Ono.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ono.h; sourceTree = "<group>"; };
+		19147D5019433E780071116C /* ONOXMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ONOXMLDocument.h; sourceTree = "<group>"; };
+		19147D5119433E780071116C /* ONOXMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ONOXMLDocument.m; sourceTree = "<group>"; };
+		19147D54194341470071116C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		19161DB6190E14B900B745C8 /* credit-daniel@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "credit-daniel@2x.jpg"; sourceTree = "<group>"; };
 		19161DB7190E14B900B745C8 /* credit-stefan@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "credit-stefan@2x.jpg"; sourceTree = "<group>"; };
 		19161DC6190E195500B745C8 /* Sintony-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sintony-Bold.ttf"; sourceTree = "<group>"; };
@@ -186,42 +180,6 @@
 		CEBDF3A819192BAB003AE46C /* UIViewController+DK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DK.m"; sourceTree = "<group>"; };
 		CEBDF3AA19192BAB003AE46C /* DKUserMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKUserMessageView.h; sourceTree = "<group>"; };
 		CEBDF3AB19192BAB003AE46C /* DKUserMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKUserMessageView.m; sourceTree = "<group>"; };
-		CEBDF3AD19192BAB003AE46C /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
-		CEBDF3AE19192BAB003AE46C /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
-		CEBDF3AF19192BAB003AE46C /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
-		CEBDF3B119192BAB003AE46C /* HTMLComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLComment.h; sourceTree = "<group>"; };
-		CEBDF3B219192BAB003AE46C /* HTMLComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLComment.m; sourceTree = "<group>"; };
-		CEBDF3B319192BAB003AE46C /* HTMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLDocument.h; sourceTree = "<group>"; };
-		CEBDF3B419192BAB003AE46C /* HTMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLDocument.m; sourceTree = "<group>"; };
-		CEBDF3B519192BAB003AE46C /* HTMLDocumentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLDocumentType.h; sourceTree = "<group>"; };
-		CEBDF3B619192BAB003AE46C /* HTMLDocumentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLDocumentType.m; sourceTree = "<group>"; };
-		CEBDF3B719192BAB003AE46C /* HTMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLElement.h; sourceTree = "<group>"; };
-		CEBDF3B819192BAB003AE46C /* HTMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLElement.m; sourceTree = "<group>"; };
-		CEBDF3B919192BAB003AE46C /* HTMLNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLNamespace.h; sourceTree = "<group>"; };
-		CEBDF3BA19192BAB003AE46C /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLNode.h; sourceTree = "<group>"; };
-		CEBDF3BB19192BAB003AE46C /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLNode.m; sourceTree = "<group>"; };
-		CEBDF3BC19192BAB003AE46C /* HTMLOrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLOrderedDictionary.h; sourceTree = "<group>"; };
-		CEBDF3BD19192BAB003AE46C /* HTMLOrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLOrderedDictionary.m; sourceTree = "<group>"; };
-		CEBDF3BE19192BAB003AE46C /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
-		CEBDF3BF19192BAB003AE46C /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
-		CEBDF3C019192BAB003AE46C /* HTMLPreprocessedInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLPreprocessedInputStream.h; sourceTree = "<group>"; };
-		CEBDF3C119192BAB003AE46C /* HTMLPreprocessedInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLPreprocessedInputStream.m; sourceTree = "<group>"; };
-		CEBDF3C219192BAB003AE46C /* HTMLQuirksMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLQuirksMode.h; sourceTree = "<group>"; };
-		CEBDF3C319192BAB003AE46C /* HTMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLReader.h; sourceTree = "<group>"; };
-		CEBDF3C419192BAB003AE46C /* HTMLSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLSelector.h; sourceTree = "<group>"; };
-		CEBDF3C519192BAB003AE46C /* HTMLSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLSelector.m; sourceTree = "<group>"; };
-		CEBDF3C619192BAB003AE46C /* HTMLSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLSerialization.h; sourceTree = "<group>"; };
-		CEBDF3C719192BAB003AE46C /* HTMLSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLSerialization.m; sourceTree = "<group>"; };
-		CEBDF3C819192BAB003AE46C /* HTMLString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLString.h; sourceTree = "<group>"; };
-		CEBDF3C919192BAB003AE46C /* HTMLString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLString.m; sourceTree = "<group>"; };
-		CEBDF3CA19192BAB003AE46C /* HTMLSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLSupport.h; sourceTree = "<group>"; };
-		CEBDF3CB19192BAB003AE46C /* HTMLTextNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLTextNode.h; sourceTree = "<group>"; };
-		CEBDF3CC19192BAB003AE46C /* HTMLTextNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLTextNode.m; sourceTree = "<group>"; };
-		CEBDF3CD19192BAB003AE46C /* HTMLTokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLTokenizer.h; sourceTree = "<group>"; };
-		CEBDF3CE19192BAB003AE46C /* HTMLTokenizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLTokenizer.m; sourceTree = "<group>"; };
-		CEBDF3CF19192BAB003AE46C /* HTMLTokenizerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLTokenizerState.h; sourceTree = "<group>"; };
-		CEBDF3D019192BAB003AE46C /* HTMLTreeEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLTreeEnumerator.h; sourceTree = "<group>"; };
-		CEBDF3D119192BAB003AE46C /* HTMLTreeEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLTreeEnumerator.m; sourceTree = "<group>"; };
 		CEBDF41E19192D69003AE46C /* top-down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top-down@2x.png"; sourceTree = "<group>"; };
 		CEBDF41F19192D69003AE46C /* top-list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top-list@2x.png"; sourceTree = "<group>"; };
 		CEBDF42119192D69003AE46C /* top-x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top-x@2x.png"; sourceTree = "<group>"; };
@@ -269,6 +227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19147D55194341470071116C /* libxml2.dylib in Frameworks */,
 				CEC7C52A1906BEF3004DF651 /* CoreGraphics.framework in Frameworks */,
 				CEC7C52C1906BEF3004DF651 /* UIKit.framework in Frameworks */,
 				CEC7C5281906BEF3004DF651 /* Foundation.framework in Frameworks */,
@@ -288,6 +247,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19147D4B19433E780071116C /* AFOnoResponseSerializer */ = {
+			isa = PBXGroup;
+			children = (
+				19147D4C19433E780071116C /* AFOnoResponseSerializer.h */,
+				19147D4D19433E780071116C /* AFOnoResponseSerializer.m */,
+			);
+			path = AFOnoResponseSerializer;
+			sourceTree = "<group>";
+		};
+		19147D4E19433E780071116C /* Ono */ = {
+			isa = PBXGroup;
+			children = (
+				19147D4F19433E780071116C /* Ono.h */,
+				19147D5019433E780071116C /* ONOXMLDocument.h */,
+				19147D5119433E780071116C /* ONOXMLDocument.m */,
+			);
+			path = Ono;
+			sourceTree = "<group>";
+		};
 		19161DB5190E14B900B745C8 /* images */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,13 +356,12 @@
 			isa = PBXGroup;
 			children = (
 				CEBDF38619192BAB003AE46C /* AFNetworking */,
+				19147D4B19433E780071116C /* AFOnoResponseSerializer */,
 				CEBDF39A19192BAB003AE46C /* BrandColors */,
 				CEBDF39D19192BAB003AE46C /* Categories */,
 				CEBDF39E19192BAB003AE46C /* DKCategories */,
 				CEBDF3A919192BAB003AE46C /* DKUserMessageView */,
-				CEBDF3AC19192BAB003AE46C /* GTM */,
-				CEBDF3B019192BAB003AE46C /* HTMLReader */,
-				CEBDF3D219192BAB003AE46C /* SVProgressHUD */,
+				19147D4E19433E780071116C /* Ono */,
 				19D97A281934CA5700389A43 /* TOWebViewController */,
 			);
 			path = vendor;
@@ -458,63 +435,6 @@
 			path = DKUserMessageView;
 			sourceTree = "<group>";
 		};
-		CEBDF3AC19192BAB003AE46C /* GTM */ = {
-			isa = PBXGroup;
-			children = (
-				CEBDF3AD19192BAB003AE46C /* GTMDefines.h */,
-				CEBDF3AE19192BAB003AE46C /* GTMNSString+HTML.h */,
-				CEBDF3AF19192BAB003AE46C /* GTMNSString+HTML.m */,
-			);
-			path = GTM;
-			sourceTree = "<group>";
-		};
-		CEBDF3B019192BAB003AE46C /* HTMLReader */ = {
-			isa = PBXGroup;
-			children = (
-				CEBDF3B119192BAB003AE46C /* HTMLComment.h */,
-				CEBDF3B219192BAB003AE46C /* HTMLComment.m */,
-				CEBDF3B319192BAB003AE46C /* HTMLDocument.h */,
-				CEBDF3B419192BAB003AE46C /* HTMLDocument.m */,
-				CEBDF3B519192BAB003AE46C /* HTMLDocumentType.h */,
-				CEBDF3B619192BAB003AE46C /* HTMLDocumentType.m */,
-				CEBDF3B719192BAB003AE46C /* HTMLElement.h */,
-				CEBDF3B819192BAB003AE46C /* HTMLElement.m */,
-				CEBDF3B919192BAB003AE46C /* HTMLNamespace.h */,
-				CEBDF3BA19192BAB003AE46C /* HTMLNode.h */,
-				CEBDF3BB19192BAB003AE46C /* HTMLNode.m */,
-				CEBDF3BC19192BAB003AE46C /* HTMLOrderedDictionary.h */,
-				CEBDF3BD19192BAB003AE46C /* HTMLOrderedDictionary.m */,
-				CEBDF3BE19192BAB003AE46C /* HTMLParser.h */,
-				CEBDF3BF19192BAB003AE46C /* HTMLParser.m */,
-				CEBDF3C019192BAB003AE46C /* HTMLPreprocessedInputStream.h */,
-				CEBDF3C119192BAB003AE46C /* HTMLPreprocessedInputStream.m */,
-				CEBDF3C219192BAB003AE46C /* HTMLQuirksMode.h */,
-				CEBDF3C319192BAB003AE46C /* HTMLReader.h */,
-				CEBDF3C419192BAB003AE46C /* HTMLSelector.h */,
-				CEBDF3C519192BAB003AE46C /* HTMLSelector.m */,
-				CEBDF3C619192BAB003AE46C /* HTMLSerialization.h */,
-				CEBDF3C719192BAB003AE46C /* HTMLSerialization.m */,
-				CEBDF3C819192BAB003AE46C /* HTMLString.h */,
-				CEBDF3C919192BAB003AE46C /* HTMLString.m */,
-				CEBDF3CA19192BAB003AE46C /* HTMLSupport.h */,
-				CEBDF3CB19192BAB003AE46C /* HTMLTextNode.h */,
-				CEBDF3CC19192BAB003AE46C /* HTMLTextNode.m */,
-				CEBDF3CD19192BAB003AE46C /* HTMLTokenizer.h */,
-				CEBDF3CE19192BAB003AE46C /* HTMLTokenizer.m */,
-				CEBDF3CF19192BAB003AE46C /* HTMLTokenizerState.h */,
-				CEBDF3D019192BAB003AE46C /* HTMLTreeEnumerator.h */,
-				CEBDF3D119192BAB003AE46C /* HTMLTreeEnumerator.m */,
-			);
-			path = HTMLReader;
-			sourceTree = "<group>";
-		};
-		CEBDF3D219192BAB003AE46C /* SVProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SVProgressHUD;
-			sourceTree = "<group>";
-		};
 		CEC7C51B1906BEF3004DF651 = {
 			isa = PBXGroup;
 			children = (
@@ -537,6 +457,7 @@
 		CEC7C5261906BEF3004DF651 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				19147D54194341470071116C /* libxml2.dylib */,
 				CEC7C5271906BEF3004DF651 /* Foundation.framework */,
 				CEC7C5291906BEF3004DF651 /* CoreGraphics.framework */,
 				CEC7C52B1906BEF3004DF651 /* UIKit.framework */,
@@ -766,31 +687,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEBDF40519192BAB003AE46C /* HTMLDocumentType.m in Sources */,
 				CEEA7F5F190F0D7D000474E3 /* DKBufferActivity.m in Sources */,
 				196243CD1927F0340037BDF8 /* DKCategoryCell.m in Sources */,
 				192ACA861915D39E004CCDE1 /* DKDraftsActivity.m in Sources */,
 				CEBDF3FD19192BAB003AE46C /* UIColor+DK.m in Sources */,
 				CEEA7F09190EC159000474E3 /* DKDayController.m in Sources */,
 				CEBDF3F419192BAB003AE46C /* AFHTTPSessionManager.m in Sources */,
+				19147D5219433E780071116C /* AFOnoResponseSerializer.m in Sources */,
 				CEBDF40019192BAB003AE46C /* UIViewController+DK.m in Sources */,
-				CEBDF40F19192BAB003AE46C /* HTMLTokenizer.m in Sources */,
 				CEEA7F0E190EC159000474E3 /* DKTabDumpCell.m in Sources */,
 				CEBDF3F519192BAB003AE46C /* AFNetworkReachabilityManager.m in Sources */,
 				198C31451923C525009B4033 /* DKSettingsController.m in Sources */,
 				196243D3192857340037BDF8 /* DKListSelectionController.m in Sources */,
-				CEBDF41019192BAB003AE46C /* HTMLTreeEnumerator.m in Sources */,
 				CEBDF3F219192BAB003AE46C /* AFHTTPRequestOperation.m in Sources */,
 				196243CA1927E4D80037BDF8 /* DKCategoriesController.m in Sources */,
 				CEBDF3F819192BAB003AE46C /* AFURLRequestSerialization.m in Sources */,
 				CEBDF3FB19192BAB003AE46C /* UIColor+BrandColors.m in Sources */,
 				19D97A441935753A00389A43 /* UIFont+TD.m in Sources */,
 				196243D01927F4C50037BDF8 /* DKTabsListController.m in Sources */,
-				CEBDF40819192BAB003AE46C /* HTMLOrderedDictionary.m in Sources */,
 				CEBDF3FE19192BAB003AE46C /* UIImage+DK.m in Sources */,
 				CEBDF3F719192BAB003AE46C /* AFURLConnectionOperation.m in Sources */,
-				CEBDF40219192BAB003AE46C /* GTMNSString+HTML.m in Sources */,
-				CEBDF40A19192BAB003AE46C /* HTMLPreprocessedInputStream.m in Sources */,
 				CEBDF3FA19192BAB003AE46C /* AFURLSessionManager.m in Sources */,
 				19D97A3E1934CA5700389A43 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				CEEA7F0B190EC159000474E3 /* DKTabDumpsController.m in Sources */,
@@ -800,25 +716,17 @@
 				19477AA819075475003648F7 /* DKTabDump.m in Sources */,
 				CEBDF40119192BAB003AE46C /* DKUserMessageView.m in Sources */,
 				19477AC119076A48003648F7 /* DKTab.m in Sources */,
-				CEBDF40419192BAB003AE46C /* HTMLDocument.m in Sources */,
-				CEBDF40E19192BAB003AE46C /* HTMLTextNode.m in Sources */,
 				CEC7C55A1906C03E004DF651 /* DKAppDelegate.m in Sources */,
 				CE0B4034190EB8BB009648D3 /* UIColor+TD.m in Sources */,
 				CEEA7F0C190EC159000474E3 /* DKAboutView.m in Sources */,
-				CEBDF40719192BAB003AE46C /* HTMLNode.m in Sources */,
-				CEBDF40D19192BAB003AE46C /* HTMLString.m in Sources */,
-				CEBDF40C19192BAB003AE46C /* HTMLSerialization.m in Sources */,
-				CEBDF40919192BAB003AE46C /* HTMLParser.m in Sources */,
+				19147D5319433E780071116C /* ONOXMLDocument.m in Sources */,
 				19D97A3D1934CA5700389A43 /* TOWebViewController.m in Sources */,
 				CEBDF3FC19192BAB003AE46C /* NSString+DK.m in Sources */,
 				CEEA7F0D190EC159000474E3 /* DKTabCell.m in Sources */,
 				CEEC75A5192168C900187929 /* UIViewController+TD.m in Sources */,
 				CEEA7F08190EC159000474E3 /* DKAboutController.m in Sources */,
 				19D97A3B1934CA5700389A43 /* TOActivityChrome.m in Sources */,
-				CEBDF40319192BAB003AE46C /* HTMLComment.m in Sources */,
-				CEBDF40B19192BAB003AE46C /* HTMLSelector.m in Sources */,
 				CEBDF3F619192BAB003AE46C /* AFSecurityPolicy.m in Sources */,
-				CEBDF40619192BAB003AE46C /* HTMLElement.m in Sources */,
 				CEEA7F5C190EFDFC000474E3 /* DKTabActivityItemProvider.m in Sources */,
 				CE8B904C1934E1D200263194 /* DKWebViewController.m in Sources */,
 				CEBDF3F319192BAB003AE46C /* AFHTTPRequestOperationManager.m in Sources */,
@@ -959,6 +867,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TabDump/support/TabDump-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "TabDump/support/TabDump-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -974,6 +887,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TabDump/support/TabDump-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "TabDump/support/TabDump-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";

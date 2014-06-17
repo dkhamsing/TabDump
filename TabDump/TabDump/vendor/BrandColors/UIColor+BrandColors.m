@@ -15,6 +15,7 @@
 
 + (NSArray*)bc_brands {
     NSArray *list = @[
+                      @"Acer",
                       @"Alibaba",
                       @"Adobe",
                       @"Airbnb",
@@ -26,8 +27,11 @@
                       
                       @"Beats",
                       @"Blizzard",
+                      @"Broadcom",
                       
+                      @"China Mobile",
                       @"Cisco",
+                      @"Corning",
                       
                       @"Dish Network",
                       @"Dropbox",
@@ -40,6 +44,7 @@
                       @"Foursquare",
                       @"Foxconn",
                       
+                      @"General Electric",
                       @"Google",
                       @"GoPro",
                       
@@ -48,6 +53,7 @@
                       @"Huawei",
                       
                       @"IBM",
+                      @"Instagram",
                       @"Intel",
                       
                       @"LG",
@@ -61,6 +67,7 @@
                       @"Netflix",
                       @"Nintendo",
                       @"Nokia",
+                      @"NTT DoCoMo",
                       @"NVIDIA",
                       
                       @"PayPal",
@@ -72,6 +79,7 @@
                       
                       @"Samsung",
                       @"Shazam",
+                      @"Skype",
                       @"Snapchat",
                       @"Spotify",
                       @"Sprint",
@@ -87,14 +95,17 @@
                       @"Verizon",
                       @"Vimeo",
                       @"Vine",
+                      @"Vodafone",
                       @"VSCO",
                       
+                      @"Walmart",
                       @"WhatsApp",
                       
                       @"Xiaomi",
                       
                       @"Yahoo!",
                       @"Yelp",
+                      @"YouTube",
                       
                       @"ZTE",
                       ];
@@ -105,33 +116,53 @@
 
 + (NSArray*)bc_brandsWithDarkColor {
     NSArray *darkColorBrands = @[
+                                 @"Acer",
+                                 @"Adobe",
                                  @"Apple",
+                                 @"ARM",
                                  @"Beats",
+                                 @"Broadcom",
+                                 @"China Mobile",
                                  @"Cisco",
+                                 @"Corning",
+                                 @"Dropbox",
+                                 @"eBay",
                                  @"Facebook",
                                  @"Foxconn",
                                  @"Flipkart",
                                  @"Google",
                                  @"GoPro",
+                                 @"Huawei",
                                  @"IBM",
+                                 @"Instagram",
                                  @"Intel",
                                  @"Dish Network",
                                  @"LG",
+                                 @"LinkedIn",
                                  @"Qualcomm",
                                  @"Microsoft",
                                  @"Motorola",
                                  @"Mozilla",
                                  @"Netflix",
                                  @"Nokia",
+                                 @"NTT DoCoMo",
+                                 @"PayPal",
                                  @"Rdio",
                                  @"Samsung",
                                  @"Shazam",
+                                 @"Skype",
+                                 @"Staples",
                                  @"T-Mobile",
                                  @"Tumblr",
+                                 @"Uber",
+                                 @"Verizon",
+                                 @"Vodafone",
+                                 @"Walmart",
                                  @"WhatsApp",
                                  @"Yahoo",
                                  @"Yahoo!",
                                  @"Yelp",
+                                 @"YouTube",
                                  @"ZTE",
                                  ];
 
@@ -141,6 +172,10 @@
 
 + (UIColor*)bc_colorForBrand:(NSString*)brand {
     UIColor *brandColor = BC_DEFAULT_COLOR;
+    
+    if ([self brand:brand matches:@"Acer"]) {
+        return [UIColor dk_colorWithHexString:@"#83B941"];
+    }
     
     if ([self brand:brand matches:@"Alibaba"]) {
         return [UIColor dk_colorWithHexString:@"#FF7300"];
@@ -182,8 +217,20 @@
         return [UIColor dk_colorWithHexString:@"#01B2F1"];
     }    
     
+    if ([self brand:brand matches:@"Broadcom"]) {
+        return [UIColor dk_colorWithHexString:@"#E81231"];
+    }
+    
+    if ([self brand:brand matches:@"China Mobile"]) {
+        return [UIColor dk_colorWithHexString:@"#0086D0"];
+    }
+
     if ([self brand:brand matches:@"Cisco"]) {
         return [UIColor dk_colorWithHexString:@"#11495E"];
+    }
+
+    if ([self brand:brand matches:@"Corning"]) {
+        return [UIColor dk_colorWithHexString:@"#00559B"];
     }
     
     if ([self brand:brand matches:@"Dish Network"]) {
@@ -227,7 +274,11 @@
     if ([self brand:brand matches:@"Foursquare"]) {
         return [UIColor dk_colorWithHexString:@"#0cbadf"];
     }
-    
+
+    if ([self brand:brand matches:@"General Electric"]) {
+        return [UIColor dk_colorWithHexString:@"#019DDD"];
+    }
+
     if ([self brand:brand matches:@"Google"]) {
         return [UIColor dk_colorWithHexString:@"#4285f4"];
     }
@@ -252,11 +303,15 @@
         return [UIColor dk_colorWithHexString:@"#003e6a"];
     }
     
+    if ([self brand:brand matches:@"Instagram"]) {
+        return [UIColor dk_colorWithHexString:@"#3f729b"];
+    }
+    
     if ([self brand:brand matches:@"Intel"]) {
         return [UIColor dk_colorWithHexString:@"#0071c5"];
     }
     
-    if ([self brand:brand matches:@"LG"]) {
+    if ([brand.lowercaseString isEqualToString:@"lg"]) {        
         return [UIColor dk_colorWithHexString:@"#B20E50"];
     }
     
@@ -291,7 +346,11 @@
     if ([self brand:brand matches:@"Nokia"]) {
         return [UIColor dk_colorWithHexString:@"#183693"];
     }
-    
+
+    if ([self brand:brand matches:@"NTT DoCoMo"]) {
+        return [UIColor dk_colorWithHexString:@"#CC0033"];
+    }
+
     if ([self brand:brand matches:@"NVIDIA"]) {
         return [UIColor dk_colorWithHexString:@"#77B900"];
     }
@@ -319,7 +378,11 @@
     if ([self brand:brand matches:@"Shazam"]) {
         return [UIColor dk_colorWithHexString:@"#1B87E3"];
     }
-    
+
+    if ([self brand:brand matches:@"Skype"]) {
+        return [UIColor dk_colorWithHexString:@"#00aff0"];
+    }
+
     if ([self brand:brand matches:@"Snapchat"]) {
         return [UIColor dk_colorWithHexString:@"#FFFC00"];
     }
@@ -370,11 +433,19 @@
     if ([self brand:brand matches:@"Vine"]) {
         return [UIColor dk_colorWithHexString:@"#00a478"];
     }
+
+    if ([self brand:brand matches:@"Vodafone"]) {
+        return [UIColor dk_colorWithHexString:@"#E90000"];
+    }
     
     if ([self brand:brand matches:@"VSCO"]) {
         return [UIColor dk_colorWithHexString:@"#AAA94C"];
     }
 
+    if ([self brand:brand matches:@"Walmart"]) {
+        return [UIColor dk_colorWithHexString:@"#005CB0"];
+    }
+    
     if ([self brand:brand matches:@"WhatsApp"]) {
         return [UIColor dk_colorWithHexString:@"#34AF23"];
     }
@@ -389,6 +460,10 @@
     
     if ([self brand:brand matches:@"Yelp"]) {
         return [UIColor dk_colorWithHexString:@"#c41200"];
+    }
+
+    if ([self brand:brand matches:@"YouTube"]) {
+        return [UIColor dk_colorWithHexString:@"#e52d27"];
     }
     
     if ([self brand:brand matches:@"ZTE"]) {

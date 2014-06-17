@@ -32,6 +32,7 @@
 
 // Libraries
 #import "AFNetworking.h"
+#import "AFOnoResponseSerializer.h"
 #import "DKUserMessageView.h"
 
 
@@ -97,7 +98,6 @@ CGFloat kNavigationBarHeight = 64;
         // loading
         CGFloat inset = 10;
         self.loadingView = [[UIView alloc] initWithFrame:CGRectMake(0, kDayHeaderHeight +kNavigationBarHeight, self.view.dk_width, self.view.dk_height)];
-        self.loadingView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:self.loadingView];
         
         CGRect frame = CGRectMake(0, inset, self.view.dk_width, 40);
@@ -115,7 +115,17 @@ CGFloat kNavigationBarHeight = 64;
         [self.reloadButton addTarget:self action:@selector(loadTabDumpRSS) forControlEvents:UIControlEventTouchUpInside];
         [UIView dk_addSubviews:@[self.loadingSpinner, self.loadingText, self.reloadButton] onView:self.loadingView];
         
-        [self loadTabDumpInitial];
+        NSNumber *nightMode = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsNightMode];
+        if ([nightMode isEqual:@1]) {
+            self.loadingView.backgroundColor = [UIColor blackColor];
+            self.loadingText.backgroundColor = [UIColor blackColor];
+        }
+        else {
+            self.loadingView.backgroundColor = [UIColor whiteColor];
+            self.loadingText.backgroundColor = [UIColor whiteColor];
+        }
+        
+        [self loadTabDumpRSS];
     }
     return self;
 }
@@ -133,65 +143,43 @@ CGFloat kNavigationBarHeight = 64;
     [super viewWillAppear:animated];
     self.title = self.currentTitle;
     /*
-    if (self.title) {
-        // flash title if it is today or yesterday
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
-        //NSLog(@"components=%@",components);
-        
-        NSString *titleDate = [self.title substringToIndex:[self.title rangeOfString:@":"].location];
-        titleDate = [titleDate stringByAppendingFormat:@" %@", @(components.year)];
-        // NSLog(@"title date=%@",titleDate);
-        
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"MM dd yyyy"];
-        
-        NSDate *date = [dateFormat dateFromString:titleDate];
-        //NSLog(@"date=%@",date);
-        NSDateComponents *titleComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth fromDate:date];
-        //NSLog(@"components=%@",titleComponents);
-        
-        if (titleComponents.month == components.month) {
-            if (titleComponents.day==components.day
-                ) {
-                self.title = @"Today";
-            }
-            else if (titleComponents.day-components.day == -1) {
-                self.title = @"Yesterday";
-            }
-            
-            //NSLog(@"compute %d",titleComponents.day-components.day);
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                self.title = self.currentTitle;
-            });
-        }
-    }*/
+     if (self.title) {
+     // flash title if it is today or yesterday
+     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+     //NSLog(@"components=%@",components);
+     
+     NSString *titleDate = [self.title substringToIndex:[self.title rangeOfString:@":"].location];
+     titleDate = [titleDate stringByAppendingFormat:@" %@", @(components.year)];
+     // NSLog(@"title date=%@",titleDate);
+     
+     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+     [dateFormat setDateFormat:@"MM dd yyyy"];
+     
+     NSDate *date = [dateFormat dateFromString:titleDate];
+     //NSLog(@"date=%@",date);
+     NSDateComponents *titleComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth fromDate:date];
+     //NSLog(@"components=%@",titleComponents);
+     
+     if (titleComponents.month == components.month) {
+     if (titleComponents.day==components.day
+     ) {
+     self.title = @"Today";
+     }
+     else if (titleComponents.day-components.day == -1) {
+     self.title = @"Yesterday";
+     }
+     
+     //NSLog(@"compute %d",titleComponents.day-components.day);
+     
+     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+     self.title = self.currentTitle;
+     });
+     }
+     }*/
 }
 
 
 #pragma mark - Private
-
-- (void)actionSettings {
-    DKSettingsController *aboutController = [[DKSettingsController alloc] init]; 
-    [self.navigationController pushViewController:aboutController animated:YES];
-}
-
-
-- (void)actionList {
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.selectionController];
-    [self presentViewController:navigationController animated:YES completion:nil];
-}
-
-
-- (void)actionNext {
-    [self.dayController scrollToNextTab];
-}
-
-
-- (void)actionTop {
-    [self.dayController scrollToTop];
-}
-
 
 - (void)loadDump:(DKTabDump*)dump {
     self.title = [dump title];
@@ -217,106 +205,123 @@ CGFloat kNavigationBarHeight = 64;
 }
 
 
-- (void)loadContentAtPath:(NSString*)path {
-    NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    if ([content dk_containsString:@"<?xml"]) {
-        NSArray *dumps = [DKTabDump newListOfDumpsFromHTML:content];
-        self.selectionController.calendarController.dataSource = dumps;
-        self.selectionController.categoriesController.categoriesTabDumps = dumps;
-        DKTabDump *dump = dumps[0];
-        [self loadDump:dump];
-    }
-    else {
-        NSLog(@"launch - load content at path - error loading rss");
-    }
-}
-
-
 - (void)loadBeginAnimate {
     [self.loadingSpinner dk_loading:YES spinner:YES];
     [self.loadingText dk_displayMessage:@"Loading Tab Dump"];
-}
-
-
-- (void)loadTabDumpInitial {
-    self.loadingView.hidden = YES;
-    NSString *path = [self tabDumpPath];
     
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        NSLog(@"Loading previous file");
-        [self loadContentAtPath:path];
-    }
-    else {
-        self.loadingView.hidden = NO;
-        [self loadBeginAnimate];
-    }
-    
-    [self loadTabDumpRSS];
+    self.reloadButton.hidden = YES;
 }
 
 
 - (void)loadTabDumpRSS {
-    self.reloadButton.hidden = YES;
+    /*
+     self.reloadButton.hidden = YES;
+     [self loadBeginAnimate];
+     
+     
+     NSDate *nowDate = [NSDate date];
+     //NSLog(@"now date=%@",nowDate);
+     NSDate *lastDownloadDate = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsDateLastDownload];
+     if (lastDownloadDate) {
+     //NSLog(@"last download date = %@",lastDownloadDate);
+     
+     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] ;
+     NSDateComponents *components = [calendar components:NSHourCalendarUnit|NSMinuteCalendarUnit
+     fromDate:lastDownloadDate
+     toDate:nowDate
+     options:0];
+     
+     NSLog(@"Difference in date components: %zd hours %zd mins", components.hour, components.minute);
+     if (components.hour < kLaunchDownloadHourThreshold) {
+     NSLog(@"less than %zd hours - stop loading rss", kLaunchDownloadHourThreshold);
+     return;
+     }
+     }
+     
+     NSString *path = [self tabDumpPath];
+     
+     // load rss
+     NSLog(@"Loading rss");
+     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kLaunchBlogRSSLink]];
+     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+     operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+     
+     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+     self.loadingView.hidden = YES;
+     
+     NSLog(@"Successfully downloaded file to %@", path);
+     
+     // check downloaded file format (rss)
+     NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+     if ([content dk_containsString:@"<?xml"]) {
+     [self loadContentAtPath:path];
+     
+     // save download date
+     NSLog(@"Save download date=%@",nowDate);
+     [[NSUserDefaults standardUserDefaults] setObject:nowDate forKey:kUserDefaultsDateLastDownload];
+     [[NSUserDefaults standardUserDefaults] synchronize];
+     }
+     else {
+     NSLog(@"launch - load tab dump rss - error loading rss");
+     }
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     [self.loadingSpinner dk_loading:NO];
+     [self.loadingText dk_loading:NO];
+     
+     NSLog(@"Error: %@", error);
+     
+     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+     [self.loadingText dk_displayMessage:@"There was a problem loading Tab Dump."];
+     self.reloadButton.hidden = NO;
+     }
+     }];
+     
+     [operation start];*/
+    
+    NSLog(@"launch - loading rss");
     [self loadBeginAnimate];
     
-    NSDate *nowDate = [NSDate date];
-    //NSLog(@"now date=%@",nowDate);
-    NSDate *lastDownloadDate = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsDateLastDownload];
-    if (lastDownloadDate) {
-        //NSLog(@"last download date = %@",lastDownloadDate);
-        
-        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] ;
-        NSDateComponents *components = [calendar components:NSHourCalendarUnit|NSMinuteCalendarUnit
-                                                   fromDate:lastDownloadDate
-                                                     toDate:nowDate
-                                                    options:0];
-        
-        NSLog(@"Difference in date components: %zd hours %zd mins", components.hour, components.minute);
-        if (components.hour < kLaunchDownloadHourThreshold) {
-            NSLog(@"less than %zd hours - stop loading rss", kLaunchDownloadHourThreshold);
-            return;
-        }
-    }
-    
-    NSString *path = [self tabDumpPath];
-    
-    // load rss
-    NSLog(@"Loading rss");
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kLaunchBlogRSSLink]];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFOnoResponseSerializer XMLResponseSerializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:  @"application/rss+xml"];
+    [manager GET:kLaunchBlogRSSLink parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.loadingView.hidden = YES;
         
-        NSLog(@"Successfully downloaded file to %@", path);
+        NSArray *dumps = [DKTabDump newListOfDumpsFromResponseData:operation.responseData];
         
-        // check downloaded file format (rss)
-        NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-        if ([content dk_containsString:@"<?xml"]) {
-            [self loadContentAtPath:path];
-            
-            // save download date
-            NSLog(@"Save download date=%@",nowDate);
-            [[NSUserDefaults standardUserDefaults] setObject:nowDate forKey:kUserDefaultsDateLastDownload];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-        else {
-            NSLog(@"launch - load tab dump rss - error loading rss");
-        }
+        self.selectionController.calendarController.dataSource = dumps;
+        self.selectionController.categoriesController.categoriesTabDumps = dumps;
+        DKTabDump *dump = dumps[0];
+        [self loadDump:dump];
+        
+        // save to nsuser defaults
+        [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:dumps] forKey:kUserDefaultsTabDumpsFromRSS];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.loadingSpinner dk_loading:NO];
-        [self.loadingText dk_loading:NO];
+        NSLog(@"launch - load tab dump - error: %@", error);
         
-        NSLog(@"Error: %@", error);
-        
-        if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        if ([def objectForKey:kUserDefaultsTabDumpsFromRSS]) {
+            self.loadingView.hidden = YES;
+            NSLog(@"launch - loading previously saved rss");
+            
+            NSData *data = [def objectForKey:kUserDefaultsTabDumpsFromRSS];
+            NSArray *dumps = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            
+            self.selectionController.calendarController.dataSource = dumps;
+            self.selectionController.categoriesController.categoriesTabDumps = dumps;
+            DKTabDump *dump = dumps[0];
+            [self loadDump:dump];
+        } else {
+            
+            [self.loadingSpinner dk_loading:NO];
+            [self.loadingText dk_loading:NO];
             [self.loadingText dk_displayMessage:@"There was a problem loading Tab Dump."];
             self.reloadButton.hidden = NO;
         }
     }];
-    
-    [operation start];
 }
 
 
@@ -333,11 +338,27 @@ CGFloat kNavigationBarHeight = 64;
 }
 
 
-- (NSString *)tabDumpPath {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:kLaunchDownloadFilename];
-    
-    return path;
+#pragma mark Actions
+
+- (void)actionSettings {
+    DKSettingsController *aboutController = [[DKSettingsController alloc] init];
+    [self.navigationController pushViewController:aboutController animated:YES];
+}
+
+
+- (void)actionList {
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.selectionController];
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+
+- (void)actionNext {
+    [self.dayController scrollToNextTab];
+}
+
+
+- (void)actionTop {
+    [self.dayController scrollToTop];
 }
 
 

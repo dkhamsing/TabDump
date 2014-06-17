@@ -16,26 +16,32 @@
 
 @implementation TabDumpTests
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
 
     NSString *path = [[NSBundle mainBundle] pathForResource:@"blog" ofType:@"rss"];
-    NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    self.dumps = [DKTabDump newListOfDumpsFromHTML:content];
+    NSData *content = [NSData dataWithContentsOfFile:path];
+    self.dumps = [DKTabDump newListOfDumpsFromResponseData:content];
     self.dump = self.dumps[0];
 }
 
-- (void)tearDown
-{
+
+- (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
-- (void)testTabDump
-{
+
+- (void)testTabDump {
     XCTAssertTrue(self.dumps.count>0, @"");
     XCTAssertTrue(self.dump.numberOfTabs.integerValue>0, @"");
+    XCTAssertTrue(self.dump.date.length>0, @"");
+    XCTAssertTrue(self.dump.tabsTech.count>0, @"");
+    XCTAssertTrue(self.dump.tabsWorld.count>0, @"");
+    XCTAssertTrue(self.dump.readingTime.length>0, @"");
+    XCTAssertTrue(self.dump.categoriesTech.count>0, @"");
+    XCTAssertTrue(self.dump.categoriesWorld.count>0, @"");
 }
+
 
 @end

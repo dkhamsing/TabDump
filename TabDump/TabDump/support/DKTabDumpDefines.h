@@ -42,7 +42,8 @@ static NSString* const kNotificationNightMode = @"kNotificationNightMode";
 
 #pragma mark - User Defaults
 
-static NSString* const kUserDefaultsDateLastDownload = @"kUserDefaultsDateLastDownload";
+static NSString* const kUserDefaultsTabDumpsFromRSS = @"kUserDefaultsTabDumpsFromRSS";
+//static NSString* const kUserDefaultsDateLastDownload = @"kUserDefaultsDateLastDownload";
 static NSString* const kUserDefaultsTabDumpsRead = @"kUserDefaultsTabDumpsRead";
 static NSString* const kUserDefaultsSettingsCategoryColors = @"kUserDefaultsSettingsCategoryColors";
 static NSString* const kUserDefaultsSettingsNightMode = @"kUserDefaultsSettingsNightMode";
