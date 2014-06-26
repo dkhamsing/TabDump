@@ -11,14 +11,38 @@
 // Defines
 #import "DKTabDumpDefines.h"
 
+// Models
+#import "DKDevice.h"
+
+
 @implementation UIFont (TD)
 
 + (UIFont*)td_fontFromSettings {
     NSNumber *largerText = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsLargeTextSize];
     if ([largerText isEqual:@1])
-        return [UIFont fontWithName:kFontRegular size:18];
+        return [self fontLarge];
     
-    return [UIFont fontWithName:kFontRegular size:14];
+    return [self fontSmall];
+}
+
+
++ (UIFont*)fontLarge {
+    CGFloat fontSize=18;
+    
+    if ([DKDevice isIpad])
+        fontSize = 22;
+        
+    return [UIFont fontWithName:kFontRegular size:fontSize];
+}
+
+
++ (UIFont*)fontSmall {
+    CGFloat fontSize=14;
+    
+    if ([DKDevice isIpad])
+        fontSize = 18;
+    
+    return [UIFont fontWithName:kFontRegular size:fontSize];
 }
 
 

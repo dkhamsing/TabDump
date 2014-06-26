@@ -18,11 +18,14 @@
 		19477AA819075475003648F7 /* DKTabDump.m in Sources */ = {isa = PBXBuildFile; fileRef = 19477AA719075475003648F7 /* DKTabDump.m */; };
 		19477AA9190760A9003648F7 /* DKTabDump.m in Sources */ = {isa = PBXBuildFile; fileRef = 19477AA719075475003648F7 /* DKTabDump.m */; };
 		19477AC119076A48003648F7 /* DKTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 19477AC019076A48003648F7 /* DKTab.m */; };
+		194F2E1F194CFF2600E9B122 /* DKUnderlineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F2E1E194CFF2600E9B122 /* DKUnderlineLabel.m */; };
+		194F2E22194D2DED00E9B122 /* DKDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F2E21194D2DED00E9B122 /* DKDevice.m */; };
 		196243CA1927E4D80037BDF8 /* DKCategoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 196243C91927E4D80037BDF8 /* DKCategoriesController.m */; };
 		196243CD1927F0340037BDF8 /* DKCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 196243CC1927F0340037BDF8 /* DKCategoryCell.m */; };
 		196243D01927F4C50037BDF8 /* DKTabsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 196243CF1927F4C50037BDF8 /* DKTabsListController.m */; };
 		196243D3192857340037BDF8 /* DKListSelectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 196243D2192857340037BDF8 /* DKListSelectionController.m */; };
 		198C31451923C525009B4033 /* DKSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 198C31441923C525009B4033 /* DKSettingsController.m */; };
+		19BC53E5194BE10B008BA089 /* DKRoundedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19BC53E4194BE10B008BA089 /* DKRoundedLabel.m */; };
 		19CFA60F19108C640051BC80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 19CFA60C19108C640051BC80 /* InfoPlist.strings */; };
 		19CFA61019108C640051BC80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 19CFA60E19108C640051BC80 /* main.m */; };
 		19D979EB192F001700389A43 /* top-gears@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19D979EA192F001700389A43 /* top-gears@2x.png */; };
@@ -108,6 +111,10 @@
 		19477AA719075475003648F7 /* DKTabDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTabDump.m; sourceTree = "<group>"; };
 		19477ABF19076A48003648F7 /* DKTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKTab.h; sourceTree = "<group>"; };
 		19477AC019076A48003648F7 /* DKTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTab.m; sourceTree = "<group>"; };
+		194F2E1D194CFF2600E9B122 /* DKUnderlineLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKUnderlineLabel.h; sourceTree = "<group>"; };
+		194F2E1E194CFF2600E9B122 /* DKUnderlineLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKUnderlineLabel.m; sourceTree = "<group>"; };
+		194F2E20194D2DED00E9B122 /* DKDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDevice.h; sourceTree = "<group>"; };
+		194F2E21194D2DED00E9B122 /* DKDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDevice.m; sourceTree = "<group>"; };
 		196243C81927E4D80037BDF8 /* DKCategoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKCategoriesController.h; sourceTree = "<group>"; };
 		196243C91927E4D80037BDF8 /* DKCategoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKCategoriesController.m; sourceTree = "<group>"; };
 		196243CB1927F0340037BDF8 /* DKCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKCategoryCell.h; sourceTree = "<group>"; };
@@ -118,6 +125,8 @@
 		196243D2192857340037BDF8 /* DKListSelectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKListSelectionController.m; sourceTree = "<group>"; };
 		198C31431923C525009B4033 /* DKSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKSettingsController.h; sourceTree = "<group>"; };
 		198C31441923C525009B4033 /* DKSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKSettingsController.m; sourceTree = "<group>"; };
+		19BC53E3194BE10B008BA089 /* DKRoundedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKRoundedLabel.h; sourceTree = "<group>"; };
+		19BC53E4194BE10B008BA089 /* DKRoundedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKRoundedLabel.m; sourceTree = "<group>"; };
 		19CF68A019112379001D0C9D /* TabDump-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TabDump-Info.plist"; sourceTree = "<group>"; };
 		19CF68A21911247A001D0C9D /* TabDump-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TabDump-Prefix.pch"; sourceTree = "<group>"; };
 		19CFA60D19108C640051BC80 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -300,6 +309,8 @@
 				19477AC019076A48003648F7 /* DKTab.m */,
 				19477AA619075475003648F7 /* DKTabDump.h */,
 				19477AA719075475003648F7 /* DKTabDump.m */,
+				194F2E20194D2DED00E9B122 /* DKDevice.h */,
+				194F2E21194D2DED00E9B122 /* DKDevice.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -558,10 +569,14 @@
 				CEEA7F03190EC159000474E3 /* DKAboutView.m */,
 				196243CB1927F0340037BDF8 /* DKCategoryCell.h */,
 				196243CC1927F0340037BDF8 /* DKCategoryCell.m */,
+				19BC53E3194BE10B008BA089 /* DKRoundedLabel.h */,
+				19BC53E4194BE10B008BA089 /* DKRoundedLabel.m */,
 				CEEA7F04190EC159000474E3 /* DKTabCell.h */,
 				CEEA7F05190EC159000474E3 /* DKTabCell.m */,
 				CEEA7F06190EC159000474E3 /* DKTabDumpCell.h */,
 				CEEA7F07190EC159000474E3 /* DKTabDumpCell.m */,
+				194F2E1D194CFF2600E9B122 /* DKUnderlineLabel.h */,
+				194F2E1E194CFF2600E9B122 /* DKUnderlineLabel.m */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -720,8 +735,10 @@
 				CE0B4034190EB8BB009648D3 /* UIColor+TD.m in Sources */,
 				CEEA7F0C190EC159000474E3 /* DKAboutView.m in Sources */,
 				19147D5319433E780071116C /* ONOXMLDocument.m in Sources */,
+				19BC53E5194BE10B008BA089 /* DKRoundedLabel.m in Sources */,
 				19D97A3D1934CA5700389A43 /* TOWebViewController.m in Sources */,
 				CEBDF3FC19192BAB003AE46C /* NSString+DK.m in Sources */,
+				194F2E22194D2DED00E9B122 /* DKDevice.m in Sources */,
 				CEEA7F0D190EC159000474E3 /* DKTabCell.m in Sources */,
 				CEEC75A5192168C900187929 /* UIViewController+TD.m in Sources */,
 				CEEA7F08190EC159000474E3 /* DKAboutController.m in Sources */,
@@ -732,6 +749,7 @@
 				CEBDF3F319192BAB003AE46C /* AFHTTPRequestOperationManager.m in Sources */,
 				CEEA7F0A190EC159000474E3 /* DKLaunchController.m in Sources */,
 				CEBDF3F919192BAB003AE46C /* AFURLResponseSerialization.m in Sources */,
+				194F2E1F194CFF2600E9B122 /* DKUnderlineLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -875,6 +893,7 @@
 				INFOPLIST_FILE = "TabDump/support/TabDump-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -895,6 +914,7 @@
 				INFOPLIST_FILE = "TabDump/support/TabDump-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -26,6 +26,7 @@
 #import "DKTabDumpDefines.h"
 
 // Models
+#import "DKDevice.h"
 #import "DKTabDump.h"
 #import "DKTab.h"
 
@@ -67,7 +68,7 @@
         gestureRecognizer.delegate = self;
         [self.tableView addGestureRecognizer:gestureRecognizer];
         
-        self.headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, kDayHeaderHeight)];
+        self.headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, [DKDevice headerHeight])];
         CGRect frame = self.headView.frame;
         frame.origin.x = 4;
         self.tabDumpLabel = [[UILabel alloc] initWithFrame:frame];
@@ -85,8 +86,10 @@
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
-        self.aboutView = [[DKAboutView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, kAboutViewHeight)];
-        self.tableView.tableFooterView = self.aboutView;
+        if (![DKDevice isIpad]) {
+            self.aboutView = [[DKAboutView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, kAboutViewHeight)];
+            self.tableView.tableFooterView = self.aboutView;
+        }
     }
     return self;
 }
@@ -358,7 +361,7 @@ CGFloat headerHeight = 30;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat kOffsetMystery = 178;
     //    NSLog(@"scrollview size=%@, offset=%@",@(scrollView.contentSize.height-kAboutViewHeight-kDayHeaderHeight-kOffsetMystery), @(scrollView.contentOffset.y));
-    CGFloat difference = scrollView.contentSize.height-kAboutViewHeight-kDayHeaderHeight-kOffsetMystery - scrollView.contentOffset.y;
+    CGFloat difference = scrollView.contentSize.height-kAboutViewHeight-[DKDevice headerHeight]-kOffsetMystery - scrollView.contentOffset.y;
     CGFloat alpha = difference*0.75/kOffsetMystery;
     //NSLog(@"scroll difference=%@",@(alpha));
     self.aboutView.overlayView.alpha = alpha;

@@ -8,14 +8,16 @@
 
 #import "DKCategoriesController.h"
 
-// Controllers
-#import "DKTabsListController.h"
-
 // Categories
+#import "UIView+DK.h"
 #import "UIColor+BrandColors.h"
 #import "UIViewController+TD.h"
 
+// Controllers
+#import "DKTabsListController.h"
+
 // Models
+#import "DKDevice.h"
 #import "DKTab.h"
 #import "DKTabDump.h"
 
@@ -116,7 +118,7 @@ NSString *cellId = @"cellId";
 
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(320/2, 80);
+    return CGSizeMake(self.view.dk_width/[DKDevice categoriesNumberOfColumns], [DKDevice categoriesCellHeight]);
 }
 
 

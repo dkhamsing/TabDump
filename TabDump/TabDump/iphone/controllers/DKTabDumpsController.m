@@ -11,22 +11,20 @@
 // Categories
 #import "UIColor+TD.h"
 #import "UIImage+DK.h"
+#import "UIView+DK.h"
 #import "UIViewController+TD.h"
 
 // Defines
 #import "DKTabDumpDefines.h"
 
 // Models
+#import "DKDevice.h"
 #import "DKTabDump.h"
 #import "DKTab.h"
 
 // Views
-#import "DKAboutView.h"
 #import "DKTabDumpCell.h"
 
-@interface DKTabDumpsController ()
-@property (nonatomic,strong) DKAboutView *aboutView;
-@end
 
 @implementation DKTabDumpsController
 
@@ -35,9 +33,6 @@
     if (self) {
         self.tableView.separatorInset = UIEdgeInsetsZero;
         
-        self.aboutView = [[DKAboutView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, kAboutViewHeight)];
-        self.tableView.tableFooterView = self.aboutView;
-
         // navigation buttons
         UIImage *xImage = [UIImage dk_maskedImageNamed:@"top-x" color:[UIColor td_highlightColor]];
         UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -148,18 +143,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     DKTabDump *dump = self.dataSource[indexPath.row];
     DKTab *link = dump.tabsTech[[self dumpIndexForIndexPathRow:indexPath.row max:dump.tabsTech.count]];
-    CGFloat height = [link sizeForStrippedHTML].height +50;
+    CGFloat height = [link sizeForTabText].height +50;
     return height;
-}
-
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat kOffsetMystery = 178;
-    CGFloat difference = scrollView.contentSize.height-kAboutViewHeight-kDayHeaderHeight-kOffsetMystery - scrollView.contentOffset.y;
-    CGFloat alpha = difference*0.75/kOffsetMystery;
-    self.aboutView.overlayView.alpha = alpha;
 }
 
 

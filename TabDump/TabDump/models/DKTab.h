@@ -80,9 +80,9 @@
 
 
 /**
- Get the size for the stripped HTML.
+ Get the size for the tab text.
  */
-- (CGSize)sizeForStrippedHTML;
+- (CGSize)sizeForTabText;
 
 
 /**

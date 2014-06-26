@@ -22,10 +22,13 @@
 #import "DKTabDumpDefines.h"
 
 // Models
+#import "DKDevice.h"
 #import "DKTab.h"
 
 // Views
+#import "DKRoundedLabel.h"
 #import "DKTabCell.h"
+#import "DKUnderlineLabel.h"
 
 
 @interface DKSettingsController ()
@@ -39,7 +42,6 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        //[self td_addBackButtonPop];
         self.title = @" ";
         
         self.sectionHeaders = @[
@@ -49,7 +51,6 @@
                                 ];
         
         NSArray *settings = @[
-                              @"Category Colors",
                               @"Night Mode",
                               @"Larger Text Size",
                               ];
@@ -61,7 +62,7 @@
         
         self.dataSource = @[@"preview", settings, about];
         
-        self.tableView.tableFooterView = [[UIView alloc] init];
+        self.tableView.separatorColor = [UIColor clearColor];
         
         self.previewTab = [[DKTab alloc] init];
         self.previewTab.tabNumber = @"01";
@@ -90,13 +91,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section==0)
-        return [self.previewTab heightForRow];
+        return [self.previewTab heightForRow] -kCellBottomOffset;
     
     return 44;
 }
 
 
-CGFloat sectionHeight = 60;
+CGFloat sectionHeight = 46;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return sectionHeight;
@@ -106,30 +107,15 @@ CGFloat sectionHeight = 60;
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, sectionHeight)];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 28, 300, sectionHeight)];
+    DKUnderlineLabel *label = [[DKUnderlineLabel alloc] initWithFrame:CGRectMake(15, 28, 300, sectionHeight)];
     [view addSubview:label];
-    
-    NSString *text = self.sectionHeaders[section];
-    text = text.uppercaseString;
-    label.text = text.uppercaseString;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.font = [UIFont fontWithName:kFontRegular size:12];
-    [label dk_addBorderWithColor:[UIColor lightGrayColor] width:0.5];
-    label.layer.cornerRadius = 6;
-    
-    CGRect frame = label.frame;
-    frame.size = [text sizeWithAttributes: @{NSFontAttributeName:label.font} ];
-    frame.size.width +=20;
-    frame.size.height +=10;
-    label.frame = frame;
+    label.dk_text = self.sectionHeaders[section];
     
     NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsNightMode];
     if ([number isEqual:@1]) {
-        label.textColor = [UIColor whiteColor];
         view.backgroundColor = [UIColor blackColor];
     }
     else {
-        label.textColor = [UIColor blackColor];
         view.backgroundColor = [UIColor whiteColor];
     }
     
@@ -189,13 +175,8 @@ CGFloat sectionHeight = 60;
         NSString *key;
         switch (indexPath.row) {
             case 0:
-                key = kUserDefaultsSettingsCategoryColors;
-                break;
-                
-            case 1:
                 key = kUserDefaultsSettingsNightMode;
                 break;
-                
                 
             default:
                 key = kUserDefaultsSettingsLargeTextSize;
@@ -242,10 +223,6 @@ CGFloat sectionHeight = 60;
     NSString *key;
     switch (switchControl.tag) {
         case 0:
-            key = kUserDefaultsSettingsCategoryColors;
-            break;
-            
-        case 1:
             key = kUserDefaultsSettingsNightMode;
             break;
             

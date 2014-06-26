@@ -15,6 +15,8 @@
 // Defines
 #import "DKTabDumpDefines.h"
 
+// Models
+#import "DKDevice.h"
 
 @interface DKCategoryCell ()
 @property (nonatomic,strong) UILabel *titleLabel;
@@ -48,7 +50,7 @@
     // layout
     CGRect frame;
     CGFloat inset = 5;    
-    frame.origin = CGPointMake(inset,22);
+    frame.origin = CGPointMake(inset,[DKDevice categoriesCellInset]);
     frame.size.width = self.bounds.size.width -2*inset;
     frame.size.height = 22;
     self.titleLabel.frame = frame;

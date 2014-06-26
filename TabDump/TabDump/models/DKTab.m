@@ -19,6 +19,9 @@
 // Libraries
 #import "Ono.h"
 
+// Moedls
+#import "DKDevice.h"
+
 
 @implementation DKTab
 
@@ -97,26 +100,30 @@
 - (NSDictionary*)contentAttributes {
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = 5.45;
+    if ([DKDevice isIpad])
+        paragraphStyle.lineSpacing = 12;
     
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
     attributes[NSParagraphStyleAttributeName] = paragraphStyle;
     attributes[NSFontAttributeName] = [UIFont td_fontFromSettings];
     
-    return attributes;
+    return [attributes copy];
 }
 
 
-- (CGSize)sizeForStrippedHTML {
-    CGRect textRect = [self.strippedHTML boundingRectWithSize:CGSizeMake(kCellWidth -kCellPadding*2, 800)
+- (CGSize)sizeForTabText {    
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:self.tabText attributes:self.contentAttributes];
+    CGRect textRect = [attributedString boundingRectWithSize:CGSizeMake([DKDevice cellWidth] -[DKDevice padding]*2, 800)
                                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                                   attributes:[self contentAttributes]
                                                       context:nil];
     return textRect.size;
 }
 
 
 - (CGFloat)heightForRow {
-    return [self sizeForStrippedHTML].height +kCellPadding*2 +kCellBottomOffset;
+    CGFloat height = [DKDevice topOffset] +kCellHeightCategory +[self sizeForTabText].height +kCellBottomOffset;
+    
+    return height;
 }
 
 

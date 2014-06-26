@@ -17,6 +17,7 @@
 #import "DKTabDumpDefines.h"
 
 // Models
+#import "DKDevice.h"
 #import "DKTab.h"
 #import "DKTabDump.h"
 
@@ -58,8 +59,8 @@
     self.excerptLabel.font = [UIFont td_fontFromSettings];
     
     CGRect frame;
-    CGFloat padding=12;
-    frame = CGRectMake(padding, padding, 100, 20);
+    CGFloat padding=[DKDevice padding];
+    frame = CGRectMake(padding, 12, 100, 20);
     self.titleLabel.frame = frame;
     
     NSString *title = [dump title];
@@ -76,7 +77,7 @@
     excerpt = [excerpt stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     excerpt = [excerpt stringByAppendingString:@".."];
     self.excerptLabel.text = excerpt;
-    frame.size = [link sizeForStrippedHTML];    
+    frame.size = [link sizeForTabText];    
     self.excerptLabel.frame = frame;
     
     frame.origin.y = self.titleLabel.dk_top;
@@ -84,7 +85,7 @@
     self.readTimeLabel.frame = frame;
     [self.readTimeLabel sizeToFit];
     frame = self.readTimeLabel.frame;
-    frame.origin.x = 320 -10 -frame.size.width;
+    frame.origin.x = [DKDevice cellWidth] -padding -frame.size.width;
     self.readTimeLabel.frame = frame;
     
     if ([nightmode isEqual:@1]) {

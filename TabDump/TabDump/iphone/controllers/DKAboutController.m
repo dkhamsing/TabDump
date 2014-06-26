@@ -20,6 +20,9 @@
 // Defines
 #import "DKTabDumpDefines.h"
 
+// Models
+#import "DKDevice.h"
+
 // Views
 #import "DKAboutView.h"
 
@@ -38,11 +41,10 @@
         //[self td_addBackButtonPop];
         self.title = @" ";
         
-        
         self.aboutScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
         [self.view addSubview:self.aboutScrollView];
         
-        self.aboutView = [[DKAboutView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, kAboutViewHeight)];
+        self.aboutView = [[DKAboutView alloc] init];
         self.aboutView.overlayView.alpha = 0;
         
         self.webView = [[UIWebView alloc] init];
@@ -72,18 +74,22 @@
 - (void)viewWillAppear:(BOOL)animated {
     CGRect frame;
     
-    frame.origin.x = 10;
-    frame.origin.y = self.aboutView.dk_bottom;
+    CGFloat inset = 0;
+    if ([DKDevice isIpad])
+        inset = 80;    
+    frame = CGRectMake(0, inset, 320, kAboutViewHeight);
+    frame.origin.x = (self.view.dk_width - frame.size.width)/2;
+    self.aboutView.frame = frame;
+    
+    frame.origin.y = self.aboutView.dk_bottom +inset;
     frame.size.width = 300;
     frame.size.height = 316;
+    frame.origin.x = (self.view.dk_width - frame.size.width)/2;
     [self dk_adjustHeightForSmallScreen:frame.size.height];
     self.webView.frame = frame;
     
-    
     NSNumber *nightMode = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsSettingsNightMode];
     [self setColorForNightMode:nightMode];
-    
-    
 }
 
 

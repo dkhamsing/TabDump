@@ -47,9 +47,9 @@ NSString *kBufferURLScheme = @"bufferapp://";
 
 
 - (void)performActivity {
-    NSString *encodedText = [self.text  stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
-
-    NSString *encodedUrl = [self.url  stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
+    NSString *encodedText = [self encodeString:self.text];
+    
+    NSString *encodedUrl = [self encodeString:self.url];
     
     NSString *bufferString = [NSString stringWithFormat:@"%@?t=%@&u=%@",kBufferURLScheme,encodedText,encodedUrl];
     
@@ -58,6 +58,16 @@ NSString *kBufferURLScheme = @"bufferapp://";
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:bufferString]];    
     
     [self activityDidFinish:YES];
+}
+
+
+- (NSString*)encodeString:(NSString*)unencodedString {
+    return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                 NULL,
+                                                                                 (CFStringRef)unencodedString,
+                                                                                 NULL,
+                                                                                 (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                 kCFStringEncodingUTF8 ));
 }
 
 

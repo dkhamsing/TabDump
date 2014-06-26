@@ -9,15 +9,13 @@
 #import "DKListSelectionController.h"
 
 // Categories
+#import "UIView+DK.h"
 #import "UIViewController+DK.h"
 #import "UIViewController+TD.h"
 
 // Controllers
 #import "DKTabDumpsController.h"
 #import "DKCategoriesController.h"
-
-// Defines
-//#import "DKTabDumpDefines.h"
 
 
 @interface DKListSelectionController ()
@@ -38,7 +36,7 @@ NSUInteger kSegmentedControlTag = 88;
         self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Dates",@"Categories"]];
         self.segmentedControl.tag = kSegmentedControlTag;
         CGFloat width = 180;
-        self.segmentedControl.frame = CGRectMake((320-width)/2, 5, width, 30);
+        self.segmentedControl.frame = CGRectMake((self.view.dk_width-width)/2, 5, width, 30);
         [self.segmentedControl addTarget:self action:@selector(actionSelect:) forControlEvents:UIControlEventValueChanged];
         
         self.categoriesController = [[DKCategoriesController alloc] init];

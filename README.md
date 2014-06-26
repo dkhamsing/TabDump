@@ -5,7 +5,9 @@ Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twit
 
 ![](assets/screenshots/screenshot.png)
 
+
 # Features
+
 - Read next: ⬇ button skips to the next story
 - Night mode
 - Multiple text sizes
@@ -13,7 +15,9 @@ Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twit
 - Category browsing (and category colors)
 - Keep track of Tab Dumps read
 
+
 # Libraries
+
 - [AFNetworking](http://afnetworking.com/)
 - [AFOnoResponseSerializer](https://github.com/AFNetworking/AFOnoResponseSerializer)
 - [BrandColors](https://github.com/dkhamsing/BrandColors)
@@ -22,29 +26,37 @@ Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twit
 - [Ono](https://github.com/mattt/Ono)
 - [TOWebViewController](https://github.com/TimOliver/TOWebViewController)
 
+
 # Design
+
 - Icons: [Thomas Le Bas](http://thomaslebas.com)
 - Fonts: [Eduardo Tunni](http://www.tipo.net.ar)
 
-# Getting Started
-- Clone this repo `git clone https://github.com/dkhamsing/TabDump.git`
-- Open the project file
 
 # Compatibility
+
 - This project uses ARC.
-- This project was tested with iOS 7 (iPhone).
+- This project was tested with iOS 7 (iPhone & iPad).
+
 
 # TODO
+
 - https://trello.com/b/sC4juPme/tabdump
+
 
 # Thanks
 
 [Stefan Constantinescu](http://tabdump.com), [Galen Gidman](http://brandcolors.net) and the [wonderful people](https://github.com/stars/dkhamsing) who contribute to open source software.
 
-# Say Hi
-- [github.com/dkhamsing](https://github.com/dkhamsing)
-- [twitter.com/dkhamsing](https://twitter.com/dkhamsing)
-- [contact](http://dkhamsing.tumblr.com/ask)
+
+# Contact
+
+- Daniel Khamsing
+- GitHub: [@dkhamsing](https://github.com/dkhamsing)
+- Twitter: [@dkhamsing](https://twitter.com/dkhamsing), [@tabdumpios](https://twitter.com/tabdumpios)
+- [Send a Message](http://dkhamsing.tumblr.com/ask)
+
 
 # License
+
 TabDump is available under the MIT license. See the LICENSE file for more info.

@@ -27,7 +27,9 @@
                       
                       @"Beats",
                       @"Blizzard",
+                      @"Box",
                       @"Broadcom",
+                      @"BuzzFeed",
                       
                       @"China Mobile",
                       @"Cisco",
@@ -38,6 +40,7 @@
                       
                       @"eBay",
                       @"Evernote",
+                      @"Expedia",
                       
                       @"Facebook",
                       @"Flipkart",
@@ -53,6 +56,7 @@
                       @"Huawei",
                       
                       @"IBM",
+                      @"iHeartRadio",
                       @"Instagram",
                       @"Intel",
                       
@@ -65,6 +69,7 @@
                       @"Mozilla",
                       
                       @"Netflix",
+                      @"Nest",
                       @"Nintendo",
                       @"Nokia",
                       @"NTT DoCoMo",
@@ -121,19 +126,24 @@
                                  @"Apple",
                                  @"ARM",
                                  @"Beats",
+                                 @"Box",
+                                 @"BuzzFeed",
                                  @"Broadcom",
                                  @"China Mobile",
                                  @"Cisco",
                                  @"Corning",
                                  @"Dropbox",
                                  @"eBay",
+                                 @"Expedia",
                                  @"Facebook",
                                  @"Foxconn",
                                  @"Flipkart",
+                                 @"Garmin",
                                  @"Google",
                                  @"GoPro",
                                  @"Huawei",
                                  @"IBM",
+                                 @"iHeartRadio",
                                  @"Instagram",
                                  @"Intel",
                                  @"Dish Network",
@@ -144,6 +154,7 @@
                                  @"Motorola",
                                  @"Mozilla",
                                  @"Netflix",
+                                 @"Nest",
                                  @"Nokia",
                                  @"NTT DoCoMo",
                                  @"PayPal",
@@ -217,10 +228,18 @@
         return [UIColor dk_colorWithHexString:@"#01B2F1"];
     }    
     
+    if ([brand.lowercaseString isEqualToString:@"box"]) {
+        return [UIColor dk_colorWithHexString:@"#197BC6"];
+    }
+    
     if ([self brand:brand matches:@"Broadcom"]) {
         return [UIColor dk_colorWithHexString:@"#E81231"];
     }
-    
+
+    if ([self brand:brand matches:@"BuzzFeed"]) {
+        return [UIColor dk_colorWithHexString:@"#EE3322"];
+    }
+
     if ([self brand:brand matches:@"China Mobile"]) {
         return [UIColor dk_colorWithHexString:@"#0086D0"];
     }
@@ -257,6 +276,10 @@
     
     if ([self brand:brand matches:@"Evernote"]) {
         return [UIColor dk_colorWithHexString:@"#7ac142"];
+    }
+
+    if ([self brand:brand matches:@"Expedia"]) {
+        return [UIColor dk_colorWithHexString:@"#00355F"];
     }
     
     if ([self brand:brand matches:@"Facebook"]) {
@@ -303,6 +326,10 @@
         return [UIColor dk_colorWithHexString:@"#003e6a"];
     }
     
+    if ([self brand:brand matches:@"iHeartRadio"]) {
+        return [UIColor dk_colorWithHexString:@"#BC1C10"];
+    }
+
     if ([self brand:brand matches:@"Instagram"]) {
         return [UIColor dk_colorWithHexString:@"#3f729b"];
     }
@@ -333,6 +360,10 @@
 
     if ([self brand:brand matches:@"Mozilla"]) {
         return [UIColor dk_colorWithHexString:@"#C34139"];
+    }
+    
+    if ([brand.lowercaseString isEqualToString:@"nest"]) {
+        return [UIColor dk_colorWithHexString:@"#1EB6DC"];
     }
     
     if ([self brand:brand matches:@"Netflix"]) {

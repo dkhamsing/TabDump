@@ -9,16 +9,28 @@
 
 #pragma mark - Cells
 
-static CGFloat const kCellWidth = 320;
-static CGFloat const kCellPadding = 13;
+static CGFloat const kCellHeightCategory = 40;
 static CGFloat const kCellBottomOffset = 50;
 static NSString* const kCellReadTimePrefix = @"Length: ";
+
+
+#pragma mark iPhone
+
+static CGFloat const kCellWidth = 320;
+static CGFloat const kCellPadding = 13;
+static CGFloat const kCellTopOffset = 14;
+
+
+#pragma mark iPad
+
+static CGFloat const kPadCellTopOffset = 30;
+static CGFloat const kPadCellWidth = 768;
+static CGFloat const kPadCellPadding = 100;
 
 
 #pragma mark - Detail (Day)
 
 static NSString* const kDetailiTunesLink = @"itunes.apple.com";
-static CGFloat const kDayHeaderHeight = 190;
 
 
 #pragma mark - Font
@@ -45,7 +57,6 @@ static NSString* const kNotificationNightMode = @"kNotificationNightMode";
 static NSString* const kUserDefaultsTabDumpsFromRSS = @"kUserDefaultsTabDumpsFromRSS";
 //static NSString* const kUserDefaultsDateLastDownload = @"kUserDefaultsDateLastDownload";
 static NSString* const kUserDefaultsTabDumpsRead = @"kUserDefaultsTabDumpsRead";
-static NSString* const kUserDefaultsSettingsCategoryColors = @"kUserDefaultsSettingsCategoryColors";
 static NSString* const kUserDefaultsSettingsNightMode = @"kUserDefaultsSettingsNightMode";
 static NSString* const kUserDefaultsSettingsLargeTextSize = @"kUserDefaultsSettingsLargeTextSize";
 

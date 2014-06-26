@@ -8,6 +8,11 @@
 
 #import "DKTabsListController.h"
 
+// Activity
+#import "DKTabActivityItemProvider.h"
+#import "DKBufferActivity.h"
+#import "DKDraftsActivity.h"
+
 // Categories
 #import "NSString+DK.h"
 #import "UIColor+TD.h"
@@ -23,15 +28,14 @@
 #import "DKTabDumpDefines.h"
 
 // Models
+#import "DKDevice.h"
 #import "DKTab.h"
 
 // Views
-#import "DKAboutView.h"
 #import "DKTabCell.h"
 
 
 @interface DKTabsListController ()
-@property (nonatomic,strong) DKAboutView *aboutView;
 @property (nonatomic,strong) NSString *currentTitle;
 @end
 
@@ -41,13 +45,7 @@ CGRect kNavigationButtonFrame1 = {0,0,30,44};
 
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
-    if (self) {
-        //[self td_addBackButtonPop];
-        
-        self.aboutView = [[DKAboutView alloc] initWithFrame:CGRectMake(0, 0, self.view.dk_width, kAboutViewHeight)];
-        self.aboutView.overlayView.alpha = 0.2;
-        self.tableView.tableFooterView = self.aboutView;
-        
+    if (self) {       
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         UIImage *infoImage = [UIImage dk_maskedImageNamed:@"top-gears" color:[UIColor td_highlightColor]];
@@ -95,9 +93,51 @@ CGRect kNavigationButtonFrame1 = {0,0,30,44};
 }
 
 
+
+- (void)actionShare:(UIButton*)button {
+    DKTabCell *cell = [button dk_firstSuperviewOfClass:[DKTabCell class]];
+    DKTab *link = cell.link;
+    
+    [self share:link];
+}
+
+
+- (BOOL)canOpenApp:(NSString*)customURL {
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:customURL]]) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+
+- (void)share:(DKTab*)link {
+    NSString *textToShare = link.tabText;
+    DKTabActivityItemProvider *textProvider = [[DKTabActivityItemProvider alloc] initWithText:textToShare];
+    NSURL *urlToShare = [NSURL URLWithString:link.urlString];
+    NSArray *activityItems = @[textProvider, urlToShare];
+    
+    NSMutableArray *applicationActivities = [[NSMutableArray alloc] init];
+    if ([self canOpenApp:kBufferURLScheme]) {
+        DKBufferActivity *bufferActivity = [[DKBufferActivity alloc]init];
+        bufferActivity.text = [DKTabActivityItemProvider twitterShareStringFromText:textToShare];
+        bufferActivity.url = urlToShare.absoluteString;
+        [applicationActivities addObject:bufferActivity];
+    }
+    
+    if ([self canOpenApp:kDraftsURLScheme]) {
+        DKDraftsActivity *draftsActivity = [[DKDraftsActivity alloc]init];
+        draftsActivity.content = [NSString stringWithFormat:@"%@\n%@",textToShare,urlToShare.absoluteString];
+        [applicationActivities addObject:draftsActivity];
+    }
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:applicationActivities];
+    activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact,UIActivityTypeSaveToCameraRoll, UIActivityTypePostToFlickr, UIActivityTypePostToVimeo];
+    [self presentViewController:activityVC animated:YES completion:nil];
+}
+
+
 #pragma mark - Table view data source
-
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;
@@ -110,6 +150,7 @@ CGRect kNavigationButtonFrame1 = {0,0,30,44};
     if (!cell) {
         cell = [[DKTabCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         cell.isCategory = YES;
+        [cell.shareButton addTarget:self action:@selector(actionShare:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     DKTab *tab = self.dataSource[indexPath.row];
@@ -121,11 +162,7 @@ CGRect kNavigationButtonFrame1 = {0,0,30,44};
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     DKTab *tab = self.dataSource[indexPath.row];
     
-    CGFloat padding = kCellPadding;
-    
-    CGFloat shareEyeButtonsOffset = 40;
-    
-    CGFloat height = [tab sizeForStrippedHTML].height +padding*2 +shareEyeButtonsOffset;
+    CGFloat height = [tab heightForRow];
 
     return height;
 }
