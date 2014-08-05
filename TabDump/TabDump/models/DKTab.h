@@ -72,6 +72,7 @@
  */
 - (UIColor*)colorForCategory;
 
+- (UIColor*)colorForCategoryText;
 
 /**
  Get content text attributes.

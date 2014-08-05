@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class RTSpinKitView;
 @interface DKUserMessageView : UIView
 
 /**
@@ -24,8 +25,8 @@
 /**
  Access the loading spinner to customize. The default style is `UIActivityIndicatorViewStyleGray`.
  */
-@property (nonatomic,strong) UIActivityIndicatorView *dk_spinner;
-
+//@property (nonatomic,strong) UIActivityIndicatorView *dk_spinner;
+@property (nonatomic, strong) RTSpinKitView *dk_spinner;
 
 #pragma mark Methods
 

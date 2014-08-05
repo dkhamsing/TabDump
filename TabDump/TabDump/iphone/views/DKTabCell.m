@@ -89,10 +89,7 @@
         self.categoryLabel.layer.borderWidth=0;
     self.categoryLabel.backgroundColor = link.colorForCategory;
     
-    if ([link brandColorIsDark])
-        self.categoryLabel.textColor = [UIColor whiteColor];
-    else
-        self.categoryLabel.textColor = [UIColor blackColor];
+    self.categoryLabel.textColor = link.colorForCategoryText;
     
     self.contentLabel.attributedText = [[NSAttributedString alloc] initWithString:link.tabText attributes:link.contentAttributes];
     

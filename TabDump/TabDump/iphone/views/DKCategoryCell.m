@@ -67,14 +67,14 @@
     
     self.backgroundColor = [UIColor bc_colorForBrand:title];
     
-    if ([[UIColor bc_brandsWithDarkColor] containsObject:title]) {
-        self.titleLabel.textColor = [UIColor whiteColor];
-        self.subTitleLabel.textColor = [UIColor whiteColor];
-    }
-    else {
+    if ([[UIColor bc_brandsWithLightColor] containsObject:title]) {
         self.titleLabel.textColor = [UIColor blackColor];
         self.subTitleLabel.textColor = [UIColor blackColor];
     }
+    else {
+        self.titleLabel.textColor = [UIColor whiteColor];
+        self.subTitleLabel.textColor = [UIColor whiteColor];
+        }
 }
 
 

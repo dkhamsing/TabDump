@@ -7,7 +7,6 @@
 //
 
 #import "DKDevice.h"
-#import "DKTabDumpDefines.h"
 
 @implementation DKDevice
 
@@ -21,25 +20,25 @@
 
 + (CGFloat)cellWidth {
     if ([self isIpad])
-        return kPadCellWidth;
+        return 768;
     
-    return kCellWidth;
+    return 320;
 }
 
 
 + (CGFloat)padding {
     if ([self isIpad])
-        return kPadCellPadding;
+        return 100;
 
-    return kCellPadding;
+    return 13;
 }
 
 
 + (CGFloat)topOffset {
     if ([self isIpad])
-        return kPadCellTopOffset;
+        return 30;
     
-    return kCellTopOffset;
+    return 14;
 }
 
 

@@ -6,6 +6,9 @@
 //
 
 #import "DKUserMessageView.h"
+
+#import "UIColor+DK.h"
+#import "RTSpinKitView.h"
 #import <tgmath.h>
 
 @interface DKUserMessageView ()
@@ -21,9 +24,8 @@
         
         self.dk_userMessageLabel = [[UILabel alloc] init];
         [self addSubview:self.dk_userMessageLabel];
-        
-        self.dk_spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        self.dk_spinner.hidesWhenStopped = YES;
+
+        self.dk_spinner = [[RTSpinKitView alloc] initWithStyle:RTSpinKitViewStyleBounce color:[UIColor dk_colorWithHexString:@"#eeeeee"]];
         [self addSubview:self.dk_spinner];
     }
     return self;
@@ -59,10 +61,7 @@
     self.hidden = !loading;
     if (spinner ) {
         if (loading) {
-            CGRect frame = CGRectMake(0, 0, 20, 20);
-            frame.origin.y = self.dk_userMessageLabelTop;
-            
-            self.dk_spinner.frame = frame;
+            self.dk_spinner.center = CGPointMake(CGRectGetMidX(self.frame) , self.dk_userMessageLabelTop);
             
             [self centerViewHorizontally:self.dk_spinner];
             [self centerViewVertically:self.dk_spinner];

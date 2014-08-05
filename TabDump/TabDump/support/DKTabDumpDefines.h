@@ -14,20 +14,6 @@ static CGFloat const kCellBottomOffset = 50;
 static NSString* const kCellReadTimePrefix = @"Length: ";
 
 
-#pragma mark iPhone
-
-static CGFloat const kCellWidth = 320;
-static CGFloat const kCellPadding = 13;
-static CGFloat const kCellTopOffset = 14;
-
-
-#pragma mark iPad
-
-static CGFloat const kPadCellTopOffset = 30;
-static CGFloat const kPadCellWidth = 768;
-static CGFloat const kPadCellPadding = 100;
-
-
 #pragma mark - Detail (Day)
 
 static NSString* const kDetailiTunesLink = @"itunes.apple.com";

@@ -19,9 +19,9 @@
 
 
 /**
- List of brands that have a "dark" color.
+ List of brands that have a "light" color.
  */
-+ (NSArray*)bc_brandsWithDarkColor;
++ (NSArray*)bc_brandsWithLightColor;
 
 
 /**

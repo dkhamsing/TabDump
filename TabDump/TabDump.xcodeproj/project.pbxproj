@@ -14,12 +14,17 @@
 		19161DBB190E14B900B745C8 /* credit-stefan@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 19161DB7190E14B900B745C8 /* credit-stefan@2x.jpg */; };
 		19161DC9190E195500B745C8 /* Sintony-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19161DC6190E195500B745C8 /* Sintony-Bold.ttf */; };
 		19161DCA190E195500B745C8 /* Sintony-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19161DC7190E195500B745C8 /* Sintony-Regular.ttf */; };
-		192ACA861915D39E004CCDE1 /* DKDraftsActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 192ACA851915D39E004CCDE1 /* DKDraftsActivity.m */; };
 		19477AA819075475003648F7 /* DKTabDump.m in Sources */ = {isa = PBXBuildFile; fileRef = 19477AA719075475003648F7 /* DKTabDump.m */; };
 		19477AA9190760A9003648F7 /* DKTabDump.m in Sources */ = {isa = PBXBuildFile; fileRef = 19477AA719075475003648F7 /* DKTabDump.m */; };
 		19477AC119076A48003648F7 /* DKTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 19477AC019076A48003648F7 /* DKTab.m */; };
 		194F2E1F194CFF2600E9B122 /* DKUnderlineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F2E1E194CFF2600E9B122 /* DKUnderlineLabel.m */; };
 		194F2E22194D2DED00E9B122 /* DKDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F2E21194D2DED00E9B122 /* DKDevice.m */; };
+		195F367E195532FE00F4C6A5 /* DKBufferActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 195F3672195532FE00F4C6A5 /* DKBufferActivity.m */; };
+		195F367F195532FE00F4C6A5 /* DKDraftsActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 195F3674195532FE00F4C6A5 /* DKDraftsActivity.m */; };
+		195F3680195532FE00F4C6A5 /* DKTabActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 195F3676195532FE00F4C6A5 /* DKTabActivityItemProvider.m */; };
+		195F3681195532FE00F4C6A5 /* UIColor+TD.m in Sources */ = {isa = PBXBuildFile; fileRef = 195F3679195532FE00F4C6A5 /* UIColor+TD.m */; };
+		195F3682195532FE00F4C6A5 /* UIFont+TD.m in Sources */ = {isa = PBXBuildFile; fileRef = 195F367B195532FE00F4C6A5 /* UIFont+TD.m */; };
+		195F3683195532FE00F4C6A5 /* UIViewController+TD.m in Sources */ = {isa = PBXBuildFile; fileRef = 195F367D195532FE00F4C6A5 /* UIViewController+TD.m */; };
 		196243CA1927E4D80037BDF8 /* DKCategoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 196243C91927E4D80037BDF8 /* DKCategoriesController.m */; };
 		196243CD1927F0340037BDF8 /* DKCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 196243CC1927F0340037BDF8 /* DKCategoryCell.m */; };
 		196243D01927F4C50037BDF8 /* DKTabsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 196243CF1927F4C50037BDF8 /* DKTabsListController.m */; };
@@ -34,8 +39,7 @@
 		19D97A3C1934CA5700389A43 /* TOActivitySafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D97A331934CA5700389A43 /* TOActivitySafari.m */; };
 		19D97A3D1934CA5700389A43 /* TOWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D97A351934CA5700389A43 /* TOWebViewController.m */; };
 		19D97A3E1934CA5700389A43 /* UIImage+TOWebViewControllerIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D97A371934CA5700389A43 /* UIImage+TOWebViewControllerIcons.m */; };
-		19D97A441935753A00389A43 /* UIFont+TD.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D97A431935753A00389A43 /* UIFont+TD.m */; };
-		CE0B4034190EB8BB009648D3 /* UIColor+TD.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0B4033190EB8BB009648D3 /* UIColor+TD.m */; };
+		CE00B9311986B558005FA106 /* RTSpinKitView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE00B9301986B558005FA106 /* RTSpinKitView.m */; };
 		CE0B4036190EB92D009648D3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE0B4035190EB92D009648D3 /* Images.xcassets */; };
 		CE8B904C1934E1D200263194 /* DKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8B904B1934E1D200263194 /* DKWebViewController.m */; };
 		CEBDF3F219192BAB003AE46C /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDF38819192BAB003AE46C /* AFHTTPRequestOperation.m */; };
@@ -78,10 +82,7 @@
 		CEEA7F0C190EC159000474E3 /* DKAboutView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEA7F03190EC159000474E3 /* DKAboutView.m */; };
 		CEEA7F0D190EC159000474E3 /* DKTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEA7F05190EC159000474E3 /* DKTabCell.m */; };
 		CEEA7F0E190EC159000474E3 /* DKTabDumpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEA7F07190EC159000474E3 /* DKTabDumpCell.m */; };
-		CEEA7F5C190EFDFC000474E3 /* DKTabActivityItemProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEA7F5B190EFDFC000474E3 /* DKTabActivityItemProvider.m */; };
-		CEEA7F5F190F0D7D000474E3 /* DKBufferActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEA7F5E190F0D7D000474E3 /* DKBufferActivity.m */; };
 		CEEC75A21921684E00187929 /* top-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEC75A11921684E00187929 /* top-left@2x.png */; };
-		CEEC75A5192168C900187929 /* UIViewController+TD.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEC75A4192168C900187929 /* UIViewController+TD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,8 +106,6 @@
 		19161DB7190E14B900B745C8 /* credit-stefan@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "credit-stefan@2x.jpg"; sourceTree = "<group>"; };
 		19161DC6190E195500B745C8 /* Sintony-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sintony-Bold.ttf"; sourceTree = "<group>"; };
 		19161DC7190E195500B745C8 /* Sintony-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sintony-Regular.ttf"; sourceTree = "<group>"; };
-		192ACA841915D39E004CCDE1 /* DKDraftsActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDraftsActivity.h; sourceTree = "<group>"; };
-		192ACA851915D39E004CCDE1 /* DKDraftsActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDraftsActivity.m; sourceTree = "<group>"; };
 		19477AA619075475003648F7 /* DKTabDump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKTabDump.h; sourceTree = "<group>"; };
 		19477AA719075475003648F7 /* DKTabDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTabDump.m; sourceTree = "<group>"; };
 		19477ABF19076A48003648F7 /* DKTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKTab.h; sourceTree = "<group>"; };
@@ -115,6 +114,18 @@
 		194F2E1E194CFF2600E9B122 /* DKUnderlineLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKUnderlineLabel.m; sourceTree = "<group>"; };
 		194F2E20194D2DED00E9B122 /* DKDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDevice.h; sourceTree = "<group>"; };
 		194F2E21194D2DED00E9B122 /* DKDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDevice.m; sourceTree = "<group>"; };
+		195F3671195532FE00F4C6A5 /* DKBufferActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKBufferActivity.h; sourceTree = "<group>"; };
+		195F3672195532FE00F4C6A5 /* DKBufferActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKBufferActivity.m; sourceTree = "<group>"; };
+		195F3673195532FE00F4C6A5 /* DKDraftsActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKDraftsActivity.h; sourceTree = "<group>"; };
+		195F3674195532FE00F4C6A5 /* DKDraftsActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKDraftsActivity.m; sourceTree = "<group>"; };
+		195F3675195532FE00F4C6A5 /* DKTabActivityItemProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKTabActivityItemProvider.h; sourceTree = "<group>"; };
+		195F3676195532FE00F4C6A5 /* DKTabActivityItemProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTabActivityItemProvider.m; sourceTree = "<group>"; };
+		195F3678195532FE00F4C6A5 /* UIColor+TD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TD.h"; sourceTree = "<group>"; };
+		195F3679195532FE00F4C6A5 /* UIColor+TD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TD.m"; sourceTree = "<group>"; };
+		195F367A195532FE00F4C6A5 /* UIFont+TD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+TD.h"; sourceTree = "<group>"; };
+		195F367B195532FE00F4C6A5 /* UIFont+TD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+TD.m"; sourceTree = "<group>"; };
+		195F367C195532FE00F4C6A5 /* UIViewController+TD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TD.h"; sourceTree = "<group>"; };
+		195F367D195532FE00F4C6A5 /* UIViewController+TD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TD.m"; sourceTree = "<group>"; };
 		196243C81927E4D80037BDF8 /* DKCategoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKCategoriesController.h; sourceTree = "<group>"; };
 		196243C91927E4D80037BDF8 /* DKCategoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKCategoriesController.m; sourceTree = "<group>"; };
 		196243CB1927F0340037BDF8 /* DKCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKCategoryCell.h; sourceTree = "<group>"; };
@@ -148,10 +159,8 @@
 		19D97A371934CA5700389A43 /* UIImage+TOWebViewControllerIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TOWebViewControllerIcons.m"; sourceTree = "<group>"; };
 		19D97A381934CA5700389A43 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TOWebViewControllerLocalizable.strings"; sourceTree = "<group>"; };
 		19D97A391934CA5700389A43 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/TOWebViewControllerLocalizable.strings"; sourceTree = "<group>"; };
-		19D97A421935753A00389A43 /* UIFont+TD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+TD.h"; sourceTree = "<group>"; };
-		19D97A431935753A00389A43 /* UIFont+TD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+TD.m"; sourceTree = "<group>"; };
-		CE0B4032190EB8BB009648D3 /* UIColor+TD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TD.h"; sourceTree = "<group>"; };
-		CE0B4033190EB8BB009648D3 /* UIColor+TD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TD.m"; sourceTree = "<group>"; };
+		CE00B92F1986B558005FA106 /* RTSpinKitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSpinKitView.h; sourceTree = "<group>"; };
+		CE00B9301986B558005FA106 /* RTSpinKitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSpinKitView.m; sourceTree = "<group>"; };
 		CE0B4035190EB92D009648D3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE8B904A1934E1D200263194 /* DKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKWebViewController.h; sourceTree = "<group>"; };
 		CE8B904B1934E1D200263194 /* DKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKWebViewController.m; sourceTree = "<group>"; };
@@ -222,13 +231,7 @@
 		CEEA7F05190EC159000474E3 /* DKTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTabCell.m; sourceTree = "<group>"; };
 		CEEA7F06190EC159000474E3 /* DKTabDumpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKTabDumpCell.h; sourceTree = "<group>"; };
 		CEEA7F07190EC159000474E3 /* DKTabDumpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTabDumpCell.m; sourceTree = "<group>"; };
-		CEEA7F5A190EFDFC000474E3 /* DKTabActivityItemProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKTabActivityItemProvider.h; sourceTree = "<group>"; };
-		CEEA7F5B190EFDFC000474E3 /* DKTabActivityItemProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKTabActivityItemProvider.m; sourceTree = "<group>"; };
-		CEEA7F5D190F0D7D000474E3 /* DKBufferActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKBufferActivity.h; sourceTree = "<group>"; };
-		CEEA7F5E190F0D7D000474E3 /* DKBufferActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKBufferActivity.m; sourceTree = "<group>"; };
 		CEEC75A11921684E00187929 /* top-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top-left@2x.png"; sourceTree = "<group>"; };
-		CEEC75A3192168C900187929 /* UIViewController+TD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TD.h"; sourceTree = "<group>"; };
-		CEEC75A4192168C900187929 /* UIViewController+TD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TD.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,6 +318,32 @@
 			path = models;
 			sourceTree = "<group>";
 		};
+		195F3670195532FE00F4C6A5 /* activities */ = {
+			isa = PBXGroup;
+			children = (
+				195F3671195532FE00F4C6A5 /* DKBufferActivity.h */,
+				195F3672195532FE00F4C6A5 /* DKBufferActivity.m */,
+				195F3673195532FE00F4C6A5 /* DKDraftsActivity.h */,
+				195F3674195532FE00F4C6A5 /* DKDraftsActivity.m */,
+				195F3675195532FE00F4C6A5 /* DKTabActivityItemProvider.h */,
+				195F3676195532FE00F4C6A5 /* DKTabActivityItemProvider.m */,
+			);
+			path = activities;
+			sourceTree = "<group>";
+		};
+		195F3677195532FE00F4C6A5 /* categories */ = {
+			isa = PBXGroup;
+			children = (
+				195F3678195532FE00F4C6A5 /* UIColor+TD.h */,
+				195F3679195532FE00F4C6A5 /* UIColor+TD.m */,
+				195F367A195532FE00F4C6A5 /* UIFont+TD.h */,
+				195F367B195532FE00F4C6A5 /* UIFont+TD.m */,
+				195F367C195532FE00F4C6A5 /* UIViewController+TD.h */,
+				195F367D195532FE00F4C6A5 /* UIViewController+TD.m */,
+			);
+			path = categories;
+			sourceTree = "<group>";
+		};
 		19CFA60B19108C640051BC80 /* en.lproj */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,26 +368,25 @@
 			path = TOWebViewController;
 			sourceTree = "<group>";
 		};
+		CE00B92E1986B558005FA106 /* SpinKit */ = {
+			isa = PBXGroup;
+			children = (
+				CE00B92F1986B558005FA106 /* RTSpinKitView.h */,
+				CE00B9301986B558005FA106 /* RTSpinKitView.m */,
+			);
+			path = SpinKit;
+			sourceTree = "<group>";
+		};
 		CE0B4030190EB8BB009648D3 /* support */ = {
 			isa = PBXGroup;
 			children = (
-				CEEA7F5D190F0D7D000474E3 /* DKBufferActivity.h */,
-				CEEA7F5E190F0D7D000474E3 /* DKBufferActivity.m */,
-				192ACA841915D39E004CCDE1 /* DKDraftsActivity.h */,
-				192ACA851915D39E004CCDE1 /* DKDraftsActivity.m */,
-				CEEA7F5A190EFDFC000474E3 /* DKTabActivityItemProvider.h */,
-				CEEA7F5B190EFDFC000474E3 /* DKTabActivityItemProvider.m */,
+				195F3670195532FE00F4C6A5 /* activities */,
+				195F3677195532FE00F4C6A5 /* categories */,
 				CEBDF34F1918269B003AE46C /* DKTabDumpDefines.h */,
 				19CFA60B19108C640051BC80 /* en.lproj */,
 				19CFA60E19108C640051BC80 /* main.m */,
 				19CF68A019112379001D0C9D /* TabDump-Info.plist */,
 				19CF68A21911247A001D0C9D /* TabDump-Prefix.pch */,
-				CE0B4032190EB8BB009648D3 /* UIColor+TD.h */,
-				CE0B4033190EB8BB009648D3 /* UIColor+TD.m */,
-				19D97A421935753A00389A43 /* UIFont+TD.h */,
-				19D97A431935753A00389A43 /* UIFont+TD.m */,
-				CEEC75A3192168C900187929 /* UIViewController+TD.h */,
-				CEEC75A4192168C900187929 /* UIViewController+TD.m */,
 			);
 			path = support;
 			sourceTree = "<group>";
@@ -373,6 +401,7 @@
 				CEBDF39E19192BAB003AE46C /* DKCategories */,
 				CEBDF3A919192BAB003AE46C /* DKUserMessageView */,
 				19147D4E19433E780071116C /* Ono */,
+				CE00B92E1986B558005FA106 /* SpinKit */,
 				19D97A281934CA5700389A43 /* TOWebViewController */,
 			);
 			path = vendor;
@@ -702,14 +731,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEEA7F5F190F0D7D000474E3 /* DKBufferActivity.m in Sources */,
 				196243CD1927F0340037BDF8 /* DKCategoryCell.m in Sources */,
-				192ACA861915D39E004CCDE1 /* DKDraftsActivity.m in Sources */,
 				CEBDF3FD19192BAB003AE46C /* UIColor+DK.m in Sources */,
 				CEEA7F09190EC159000474E3 /* DKDayController.m in Sources */,
 				CEBDF3F419192BAB003AE46C /* AFHTTPSessionManager.m in Sources */,
 				19147D5219433E780071116C /* AFOnoResponseSerializer.m in Sources */,
 				CEBDF40019192BAB003AE46C /* UIViewController+DK.m in Sources */,
+				195F367E195532FE00F4C6A5 /* DKBufferActivity.m in Sources */,
 				CEEA7F0E190EC159000474E3 /* DKTabDumpCell.m in Sources */,
 				CEBDF3F519192BAB003AE46C /* AFNetworkReachabilityManager.m in Sources */,
 				198C31451923C525009B4033 /* DKSettingsController.m in Sources */,
@@ -718,13 +746,15 @@
 				196243CA1927E4D80037BDF8 /* DKCategoriesController.m in Sources */,
 				CEBDF3F819192BAB003AE46C /* AFURLRequestSerialization.m in Sources */,
 				CEBDF3FB19192BAB003AE46C /* UIColor+BrandColors.m in Sources */,
-				19D97A441935753A00389A43 /* UIFont+TD.m in Sources */,
 				196243D01927F4C50037BDF8 /* DKTabsListController.m in Sources */,
+				195F3680195532FE00F4C6A5 /* DKTabActivityItemProvider.m in Sources */,
 				CEBDF3FE19192BAB003AE46C /* UIImage+DK.m in Sources */,
 				CEBDF3F719192BAB003AE46C /* AFURLConnectionOperation.m in Sources */,
 				CEBDF3FA19192BAB003AE46C /* AFURLSessionManager.m in Sources */,
 				19D97A3E1934CA5700389A43 /* UIImage+TOWebViewControllerIcons.m in Sources */,
+				195F3681195532FE00F4C6A5 /* UIColor+TD.m in Sources */,
 				CEEA7F0B190EC159000474E3 /* DKTabDumpsController.m in Sources */,
+				195F367F195532FE00F4C6A5 /* DKDraftsActivity.m in Sources */,
 				CEBDF3FF19192BAB003AE46C /* UIView+DK.m in Sources */,
 				19D97A3C1934CA5700389A43 /* TOActivitySafari.m in Sources */,
 				19CFA61019108C640051BC80 /* main.m in Sources */,
@@ -732,19 +762,19 @@
 				CEBDF40119192BAB003AE46C /* DKUserMessageView.m in Sources */,
 				19477AC119076A48003648F7 /* DKTab.m in Sources */,
 				CEC7C55A1906C03E004DF651 /* DKAppDelegate.m in Sources */,
-				CE0B4034190EB8BB009648D3 /* UIColor+TD.m in Sources */,
 				CEEA7F0C190EC159000474E3 /* DKAboutView.m in Sources */,
+				195F3683195532FE00F4C6A5 /* UIViewController+TD.m in Sources */,
+				CE00B9311986B558005FA106 /* RTSpinKitView.m in Sources */,
 				19147D5319433E780071116C /* ONOXMLDocument.m in Sources */,
 				19BC53E5194BE10B008BA089 /* DKRoundedLabel.m in Sources */,
+				195F3682195532FE00F4C6A5 /* UIFont+TD.m in Sources */,
 				19D97A3D1934CA5700389A43 /* TOWebViewController.m in Sources */,
 				CEBDF3FC19192BAB003AE46C /* NSString+DK.m in Sources */,
 				194F2E22194D2DED00E9B122 /* DKDevice.m in Sources */,
 				CEEA7F0D190EC159000474E3 /* DKTabCell.m in Sources */,
-				CEEC75A5192168C900187929 /* UIViewController+TD.m in Sources */,
 				CEEA7F08190EC159000474E3 /* DKAboutController.m in Sources */,
 				19D97A3B1934CA5700389A43 /* TOActivityChrome.m in Sources */,
 				CEBDF3F619192BAB003AE46C /* AFSecurityPolicy.m in Sources */,
-				CEEA7F5C190EFDFC000474E3 /* DKTabActivityItemProvider.m in Sources */,
 				CE8B904C1934E1D200263194 /* DKWebViewController.m in Sources */,
 				CEBDF3F319192BAB003AE46C /* AFHTTPRequestOperationManager.m in Sources */,
 				CEEA7F0A190EC159000474E3 /* DKLaunchController.m in Sources */,

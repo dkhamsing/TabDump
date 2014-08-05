@@ -70,15 +70,15 @@
 
 
 - (BOOL)brandColorIsDark {
-    if ([[UIColor bc_brandsWithDarkColor] containsObject:self.categoryOnly]) {
+    if ([[UIColor bc_brandsWithLightColor] containsObject:self.categoryOnly]) {
         
         if ([[self excludedBrands] containsObject:self.categoryOnly]) {
             return NO;
         }
         
-        return YES;
+        return NO ;
     }
-    return NO;
+    return YES;
 }
 
 
@@ -94,6 +94,17 @@
     }
     
     return color;
+}
+
+
+- (UIColor*)colorForCategoryText {
+    if ([self colorForCategory]==[UIColor whiteColor])
+        return [UIColor blackColor];
+    
+    if ([[UIColor bc_brandsWithLightColor] containsObject:self.categoryOnly])
+        return [UIColor blackColor];
+
+    return [UIColor whiteColor];
 }
 
 
@@ -130,10 +141,7 @@
 #pragma mark - Private
 
 - (NSArray*)excludedBrands {
-    NSArray *brandExcluded = @[
-                               @"Snapchat",
-                               @"Sprint",
-                               ];
+    NSArray *brandExcluded = @[ ];
 
     return brandExcluded;
 }
