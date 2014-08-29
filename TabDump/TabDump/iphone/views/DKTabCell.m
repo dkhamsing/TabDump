@@ -31,6 +31,7 @@
 @property (nonatomic, strong) DKRoundedLabel *categoryLabel;
 @property (nonatomic,strong) UILabel *contentLabel;
 @property (nonatomic,strong) UILabel *domainLabel;
+@property (nonatomic, strong) UIImageView *countryImageView;
 @end
 
 
@@ -44,10 +45,12 @@
         self.contentLabel = [[UILabel alloc] init];
         self.shareButton = [[UIButton alloc] init];
         self.domainLabel = [[UILabel alloc] init];
+        self.countryImageView = [[UIImageView alloc] init];
         
         [UIView dk_addSubviews:@[
                                  self.numberLabel,
                                  self.categoryLabel,
+                                 self.countryImageView,
                                  self.contentLabel,
                                  self.domainLabel,
                                  self.shareButton,
@@ -56,6 +59,9 @@
         self.contentLabel.numberOfLines = 0;
         self.domainLabel.font = [UIFont fontWithName:kFontRegular size:11];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        self.countryImageView.layer.cornerRadius = 6;
+        self.countryImageView.clipsToBounds = YES;
     }
     return self;
 }
@@ -104,7 +110,7 @@
         frame.origin.y = self.contentLabel.dk_top -35;
         frame.size = [link.tabNumber sizeWithAttributes:@{NSFontAttributeName:labelFont}];
         self.numberLabel.frame = frame;
-        self.numberLabel.dk_text = link.tabDay;        
+        self.numberLabel.dk_text = link.tabDay;
     }
     else {
         frame.origin.y = self.contentLabel.dk_top -35;
@@ -118,11 +124,23 @@
         self.categoryLabel.dk_text = link.categoryOnly;
     }
     
+    UIImage *countryFlagImage = [UIImage imageNamed:link.categoryOnly];
+    if (countryFlagImage.size.width>0) {
+        self.countryImageView.image = countryFlagImage;
+        frame.size.height = self.categoryLabel.dk_height;
+        frame.size.width = frame.size.height * self.countryImageView.image.size.width / self.countryImageView.image.size.height;
+        frame.origin.x = self.categoryLabel.dk_right + 8;
+        self.countryImageView.frame = frame;
+    }
+    else {
+        self.countryImageView.frame = CGRectZero;
+    }
+    
     frame.origin.y = self.contentLabel.dk_bottom -8;
     frame.size = CGSizeMake(50, 50);
     frame.origin.x = self.contentLabel.dk_left -15;
     self.shareButton.frame = frame;
-
+    
     [self.shareButton setImage:shareImage forState:UIControlStateNormal];
     
     frame.size = CGSizeMake(200, 26);

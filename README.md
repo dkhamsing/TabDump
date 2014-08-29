@@ -24,7 +24,7 @@ Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twit
 - [DKCategories](https://github.com/dkhamsing/DKCategories)
 - [DKUserMessageView](https://github.com/dkhamsing/DKUserMessageView)
 - [Ono](https://github.com/mattt/Ono)
-- [SpinKit-ObjC](https://github.com/devenergy/SpinKit-ObjC)
+- [SpinKit-ObjC](https://github.com/raymondjavaxx/SpinKit-ObjC)
 - [TOWebViewController](https://github.com/TimOliver/TOWebViewController)
 
 
@@ -32,6 +32,7 @@ Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twit
 
 - App Icon: [Lex Postma](http://www.lexpostma.me)
 - Navigation Assets: [Thomas Le Bas](http://thomaslebas.com)
+- Flags: [Muharrem Şenyıl](https://dribbble.com/msenyil)
 - Fonts: [Eduardo Tunni](http://www.tipo.net.ar)
 
 

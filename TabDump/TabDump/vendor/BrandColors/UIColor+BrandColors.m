@@ -88,6 +88,7 @@
                       @"Panasonic",
                       @"PayPal",
                       @"Pinterest",
+                      @"Priceline",
                       
                       @"Qualcomm",
                       
@@ -128,6 +129,7 @@
                       
                       @"Yahoo!",
                       @"Yelp",
+                      @"Yo",
                       @"YouTube",
                       
                       @"Zillow",
@@ -150,7 +152,7 @@
     UIColor *brandColor = BC_DEFAULT_COLOR;
     
     if ([self brand:brand matches:@"Acer"]) {
-        return [UIColor dk_colorWithHexString:@"#83B941"];
+        return [UIColor dk_colorWithHexString:@"#83b81a"];
     }
     
     if ([self brand:brand matches:@"Alibaba"]) {
@@ -198,7 +200,7 @@
     }    
     
     if ([brand.lowercaseString isEqualToString:@"box"]) {
-        return [UIColor dk_colorWithHexString:@"#197BC6"];
+        return [UIColor dk_colorWithHexString:@"#00aeef"];
     }
     
     if ([self brand:brand matches:@"Broadcom"]) {
@@ -214,7 +216,7 @@
     }
 
     if ([self brand:brand matches:@"China Mobile"]) {
-        return [UIColor dk_colorWithHexString:@"#0086D0"];
+        return [UIColor dk_colorWithHexString:@"#1d64b8"];
     }
 
     if ([self brand:brand matches:@"Cisco"]) {
@@ -264,7 +266,7 @@
     }
 
     if ([self brand:brand matches:@"Expedia"]) {
-        return [UIColor dk_colorWithHexString:@"#00355F"];
+        return [UIColor dk_colorWithHexString:@"#003050"];
     }
     
     if ([self brand:brand matches:@"Facebook"]) {
@@ -398,9 +400,13 @@
     if ([self brand:brand matches:@"Pinterest"]) {
         return [UIColor dk_colorWithHexString:@"#cc2127"];
     }
-
+    
+    if ([self brand:brand matches:@"Priceline"]) {
+        return [UIColor dk_colorWithHexString:@"#0A84C1"];
+    }
+    
     if ([self brand:brand matches:@"Qualcomm"]) {
-        return [UIColor dk_colorWithHexString:@"#1B2021"];
+        return [UIColor dk_colorWithHexString:@"#005daa"];
     }
     
     if ([self brand:brand matches:@"Rovio"]) {
@@ -436,7 +442,7 @@
     }
     
     if ([self brand:brand matches:@"SoftBank"]) {
-        return [UIColor dk_colorWithHexString:@"#BABCBE"];
+        return [UIColor dk_colorWithHexString:@"#fbbd09"];
     }
     
     if ([self brand:brand matches:@"SoundCloud"]) {
@@ -526,6 +532,10 @@
         return [UIColor dk_colorWithHexString:@"#c41200"];
     }
 
+    if ([brand.lowercaseString isEqualToString:@"yo"]) {
+        return [UIColor dk_colorWithHexString:@"#9B59B6"];
+    }
+    
     if ([self brand:brand matches:@"YouTube"]) {
         return [UIColor dk_colorWithHexString:@"#e52d27"];
     }
