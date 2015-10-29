@@ -1,5 +1,6 @@
 TabDump For iOS
 ---------------
+[![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=562aa6bb249256010021138a&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/562aa6bb249256010021138a/build/latest)
 
 Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twitter.com/WhatTheBit)) on your iOS device. Download on [the App Store](https://itunes.apple.com/us/app/tab-dump/id868214144).
 
