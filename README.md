@@ -54,7 +54,6 @@ Read http://tabdump.com by **Stefan Constantinescu** ([@WhatTheBit](https://twit
 
 # Contact
 
-- Daniel Khamsing
 - GitHub: [@dkhamsing](https://github.com/dkhamsing)
 - Twitter: [@dkhamsing](https://twitter.com/dkhamsing), [@tabdumpios](https://twitter.com/tabdumpios)
 - [Send a Message](http://dkhamsing.tumblr.com/ask)
